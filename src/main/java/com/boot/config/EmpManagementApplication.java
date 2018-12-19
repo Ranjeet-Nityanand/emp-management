@@ -29,6 +29,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class EmpManagementApplication implements WebMvcConfigurer {
 
 	public static void main(String[] args) {
+		System.err.println("abc");
 		SpringApplication.run(EmpManagementApplication.class, args);
 	}
 
