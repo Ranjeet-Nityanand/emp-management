@@ -15,8 +15,13 @@ public class UserRepositoryImplementation implements IUserRepository {
 		@Override
 		public User validateUser(User user) {
 			try {
+<<<<<<< Updated upstream
 				String sql="select * from employee_manage.emp_details where email='"+user.getEmail().trim()+
 						"' and binary password='"+user.getPassword().trim()+"' ";
+=======
+				String sql="select email,password from employee_manage.employee_details where email='"+user.getEmail().trim()+
+						"'binary password='"+user.getPassword().trim()+"'and status='1' ";
+>>>>>>> Stashed changes
 				user=jdbcTemplate.queryForObject(sql, new UserMapper());
 				return user;
 			}catch(Exception e) {
