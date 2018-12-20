@@ -1,5 +1,7 @@
 package com.boot.config.service;
 
-public interface IUserService {
+import login.User;
 
+public interface IUserService {
+public User validateUser( User user);
 }
