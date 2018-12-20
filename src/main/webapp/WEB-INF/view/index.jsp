@@ -123,17 +123,18 @@
                 <h4 id="mySigninModalLabel">Login to your <strong>account</strong></h4>
               </div>
               <div class="modal-body">
-                <form class="form-horizontal">
+              <%-- Login Form Action --%>>
+                <form action="profile" method="post"class="form-horizontal">
                   <div class="control-group">
                     <label class="control-label" for="inputText">Username</label>
                     <div class="controls">
-                      <input type="text" id="inputText" placeholder="Username">
+                      <input type="text" id="inputText" placeholder="Username" name="name">
                     </div>
                   </div>
                   <div class="control-group">
                     <label class="control-label" for="inputSigninPassword">Password</label>
                     <div class="controls">
-                      <input type="password" id="inputSigninPassword" placeholder="Password">
+                      <input type="password" id="inputSigninPassword" placeholder="Password" name="password">
                     </div>
                   </div>
                   <div class="control-group">

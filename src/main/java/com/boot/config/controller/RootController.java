@@ -11,10 +11,10 @@ import com.boot.config.service.IUserService;
 public class RootController {
 	@Autowired
 	IUserService iUserService;
-	@RequestMapping("/login")
+	@RequestMapping("/")
 	public ModelAndView indexController() {
 		ModelAndView view= new ModelAndView();
-		view.setViewName("jsp/login");
+		view.setViewName("view/index");
 		return view;
 	}
 	
