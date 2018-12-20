@@ -15,7 +15,7 @@ public class UserRepositoryImplementation implements IUserRepository {
 		@Override
 		public User validateUser(User user) {
 			try {
-				String sql="select email,password from employee_manage.employee_details where email='"+user.getEmail().trim()+
+				String sql="select * from employee_manage.emp_details where email='"+user.getEmail().trim()+
 						"' and binary password='"+user.getPassword().trim()+"' ";
 				user=jdbcTemplate.queryForObject(sql, new UserMapper());
 				return user;
@@ -23,6 +23,20 @@ public class UserRepositoryImplementation implements IUserRepository {
 				System.out.println(e);
 				return null;
 			}
+			
+		}
+		
+		public User register(User user) {
+			try {
+				String sql="INSERT INTO ";
+			}
+			
+			catch(Exception e)
+			{
+				System.err.print("error===" +e);
+			}
+			
+			return null;
 			
 		}
 

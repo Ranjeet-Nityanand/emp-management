@@ -55,33 +55,33 @@
 				<div class="control-group">
                     <label class="control-label" for="inputName">Name</label>
                     <div class="controls">
-                      <input type="text" id="name" name="name" placeholder="Enter your Name">
+                      <input type="text" id="name" name="name" placeholder="Enter your Name" required>
                     </div>
                   </div>
                   
 				  <div class="control-group">
                     <label class="control-label" for="inputContact">Contact No.</label>
                     <div class="controls">
-                      <input type="text" id="contact" name="contact" placeholder="Enter your mobile no.">
+                      <input type="text" id="contact" name="contact" placeholder="Enter your mobile no." required>
                     </div>
                   </div>
 				  <div class="control-group">
                     <label class="control-label" for="inputdob">Date of Birthdays</label>
                     <div class="controls">
-                      <input type="Date" id="dob" name="dob" placeholder="Enter your birthdays">
+                      <input type="Date" id="dob" name="dob" placeholder="Enter your birthdays" required>
                     </div>
                   </div>
 				  <div class="control-group">
                     <label class="control-label" for="inputgender">Gender</label>
                     <div class="controls">
-                      <input type="radio" value="male" name="Gender">  Male  &nbsp &nbsp
-                      <input type="radio" value="female" name="Gender"> Female
+                      <input type="radio" value="male" name="Gender" required>  Male  &nbsp &nbsp
+                      <input type="radio" value="female" name="Gender" required> Female
                     </div>
                   </div>
 				  <div class="control-group">
                     <label class="control-label" for="inputaddress">Address</label>
                     <div class="controls">
-					<textarea class="form-control" rows="3" id="address" placeholder="Enter your address"></textarea>
+					<textarea class="form-control" rows="3" id="address" placeholder="Enter your address" required></textarea>
                       
                     </div>
                   </div>
@@ -89,19 +89,19 @@
 				  <div class="control-group">
                     <label class="control-label" for="inputEmail">Email</label>
                     <div class="controls">
-                      <input type="text" id="inputEmail" placeholder="Email">
+                      <input type="email" id="inputEmail" placeholder="Email" required>
                     </div>
                   </div>
                   <div class="control-group">
                     <label class="control-label" for="inputSignupPassword">Password</label>
                     <div class="controls">
-                      <input type="password" id="inputSignupPassword" placeholder="Password">
+                      <input type="password" id="inputSignupPassword" placeholder="Password" required>
                     </div>
                   </div>
                   <div class="control-group">
                     <label class="control-label" for="inputSignupPassword2">Confirm Password</label>
                     <div class="controls">
-                      <input type="password" id="inputSignupPassword2" placeholder="Password">
+                      <input type="password" id="inputSignupPassword2" placeholder="Confirm Password" required >
                     </div>
                   </div>
                   <div class="control-group">
@@ -130,13 +130,13 @@
                   <div class="control-group">
                     <label class="control-label" for="inputText">Username</label>
                     <div class="controls">
-                      <input type="text" id="inputText" placeholder="Username" name="email">
+                      <input type="text" id="inputText" placeholder="Username" name="name">
                     </div>
                   </div>
                   <div class="control-group">
                     <label class="control-label" for="inputSigninPassword">Password</label>
                     <div class="controls">
-                      <input type="password" id="inputSigninPassword" placeholder="Password" name="password">
+                      <input type="password" id="inputSigninPassword" placeholder="Password" name="password" required>
                     </div>
                   </div>
                   <div class="control-group">
@@ -150,7 +150,7 @@
                 </form>
               </div>
             </div>
-            <!-- end signin modal -->
+            <!-- end sign in modal -->
             <!-- Reset Modal -->
             <div id="myReset" class="modal styled hide fade" tabindex="-1" role="dialog" aria-labelledby="myResetModalLabel" aria-hidden="true">
               <div class="modal-header">
@@ -162,15 +162,15 @@
                   <div class="control-group">
                     <label class="control-label" for="inputResetEmail">Email</label>
                     <div class="controls">
-                      <input type="text" id="inputResetEmail" placeholder="Email">
+                      <input type="email" id="inputResetEmail" placeholder="Enter your register email" required>
                     </div>
                   </div>
                   <div class="control-group">
                     <div class="controls">
                       <button type="submit" class="btn">Reset password</button>
                     </div>
-                    <p class="aligncenter margintop20">
-                      We will send instructions on how to reset your password to your inbox
+                    <p class="aligncenter margintop20" style=color:red>
+                      We will send instructions on your registered email how to reset your password to your inbox
                     </p>
                   </div>
                 </form>
