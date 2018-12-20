@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import com.boot.config.repository.IUserRepository;
 
 import login.User;
+import org.springframework.stereotype.Service;
+
 @Service
 public class UserServiceImplementation implements IUserService {
 
