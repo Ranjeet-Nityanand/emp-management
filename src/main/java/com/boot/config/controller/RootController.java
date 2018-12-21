@@ -40,6 +40,22 @@ public class RootController {
 			 view.setViewName("view/index");
 		 }
 		 return view;
-		 }
+	}
+	@RequestMapping(value="/register",method=RequestMethod.POST)
+	 public ModelAndView register(@RequestParam("email") String email,@RequestParam("name") String name,@RequestParam("contact") String contact,@RequestParam("password") String password,@RequestParam("dob") String dob,
+				@RequestParam("address")String address,@RequestParam("gender") String gender) {
+		ModelAndView view=new ModelAndView();
+		User register=new User();
+		register.setName(name);
+		register.setEmail(email);
+		register.setDob(dob);
+		register.setAddress(address);
+		register.setGender(gender);
+		register.setPassword(password);
+		register.setContact(contact);
+		
+		return view;
+		
 	
+	}
 }
