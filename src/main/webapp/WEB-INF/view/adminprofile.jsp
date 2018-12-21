@@ -182,10 +182,10 @@
                 <nav>
                   <ul class="nav topnav">
                     <li class="dropdown">
-                      <a href="index.html">Manage Employee <i class="icon-angle-down"></i></a>
+                      <a href="#">Manage Employee <i class="icon-angle-down"></i></a>
                       <ul class="dropdown-menu">
                         <li><a href="viewallEmployee">View Employee</a></li>
-                        <li><a href="editemployee">Edit Employee</a></li>
+                        <li><a href="#">Edit Employee</a></li>
                       </ul>
                     </li>
                    </ul>
