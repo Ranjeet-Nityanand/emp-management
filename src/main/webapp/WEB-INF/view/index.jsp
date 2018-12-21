@@ -53,7 +53,7 @@
                 <h4 id="mySignupModalLabel">Create an <strong>account</strong></h4>
               </div>
               <div class="modal-body">
-                <form class="form-horizontal">
+                <form class="form-horizontal" action="register" method="post">
 				<div class="control-group">
                     <label class="control-label" for="inputName">Name</label>
                     <div class="controls">
@@ -77,14 +77,14 @@
 				  <div class="control-group">
                     <label class="control-label" for="inputgender">Gender</label>
                     <div class="controls">
-                      <input type="radio" value="male" name="Gender" required>  Male  &nbsp &nbsp
-                      <input type="radio" value="female" name="Gender" required> Female
+                      <input type="radio" value="male" name="gender" required>  Male  &nbsp &nbsp
+                      <input type="radio" value="female" name="gender" required> Female
                     </div>
                   </div>
 				  <div class="control-group">
                     <label class="control-label" for="inputaddress">Address</label>
                     <div class="controls">
-					<textarea class="form-control" rows="3" id="address" placeholder="Enter your address" required></textarea>
+					<textarea class="form-control" rows="3" id="address" placeholder="Enter your address" name="address" required></textarea>
                       
                     </div>
                   </div>
@@ -92,19 +92,19 @@
 				  <div class="control-group">
                     <label class="control-label" for="inputEmail">Email</label>
                     <div class="controls">
-                      <input type="email" id="inputEmail" placeholder="Email" required>
+                      <input type="email" id="inputEmail" placeholder="Email" required name="email">
                     </div>
                   </div>
                   <div class="control-group">
                     <label class="control-label" for="inputSignupPassword">Password</label>
                     <div class="controls">
-                      <input type="password" id="inputSignupPassword" placeholder="Password" required>
+                      <input type="password" id="inputSignupPassword" placeholder="Password" required name="password">
                     </div>
                   </div>
                   <div class="control-group">
                     <label class="control-label" for="inputSignupPassword2">Confirm Password</label>
                     <div class="controls">
-                      <input type="password" id="inputSignupPassword2" placeholder="Confirm Password" required >
+                      <input type="password" id="inputSignupPassword2" placeholder="Confirm Password" required  name="passowrd">
                     </div>
                   </div>
                   <div class="control-group">

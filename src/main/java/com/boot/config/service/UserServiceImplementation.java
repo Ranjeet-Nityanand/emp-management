@@ -32,5 +32,34 @@ public class UserServiceImplementation implements IUserService {
 		List<User> allemployee = iUserRepository.getAllEmployee(user);
 		return allemployee;
 	}
+	@Override
+	public User addUser(User user) {
+		try {
+			if(user!=null && user.getEmail()!=null && user.getEmail().trim()!=null) {
+				int register=iUserRepository.registerUser(user).intValue();
+				System.err.print("LAST ID==="+register);
+				user.setId(register);
+				List<User> userList = iUserRepository.getAllEmployee(user);
+				System.err.println("After DB ISERT "+userList.isEmpty());
+				if(userList!=null) {
+
+					User dbuser=userList.get(0);
+					return dbuser;
+				}
+				
+				
+		return null;
+			}
+		
+		
+		
+		else
+			return null;
+		}
+		catch (Exception e) {
+		return null;
+		}
+	}
+
 
 }
