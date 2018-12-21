@@ -4,4 +4,5 @@ import login.User;
 
 public interface IUserService {
 public User validateUser( User user);
+public User addUser(User user);
 }

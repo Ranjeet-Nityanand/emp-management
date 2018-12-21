@@ -59,14 +59,14 @@
     <!-- start header -->
     <header>
       <div class="container">
-       Welcome ${ranjeet.email}
+       Welcome ${ranjeet.name}
         <!-- hidden top area toggle link -->
         <div id="header-hidden-link">
           <a href="#" class="toggle-link" title="Click me you'll get a surprise" data-target=".hidden-top"><i></i>Open</a>
         </div>
         <!-- end toggle link -->
         <div class="row nomargin">
-        Welcome ${ranjeet.email}
+       
           <div class="span12">
             <div class="headnav">
               <ul>

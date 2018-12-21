@@ -29,15 +29,25 @@ public class RootController {
 		 User login=new User();
 		 login.setEmail(email);
 		 login.setPassword(password);
+		 
 		 System.err.println(login.getPassword());
 		 System.err.println(login.getEmail());
+		 //System.err.println(login.getStatus_id());
 		 User user1 = iUserService.validateUser(login);
 		 if(user1!=null) {
+		 if(user1.getRoll_id()==1) {
 		 view.addObject("ranjeet",user1);
 		 view.setViewName("view/adminprofile");
+			 }
+		 if(user1.getRoll_id()==2) {
+				 view.addObject("ranjeet",user1);
+				 view.setViewName("view/userprofile");
+			 }
+		
 		 }else {
-			 view.addObject("message","Sorry User or Password Wrong!!!");
-			 view.setViewName("view/index");
+				view.addObject("message","Sorry You Wrong entries!!!");
+				//view.setViewName("redirect:/");
+				view.setViewName("view/index");
 		 }
 		 return view;
 	}
@@ -53,9 +63,11 @@ public class RootController {
 		register.setGender(gender);
 		register.setPassword(password);
 		register.setContact(contact);
+		User reg=iUserService.addUser(register);
 		
+		view.setViewName("view/userinfo");
 		return view;
-		
 	
 	}
 }
+

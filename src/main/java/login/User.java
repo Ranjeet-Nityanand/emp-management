@@ -4,6 +4,7 @@ public class User {
 	private String email;
 	private String password;
 	private String name;
+
 	private String contact;
 	private String address;
 	private String gender;
@@ -39,6 +40,25 @@ public class User {
 	public void setDob(String dob) {
 		this.dob = dob;
 	}
+	private int status_id;
+	private int roll_id;
+	
+
+	
+	public int getStatus_id() {
+		return status_id;
+	}
+	public void setStatus_id(int status_id) {
+		this.status_id = status_id;
+	}
+	public int getRoll_id() {
+		return roll_id;
+	}
+	public void setRoll_id(int roll_id) {
+		this.roll_id = roll_id;
+	}
+	
+
 	public String getEmail() {
 		return email;
 	}
@@ -50,6 +70,11 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	@Override
+	public String toString() {
+		return "User [email=" + email + ", password=" + password + ", name=" + name + ", status_id=" + status_id
+				+ ", roll_id=" + roll_id + "]";
 	}
 
 }
