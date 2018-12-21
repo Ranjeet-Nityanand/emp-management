@@ -31,12 +31,14 @@
     <!-- start header -->
     <header>
       <div class="container ">
+      ${message}
         <!-- hidden top area toggle link -->
         <div id="header-hidden-link">
           <a href="#" class="toggle-link" title="Click me you'll get a surprise" data-target=".hidden-top"><i></i>Open</a>
         </div>
         <!-- end toggle link -->
         <div class="row nomargin">
+         ${message}
           <div class="span12">
             <div class="headnav">
               <ul>
@@ -60,6 +62,7 @@
                   </div>
                   
 				  <div class="control-group">
+				   ${message}
                     <label class="control-label" for="inputContact">Contact No.</label>
                     <div class="controls">
                       <input type="text" id="contact" name="contact" placeholder="Enter your mobile no." required>
@@ -130,7 +133,7 @@
                   <div class="control-group">
                     <label class="control-label" for="inputText">Username</label>
                     <div class="controls">
-                      <input type="text" id="inputText" placeholder="Username" name="name">
+                      <input type="text" id="inputText" placeholder="Username" name="email">
                     </div>
                   </div>
                   <div class="control-group">
