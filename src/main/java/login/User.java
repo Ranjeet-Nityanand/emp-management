@@ -1,14 +1,49 @@
 package login;
 
 public class User {
+	private int id;
+	
 	private String email;
 	private String password;
 	private String name;
 	private int status_id;
 	private int roll_id;
+	private String emp_id;
+	private String address;
+	private String mobileno;
+	private String rollName;
 	
-
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	
+	public String getRollName() {
+		return rollName;
+	}
+	public void setRollName(String rollName) {
+		this.rollName = rollName;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getMobileno() {
+		return mobileno;
+	}
+	public void setMobileno(String mobileno) {
+		this.mobileno = mobileno;
+	}
+	public String getEmp_id() {
+		return emp_id;
+	}
+	public void setEmp_id(String emp_id) {
+		this.emp_id = emp_id;
+	}
 	public int getStatus_id() {
 		return status_id;
 	}

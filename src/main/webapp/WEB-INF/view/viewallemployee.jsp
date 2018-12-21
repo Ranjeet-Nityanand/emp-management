@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
     
     
@@ -116,9 +118,9 @@
               <div class="modal-body">
                 <form class="form-horizontal">
                   <div class="control-group">
-                    <label class="control-label" for="inputText">Username</label>
+                    <label class="control-label" for="inputText">empname</label>
                     <div class="controls">
-                      <input type="text" id="inputText" placeholder="Username">
+                      <input type="text" id="inputText" placeholder="empname">
                     </div>
                   </div>
                   <div class="control-group">
@@ -184,12 +186,23 @@
                     <li class="dropdown">
                       <a href="index.html">Manage Employee <i class="icon-angle-down"></i></a>
                       <ul class="dropdown-menu">
-                        <li><a href="viewallEmployee">View Employee</a></li>
-                        <li><a href="editemployee">Edit Employee</a></li>
+                        <li><a href="index-alt2.html">Add Employee</a></li>
+                        <li><a href="index-alt3.html">Edit Employee</a></li>
                       </ul>
                     </li>
                    </ul>
-                                        
+                     <%--  
+                        <li class="dropdown"><a href="#">3 Sliders <i class="icon-angle-right"></i></a>
+                          <ul class="dropdown-menu sub-menu-level1">
+                            <li><a href="index.html">Nivo slider</a></li>
+                            <li><a href="index-alt2.html">Slit slider</a></li>
+                            <li><a href="index-alt3.html">Parallax slider</a></li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                    --%>
+                   
                 </nav>
               </div>
               <!-- end navigation -->
@@ -199,8 +212,52 @@
       </div>
     </header>
     <!-- end header -->
-    <div class="container text-color">Welcome To Employee Management${ranjeet.name} </div>
-    <div class="container" id="bodydiv"></div>
+    <div class="container text-color">Welcome To Employee Management </div>
+    <div class="container" id="bodydiv">
+    <div class="container-fluid">
+		<h1 style="background-color: green;text-align: center;">Fetching all Employee List</h1>
+		<table class="table table-hover table table-dark" border="2" style="width: 100%">
+			<thead>
+				<tr>
+					<th>Employee_ID</th>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Address</th>
+					<th>Contact</th>
+					<th>Role</th>
+					<th>Status</th>
+				</tr>
+			</thead>
+			<tbody id="empdata">
+
+				<c:forEach items="${allUser}" var="emp">
+
+					<tr style="font-size: 16px">
+					<input type="hidden" name="hid" value="${emp.id}">
+						<td>${emp.emp_id}</td>
+						<td>${emp.name}</td>
+						<td>${emp.email}</td>
+						<td>${emp.address}</td>
+						<td>${emp.mobileno}
+						<td>${emp.rollName}</td>
+						
+						<c:if test="${emp.status_id==1}">
+							<td><button type="button" class="btn-danger" id="dangerbtn"
+									onclick="changestatus('${emp.id}','2')">Inactive</button></td>
+						</c:if>
+						<c:if test="${emp.status_id==2}">
+							<td><button type="button" class="btn-success" id="successbtn"
+									onclick="changestatus('${emp.id}','1')">Active</button></td>
+						</c:if>
+					</tr>
+					
+				</c:forEach>
+
+
+			</tbody>
+		</table>
+    
+    </div>
     <section id="inner-headline">
       <div class="container">
         <div class="row">
@@ -255,7 +312,7 @@
             <div class="widget">
               <h5 class="widgetheading">Flickr photostream</h5>
               <div class="flickr_badge">
-                <script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?count=8&amp;display=random&amp;size=s&amp;layout=x&amp;source=user&amp;user=34178660@N03"></script>
+                <script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?count=8&amp;display=random&amp;size=s&amp;layout=x&amp;source=emp&amp;emp=34178660@N03"></script>
               </div>
               <div class="clear">
               </div>

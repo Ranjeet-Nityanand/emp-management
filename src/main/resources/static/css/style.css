@@ -89,10 +89,12 @@ a:active {
 
 .row, .row-fluid {
   margin-bottom: 30px;
+  padding-top: 25px;
 }
 
 .row .row, .row-fluid .row-fluid {
   margin-bottom: 30px;
+      padding-top: 25px;
 }
 
 .row.nomargin, .row-fluid.nomargin {
@@ -2712,6 +2714,9 @@ article img.pull-right, article .align-right {
   margin-left: 2px;
   text-align: center;
   outline: 0;
+}
+#bodydiv{
+	height: 500px
 }
 
 /* Theme Styler :: End */

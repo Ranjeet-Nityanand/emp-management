@@ -259,6 +259,7 @@
       </div>
     </header>
     <!-- end header -->
+    <div class="container">${message} </div>
     <section id="featured">
       <!-- start slider -->
       <!-- Slider -->
