@@ -3,6 +3,7 @@ package com.boot.config.repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -13,7 +14,6 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.boot.config.resultmapper.UserMapper;
-import com.mysql.jdbc.Statement;
 
 import login.User;
 @Repository
@@ -68,6 +68,7 @@ public class UserRepositoryImplementation implements IUserRepository {
 				return  holder.getKey().longValue();
 				  
 			}catch (Exception e) {
+				e.printStackTrace();
 				return null;
 			}
 			
@@ -84,8 +85,11 @@ public class UserRepositoryImplementation implements IUserRepository {
 				String sql ="select ed.id,ed.email,ed.password,ed.name,ed.roll_id,ed.status_id,ed.emp_id,ed.mobileno,ed.address,rm.roll_value from employee_details ed, roll_master rm"+
 			      " where ed.roll_id = rm.roll_id ";
 				if(user!=null && user.getId()>0) {
+					System.err.println("-------User Id  FInd "+user.getId());
 					sql+= " and ed.id = "+user.getId();
 				}
+				
+				System.err.println("Fetching Query "+sql);
 				
 				List<User> employeeList = jdbcTemplate.query(sql, new UserMapper());
 				return employeeList;	

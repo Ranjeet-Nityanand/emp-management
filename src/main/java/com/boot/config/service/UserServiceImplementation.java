@@ -36,9 +36,17 @@ public class UserServiceImplementation implements IUserService {
 	public User addUser(User user) {
 		try {
 			if(user!=null && user.getEmail()!=null && user.getEmail().trim()!=null) {
-//		User register=iUserRepository.registerUser(user);
-				Long register=iUserRepository.registerUser(user);
+				int register=iUserRepository.registerUser(user).intValue();
 				System.err.print("LAST ID==="+register);
+				user.setId(register);
+				List<User> userList = iUserRepository.getAllEmployee(user);
+				System.err.println("After DB ISERT "+userList.isEmpty());
+				if(userList!=null) {
+
+					User dbuser=userList.get(0);
+					return dbuser;
+				}
+				
 				
 		return null;
 			}
@@ -52,9 +60,6 @@ public class UserServiceImplementation implements IUserService {
 		return null;
 		}
 	}
-	private Long getKey() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 }

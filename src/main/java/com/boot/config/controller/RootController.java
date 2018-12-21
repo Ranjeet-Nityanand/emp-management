@@ -62,6 +62,7 @@ public class RootController {
 	 public ModelAndView register(@RequestParam("email") String email,@RequestParam("name") String name,@RequestParam("contact") String contact,@RequestParam("password") String password,@RequestParam("dob") String dob,
 				@RequestParam("address")String address,@RequestParam("gender") String gender) {
 		ModelAndView view=new ModelAndView();
+		System.err.println("Register User ------------------------");
 		User register=new User();
 		register.setName(name);
 		register.setEmail(email);
@@ -70,7 +71,10 @@ public class RootController {
 		register.setGender(gender);
 		register.setPassword(password);
 		register.setContact(contact);
-		User reg=iUserService.addUser(register);
+		User dbuser=iUserService.addUser(register);
+		if(dbuser!=null) {
+			System.err.println("After Insert In DB Controller :"+dbuser.getId()+""+dbuser.getMobileno());	
+		}
 		
 		view.setViewName("view/userinfo");
 		return view;
