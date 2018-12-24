@@ -72,13 +72,17 @@ public class RootController {
 		register.setPassword(password);
 		register.setContact(contact);
 		User dbuser=iUserService.addUser(register);
+		
+		view.addObject("register",dbuser);
+		//System.err.println("value==="+dbuser.getName());
 		if(dbuser!=null) {
 			System.err.println("After Insert In DB Controller :"+dbuser.getId()+""+dbuser.getMobileno());	
 		}
 		
-		view.setViewName("view/userinfo");
+		view.setViewName("view/userprofile");
 		return view;
 		 }
+
 		
 	@RequestMapping("/viewallEmployee")
 	public ModelAndView allUser() {

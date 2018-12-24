@@ -35,31 +35,32 @@ public class UserServiceImplementation implements IUserService {
 	@Override
 	public User addUser(User user) {
 		try {
-			if(user!=null && user.getEmail()!=null && user.getEmail().trim()!=null) {
+			if(user!=null && user.getEmail()!=null && user.getEmail().trim()!=null){
+				
+			
+				user.setStatus_id(1);
+				if(user.getRoll_id()==null) {
+					user.setRoll_id(2);
+				}
 				int register=iUserRepository.registerUser(user).intValue();
 				System.err.print("LAST ID==="+register);
 				user.setId(register);
 				List<User> userList = iUserRepository.getAllEmployee(user);
-				System.err.println("After DB ISERT "+userList.isEmpty());
+				System.err.println("After DB INSERT "+userList.isEmpty());
 				if(userList!=null) {
 
 					User dbuser=userList.get(0);
 					return dbuser;
 				}
-				
-				
-		return null;
 			}
 		
-		
-		
-		else
 			return null;
 		}
 		catch (Exception e) {
 		return null;
 		}
 	}
+
 
 
 }

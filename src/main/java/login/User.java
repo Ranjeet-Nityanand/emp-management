@@ -10,7 +10,7 @@ public class User {
 	private String gender;
 	private String dob;
 	private int status_id;
-	private int roll_id;
+	private Integer roll_id;
 	private String emp_id;
 	private String mobileno;
 	private String rollName;
@@ -106,12 +106,12 @@ public class User {
 	}
 
 
-	public int getRoll_id() {
+	public Integer getRoll_id() {
 		return roll_id;
 	}
 
 
-	public void setRoll_id(int roll_id) {
+	public void setRoll_id(Integer roll_id) {
 		this.roll_id = roll_id;
 	}
 

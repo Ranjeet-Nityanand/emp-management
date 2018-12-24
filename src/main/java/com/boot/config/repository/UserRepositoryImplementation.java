@@ -45,7 +45,7 @@ public class UserRepositoryImplementation implements IUserRepository {
 		public Long registerUser(User user) {
 				try {
 					System.err.println("NAME======="+user.getName());
-				  String insertsql="INSERT INTO employee_details(email,name,password,mobileno,gender,dob,address) VALUES(?,?,?,?,?,?,?)";
+				  String insertsql="INSERT INTO employee_details(email,name,password,mobileno,gender,dob,address,roll_id,status_id) VALUES(?,?,?,?,?,?,?,?,?)";
 				  KeyHolder holder = new GeneratedKeyHolder();
 				  jdbcTemplate.update(new PreparedStatementCreator() {
 				
@@ -59,6 +59,8 @@ public class UserRepositoryImplementation implements IUserRepository {
 						ps.setString(5, user.getGender());
 						ps.setString(6, user.getDob());
 						ps.setString(7, user.getAddress());
+						ps.setInt(8, user.getRoll_id());
+						ps.setInt(9, user.getStatus_id());
 						return ps;
 					}
 				}, holder);
@@ -76,16 +78,13 @@ public class UserRepositoryImplementation implements IUserRepository {
 	}
 
 		
-			
-			
-
-		@Override
+				@Override
 		public List<User> getAllEmployee(User user) {
 			try {
 				String sql ="select ed.id,ed.email,ed.password,ed.name,ed.roll_id,ed.status_id,ed.emp_id,ed.mobileno,ed.address,rm.roll_value from employee_details ed, roll_master rm"+
 			      " where ed.roll_id = rm.roll_id ";
 				if(user!=null && user.getId()>0) {
-					System.err.println("-------User Id  FInd "+user.getId());
+					System.err.println("-------User Id  Find "+user.getId());
 					sql+= " and ed.id = "+user.getId();
 				}
 				
@@ -98,4 +97,10 @@ public class UserRepositoryImplementation implements IUserRepository {
 			}
 		}
 
+
+
+		
+
+
+		
 }

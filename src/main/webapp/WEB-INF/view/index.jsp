@@ -53,7 +53,7 @@
                 <h4 id="mySignupModalLabel">Create an <strong>account</strong></h4>
               </div>
               <div class="modal-body">
-                <form class="form-horizontal" action="register" method="post">
+                <form name="singup" class="form-horizontal" action="register" method="post">
 				<div class="control-group">
                     <label class="control-label" for="inputName">Name</label>
                     <div class="controls">
@@ -62,10 +62,10 @@
                   </div>
                   
 				  <div class="control-group">
-				   ${message}
+				  
                     <label class="control-label" for="inputContact">Contact No.</label>
                     <div class="controls">
-                      <input type="text" id="contact" name="contact" placeholder="Enter your mobile no." required>
+                      <input type="number" id="contact" name="contact" placeholder="Enter your mobile no." required>
                     </div>
                   </div>
 				  <div class="control-group">
@@ -104,12 +104,12 @@
                   <div class="control-group">
                     <label class="control-label" for="inputSignupPassword2">Confirm Password</label>
                     <div class="controls">
-                      <input type="password" id="inputSignupPassword2" placeholder="Confirm Password" required  name="passowrd">
+                      <input type="password" id="inputSignupPassword2" placeholder="Confirm Password" required  name="cpassowrd">
                     </div>
                   </div>
                   <div class="control-group">
                     <div class="controls">
-                      <button type="submit" class="btn">Sign up</button>
+                      <button type="submit" class="btn" onsubmit="return validateform()"  >Sign up</button>
                     </div>
                     <p class="aligncenter margintop20">
                       Already have an account? <a href="#mySignin" data-dismiss="modal" aria-hidden="true" data-toggle="modal">Sign in</a>
@@ -118,6 +118,94 @@
                 </form>
               </div>
             </div>
+            
+            
+            
+            
+            
+            <script type="text/javascript">
+            
+            function validateform()
+            {
+            	var name=document.singup.name.value;
+            	var contact=document.singup.contact.value;
+            	var dob=document.singup.dob.value;
+            	var email=document.singup.email.value;
+            	var address =document.singup.address.value;
+            	var password =document.singup.password.value;
+            	var cpassword =document.singup.cpassword.value;
+            	if (name==null || name==""){  
+            		  window.alert("Please enter your name."); 
+            		  name.focus();
+            		  return false;  
+            		}  
+            	
+            	    if (address==null ||address == "")                               
+            	    { 
+            	        window.alert("Please enter your address."); 
+            	        name.focus(); 
+            	        return false; 
+            	    } 
+            	       
+            	    if (email== null || email == "")                                   
+            	    { 
+            	        window.alert("Please enter a valid e-mail address."); 
+            	        email.focus(); 
+            	        return false; 
+            	    } 
+            	    if(contact== null || contact=="" || contact.length==10)
+            	    	{
+            	    	window.alert("please enter correct no.")
+            	    	contact.focus();
+            	    	return false;
+            	    	}
+                    
+                    if(passowrd==null || password=="" || passowrd.length<6)
+            	
+            	       {
+                    window.alert("enter valid password");
+                    passowrd.focus();
+                      return false;
+                    	
+            	       }
+                    if(cpassowrd==null || cpassword==""||cpassowrd.length<6)
+                    	
+         	       {
+                 window.alert("enter valid password");
+                 cpassowrd.focus();
+                   return false;
+                 	
+         	       }
+                    if(passowrd==cpassword){
+                    	
+                    	return true;
+                    }
+                    else{
+                    	window.alert("passowrd must be same");
+                    	cpassowrd.focus();
+                    	password.focus();
+                    	return false;
+                    } 
+            }
+            
+            </script>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             <!-- end signup modal -->
             <!-- Sign in Modal -->
             <div id="mySignin" class="modal styled hide fade" tabindex="-1" role="dialog" aria-labelledby="mySigninModalLabel" aria-hidden="true">
