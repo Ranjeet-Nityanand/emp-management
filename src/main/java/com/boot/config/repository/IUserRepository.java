@@ -10,4 +10,6 @@ public interface IUserRepository {
 	public Long registerUser(User user);
 	
 	public List<User> getAllEmployee(User user);
+
+	
 }

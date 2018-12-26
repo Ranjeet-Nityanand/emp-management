@@ -14,6 +14,7 @@ public class User {
 	private String emp_id;
 	private String mobileno;
 	private String rollName;
+	private String cpassword;
 	
 	
 	public int getId() {
@@ -152,6 +153,16 @@ public class User {
 				+ contact + ", address=" + address + ", gender=" + gender + ", dob=" + dob + ", status_id=" + status_id
 				+ ", roll_id=" + roll_id + ", emp_id=" + emp_id + ", mobileno=" + mobileno + ", rollName=" + rollName
 				+ "]";
+	}
+
+
+	public String getCpassword() {
+		return cpassword;
+	}
+
+
+	public void setCpassword(String cpassword) {
+		this.cpassword = cpassword;
 	}
 	
 

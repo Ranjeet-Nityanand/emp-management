@@ -12,55 +12,56 @@ public class UserServiceImplementation implements IUserService {
 
 	@Autowired
 	IUserRepository iUserRepository;
+
 	@Override
 	public User validateUser(User user) {
 		try {
-			if(user!=null && user.getEmail()!=null && user.getEmail().trim()!=null && user.getPassword()!=null && user.getPassword().trim()!=null){
-			User useradmin=iUserRepository.validateUser(user);
-			return useradmin;
+			if (user != null && user.getEmail() != null && user.getEmail().trim() != null && user.getPassword() != null
+					&& user.getPassword().trim() != null) {
+				User useradmin = iUserRepository.validateUser(user);
+				return useradmin;
+			} else {
+				return null;
 			}
-				else {
-					return null;
-				}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			System.out.println(e);
 			return null;
 		}
 	}
+
 	@Override
 	public List<User> getAllEmployee(User user) {
 		List<User> allemployee = iUserRepository.getAllEmployee(user);
 		return allemployee;
 	}
+
 	@Override
 	public User addUser(User user) {
 		try {
-			if(user!=null && user.getEmail()!=null && user.getEmail().trim()!=null){
-				
-			
+			if (user != null && user.getEmail() != null && user.getEmail().trim() != null) {
+
 				user.setStatus_id(1);
-				if(user.getRoll_id()==null) {
+				if (user.getRoll_id() == null) {
 					user.setRoll_id(2);
 				}
-				int register=iUserRepository.registerUser(user).intValue();
-				System.err.print("LAST ID==="+register);
+				int register = iUserRepository.registerUser(user).intValue();
+				System.err.println("LAST ID===" + register);
 				user.setId(register);
 				List<User> userList = iUserRepository.getAllEmployee(user);
-				System.err.println("After DB INSERT "+userList.isEmpty());
-				if(userList!=null) {
 
-					User dbuser=userList.get(0);
+				System.err.println("After DB INSERT " + ((User) userList).getName());
+				if (userList != null) {
+
+					User dbuser = userList.get(0);
+					System.err.println("value============================" + dbuser.getEmp_id());
 					return dbuser;
 				}
 			}
-		
+
+			return null;
+		} catch (Exception e) {
 			return null;
 		}
-		catch (Exception e) {
-		return null;
-		}
 	}
-
-
 
 }

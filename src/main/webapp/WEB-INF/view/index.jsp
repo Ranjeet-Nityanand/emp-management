@@ -53,12 +53,13 @@
                 <h4 id="mySignupModalLabel">Create an <strong>account</strong></h4>
               </div>
               <div class="modal-body">
-                <form name="singup" class="form-horizontal" action="register" method="post">
+                <form id="singup" class="form-horizontal" action="register" method="post" onsubmit="return formValidation()">
 				<div class="control-group">
                     <label class="control-label" for="inputName">Name</label>
                     <div class="controls">
-                      <input type="text" id="name" name="name" placeholder="Enter your Name" required>
+                      <input type="text" id="name" name="name" placeholder="Enter your Name" value="">
                     </div>
+                    <span id="sname" style="color:red;"></span>
                   </div>
                   
 				  <div class="control-group">
@@ -67,6 +68,7 @@
                     <div class="controls">
                       <input type="number" id="contact" name="contact" placeholder="Enter your mobile no." required>
                     </div>
+                     <span id="scontact" style="color:red;"></span>
                   </div>
 				  <div class="control-group">
                     <label class="control-label" for="inputdob">Date of Birthdays</label>
@@ -77,9 +79,10 @@
 				  <div class="control-group">
                     <label class="control-label" for="inputgender">Gender</label>
                     <div class="controls">
-                      <input type="radio" value="male" name="gender" required>  Male  &nbsp &nbsp
-                      <input type="radio" value="female" name="gender" required> Female
+                      <input type="radio" value="male" id="gender" name="gender" >  Male  &nbsp &nbsp
+                      <input type="radio" value="female" id="gender" name="gender" > Female
                     </div>
+                     <span id="sgender" style="color:red;"></span>
                   </div>
 				  <div class="control-group">
                     <label class="control-label" for="inputaddress">Address</label>
@@ -92,121 +95,152 @@
 				  <div class="control-group">
                     <label class="control-label" for="inputEmail">Email</label>
                     <div class="controls">
-                      <input type="email" id="inputEmail" placeholder="Email" required name="email">
+                      <input type="email" id="email" placeholder="Email" required name="email">
                     </div>
+                     <span id="semail" style="color:red;"></span>
                   </div>
                   <div class="control-group">
                     <label class="control-label" for="inputSignupPassword">Password</label>
                     <div class="controls">
-                      <input type="password" id="inputSignupPassword" placeholder="Password" required name="password">
+                      <input type="password" id="password" placeholder="Password" required name="password">
                     </div>
+                     <span id="spassword" style="color:red;"></span>
                   </div>
                   <div class="control-group">
                     <label class="control-label" for="inputSignupPassword2">Confirm Password</label>
                     <div class="controls">
-                      <input type="password" id="inputSignupPassword2" placeholder="Confirm Password" required  name="cpassowrd">
+                      <input type="password" id="cpassword" placeholder="Confirm Password" required  name="cpassowrd">
                     </div>
+                     <span id="scpassword" style="color:red;"></span>
                   </div>
                   <div class="control-group">
                     <div class="controls">
-                      <button type="submit" class="btn" onsubmit="return validateform()"  >Sign up</button>
+                      <input type="submit" name="submit" value="submit" >
                     </div>
                     <p class="aligncenter margintop20">
                       Already have an account? <a href="#mySignin" data-dismiss="modal" aria-hidden="true" data-toggle="modal">Sign in</a>
                     </p>
                   </div>
-                </form>
+            
+            </form>
               </div>
             </div>
             
-            
-            
-            
-            
             <script type="text/javascript">
-            
-            function validateform()
+           
+            function formValidation()
             {
-            	var name=document.singup.name.value;
-            	var contact=document.singup.contact.value;
-            	var dob=document.singup.dob.value;
-            	var email=document.singup.email.value;
-            	var address =document.singup.address.value;
-            	var password =document.singup.password.value;
-            	var cpassword =document.singup.cpassword.value;
-            	if (name==null || name==""){  
-            		  window.alert("Please enter your name."); 
+                alert("welcome in registeration");
+                var correct_way=/^[A-Za-z]+$/;
+                var name=document.getElementById("name");
+                var email=document.getElementById("email");
+                var gender=document.getElementById("gender");
+                var contact=document.getElementById("contact");
+                var address=document.getElementById("address");
+                var passowrd=document.getElementById("password");
+                var cpassword=document.getElementById("cpassword");
+              
+            
+            	if (name==null){  
+            		document.getElementById("sname").innerHTML="* Please enter the name";
+            		  
             		  name.focus();
             		  return false;  
             		}  
+            	if(name.length>3)
+            		{
+            		document.getElementById("sname").innerHTML="* Invalid name";
+            		name.focus();
+            		return false;
+            		}
+            	if(name.match(correct_way))
+            		{
+            		return true;
+            		}
+            	else
+            		{
+            		document.getElementById("sname").innerHTML="* only alphabets are allowed";
+            		return false;
+            		}
             	
-            	    if (address==null ||address == "")                               
+            	for(var i=0;i<gender.length;i++)
+            		{
+            		if(gender[i].checked==true)
+            			return true;
+            		}
+            	else{
+            	document.getElementById("sgender").innerHTML="Please select your gender";
+            	return false;
+            	}
+            	
+            	    if (address==null)                               
             	    { 
-            	        window.alert("Please enter your address."); 
+            	        document.getElementById("saddress").innerHTML="Please Enter your address" ;
             	        name.focus(); 
             	        return false; 
             	    } 
             	       
-            	    if (email== null || email == "")                                   
+            	    if (email== null)                                   
             	    { 
-            	        window.alert("Please enter a valid e-mail address."); 
+            	        document.getElementById("semail").innerHTML="Please Enter your email id";
             	        email.focus(); 
             	        return false; 
             	    } 
-            	    if(contact== null || contact=="" || contact.length==10)
+            	    if(email.indexOf('@')<=0)
             	    	{
-            	    	window.alert("please enter correct no.")
+            	    	document.getElementById("semail").innerHTML="@ are not allowed at the first place";
+            	    	email.focus();
+            	    	return false;
+            	    	}
+            	    if((email.charAt(email.length-4)!='.') && (email.charAt(email.length-3)!='.'))
+            	    	{
+            	    	document.getElementById("semail").innerHTML=" *. is invalid position";
+            	    	email.focus();
+            	    	return false;
+            	    	}
+            	    if(isNAN(contact))
+            	    	{
+            	    	contact.focus();
+            	    	document.getElementById("scontact").innerHTML="*Please enter only number";
+            	    	return false;
+            	    	
+            	    	}
+            	    if(contact== null || contact.length!=10)
+            	    	{
+            	    	
+            	    	document.getElementById("scontact").innerHTML="*please enter correct no."; 
             	    	contact.focus();
             	    	return false;
             	    	}
-                    
-                    if(passowrd==null || password=="" || passowrd.length<6)
+            	   
+                    if(password==null || password.length<6)
             	
             	       {
-                    window.alert("enter valid password");
+                    document.getElementById("spassword").innerHTML="*enter valid password at least 6 length";
                     passowrd.focus();
                       return false;
                     	
             	       }
-                    if(cpassowrd==null || cpassword==""||cpassowrd.length<6)
+                   
+                    if(password!=cpassword){
                     	
-         	       {
-                 window.alert("enter valid password");
-                 cpassowrd.focus();
-                   return false;
-                 	
-         	       }
-                    if(passowrd==cpassword){
                     	
-                    	return true;
-                    }
-                    else{
-                    	window.alert("passowrd must be same");
+                    	document.getElementById("spassword").innerHTML="*passowrd must be same";
+                    	document.getElementById("scpassword").innerHTML="*passowrd must be same";
                     	cpassowrd.focus();
                     	password.focus();
                     	return false;
+                    }
+                    else{
+                    	
+                    	
+                    	return true;
                     } 
             }
             
             </script>
             
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            <!-- end signup modal -->
             <!-- Sign in Modal -->
             <div id="mySignin" class="modal styled hide fade" tabindex="-1" role="dialog" aria-labelledby="mySigninModalLabel" aria-hidden="true">
               <div class="modal-header">
