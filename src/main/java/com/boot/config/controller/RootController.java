@@ -1,5 +1,6 @@
 package com.boot.config.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +63,7 @@ public class RootController {
 	public ModelAndView register(@RequestParam("email") String email, @RequestParam("name") String name,
 			@RequestParam("contact") String contact, @RequestParam("password") String password,
 			@RequestParam("dob") String dob, @RequestParam("address") String address,
-			@RequestParam("cpassowrd") String cpassowrd, @RequestParam("gender") String gender) {
+			@RequestParam("cpassword") String cpassword, @RequestParam("gender") String gender) {
 		ModelAndView view = new ModelAndView();
 		System.err.println("Register User ------------------------");
 		User register = new User();
@@ -75,8 +76,8 @@ public class RootController {
 		register.setContact(contact);
 		User dbuser = iUserService.addUser(register);
 
-		view.addObject("register", dbuser);
-		// System.err.println("value==="+dbuser.getName());
+		 view.addObject("register", dbuser);
+		
 		if (dbuser != null) {
 			System.err.println("After Insert In DB Controller :" + dbuser.getId() + "" + dbuser.getMobileno());
 		}
