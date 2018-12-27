@@ -131,14 +131,14 @@
         <div class="row">
           <div class="span4">
             <div class="inner-heading">
-              <h2>Tables</h2>
+              <h2>Your Information</h2>
             </div>
           </div>
           <div class="span8">
             <ul class="breadcrumb">
               <li><a href="#"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
               <li><a href="#">Features</a><i class="icon-angle-right"></i></li>
-              <li class="active">Table</li>
+              <li class="active">table</li>
             </ul>
           </div>
         </div>
@@ -151,30 +151,31 @@
         <div class="row"  >
           <div class="span6">
 		  
-            <h4>Your Information</h4>
+          
             <table class="table" border="1">
               <thead>
-             
-              <c:forEach items="${register}" var="emp">
+           
+ 
              <tbody>
                   <tr>
                   <th>
-                    Employee id </th><td>${emp.emp_id}</td>
+                    Employee id </th><td>${register.getEmp_id()}</td>
 				  </tr>
 				  <tr>
-                  <th> Name</th><td>${emp.name}</td>
+                  <th> Name</th><td>${register.getName()}</td>
                    </tr>
 				  <tr>
-				  <th>Mobile no.</th><td>${emp.mobileno}</td>
+				  <th>Mobile no.</th><td>${register.getMobileno()}</td>
 				  </tr>
-				 <tr> <th>Gender</th><td>${emp.gender}</td>
+				 <tr> <th>Gender</th><td>${register.getGender()}</td>
 				 </tr>
-				 <tr> <th>Date of Birthday</th><td>${emp.dob}</td>
+				 <tr> <th>Date of Birthday</th><td>${register.getDob()}</td>
 				 </tr>
-				 <tr> <th>Address</th><td>${emp.address}</td>
+				 <tr> <th>Address</th><td>${register.getAddress()}</td>
+				 <tr> <th>Email</th><td>${register.getEmail()}</td>
                 </tr>
                 </tbody>
-                </c:forEach>
+               
               </thead>
              </table>
           </div>	   

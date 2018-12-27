@@ -49,19 +49,20 @@ public class UserServiceImplementation implements IUserService {
 				user.setId(register);
 				List<User> userList = iUserRepository.getAllEmployee(user);
 
-				System.err.println("After DB INSERT " + ((User) userList).getName());
+				
 				if (userList != null) {
 
 					User dbuser = userList.get(0);
-					System.err.println("value============================" + dbuser.getEmp_id());
+					System.err.println("value============================" + dbuser.getId());
 					return dbuser;
 				}
 			}
 
 			return null;
 		} catch (Exception e) {
-			return null;
+			e.printStackTrace();
 		}
+		return null;
 	}
 
 }

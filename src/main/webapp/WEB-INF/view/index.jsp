@@ -66,15 +66,16 @@
 				  
                     <label class="control-label" for="inputContact">Contact No.</label>
                     <div class="controls">
-                      <input type="number" id="contact" name="contact" placeholder="Enter your mobile no." required>
+                      <input type="number" id="contact" name="contact" placeholder="Enter your mobile no." >
                     </div>
                      <span id="scontact" style="color:red;"></span>
                   </div>
 				  <div class="control-group">
                     <label class="control-label" for="inputdob">Date of Birthdays</label>
                     <div class="controls">
-                      <input type="Date" id="dob" name="dob" placeholder="Enter your birthdays" required>
+                      <input type="Date" id="dob" name="dob" placeholder="Enter your birthdays" >
                     </div>
+                    <span id="sdob" style="color:red;"></span>
                   </div>
 				  <div class="control-group">
                     <label class="control-label" for="inputgender">Gender</label>
@@ -90,6 +91,7 @@
 					<textarea class="form-control" rows="3" id="address" placeholder="Enter your address" name="address" required></textarea>
                       
                     </div>
+                    <span id="saddress" style="color:red;"></span>
                   </div>
 				  
 				  <div class="control-group">
@@ -109,7 +111,7 @@
                   <div class="control-group">
                     <label class="control-label" for="inputSignupPassword2">Confirm Password</label>
                     <div class="controls">
-                      <input type="password" id="cpassword" placeholder="Confirm Password" required  name="cpassowrd">
+                      <input type="password" id="cpassword" placeholder="Confirm Password" required  name="cpassword">
                     </div>
                      <span id="scpassword" style="color:red;"></span>
                   </div>
@@ -128,118 +130,7 @@
             
             <script type="text/javascript">
            
-            function formValidation()
-            {
-                alert("welcome in registeration");
-                var correct_way=/^[A-Za-z]+$/;
-                var name=document.getElementById("name");
-                var email=document.getElementById("email");
-                var gender=document.getElementById("gender");
-                var contact=document.getElementById("contact");
-                var address=document.getElementById("address");
-                var passowrd=document.getElementById("password");
-                var cpassword=document.getElementById("cpassword");
-              
-            
-            	if (name==null){  
-            		document.getElementById("sname").innerHTML="* Please enter the name";
-            		  
-            		  name.focus();
-            		  return false;  
-            		}  
-            	if(name.length>3)
-            		{
-            		document.getElementById("sname").innerHTML="* Invalid name";
-            		name.focus();
-            		return false;
-            		}
-            	if(name.match(correct_way))
-            		{
-            		return true;
-            		}
-            	else
-            		{
-            		document.getElementById("sname").innerHTML="* only alphabets are allowed";
-            		return false;
-            		}
-            	
-            	for(var i=0;i<gender.length;i++)
-            		{
-            		if(gender[i].checked==true)
-            			return true;
-            		}
-            	else{
-            	document.getElementById("sgender").innerHTML="Please select your gender";
-            	return false;
-            	}
-            	
-            	    if (address==null)                               
-            	    { 
-            	        document.getElementById("saddress").innerHTML="Please Enter your address" ;
-            	        name.focus(); 
-            	        return false; 
-            	    } 
-            	       
-            	    if (email== null)                                   
-            	    { 
-            	        document.getElementById("semail").innerHTML="Please Enter your email id";
-            	        email.focus(); 
-            	        return false; 
-            	    } 
-            	    if(email.indexOf('@')<=0)
-            	    	{
-            	    	document.getElementById("semail").innerHTML="@ are not allowed at the first place";
-            	    	email.focus();
-            	    	return false;
-            	    	}
-            	    if((email.charAt(email.length-4)!='.') && (email.charAt(email.length-3)!='.'))
-            	    	{
-            	    	document.getElementById("semail").innerHTML=" *. is invalid position";
-            	    	email.focus();
-            	    	return false;
-            	    	}
-            	    if(isNAN(contact))
-            	    	{
-            	    	contact.focus();
-            	    	document.getElementById("scontact").innerHTML="*Please enter only number";
-            	    	return false;
-            	    	
-            	    	}
-            	    if(contact== null || contact.length!=10)
-            	    	{
-            	    	
-            	    	document.getElementById("scontact").innerHTML="*please enter correct no."; 
-            	    	contact.focus();
-            	    	return false;
-            	    	}
-            	   
-                    if(password==null || password.length<6)
-            	
-            	       {
-                    document.getElementById("spassword").innerHTML="*enter valid password at least 6 length";
-                    passowrd.focus();
-                      return false;
-                    	
-            	       }
-                   
-                    if(password!=cpassword){
-                    	
-                    	
-                    	document.getElementById("spassword").innerHTML="*passowrd must be same";
-                    	document.getElementById("scpassword").innerHTML="*passowrd must be same";
-                    	cpassowrd.focus();
-                    	password.focus();
-                    	return false;
-                    }
-                    else{
-                    	
-                    	
-                    	return true;
-                    } 
-            }
-            
-            </script>
-            
+                  
             
             <!-- Sign in Modal -->
             <div id="mySignin" class="modal styled hide fade" tabindex="-1" role="dialog" aria-labelledby="mySigninModalLabel" aria-hidden="true">

@@ -75,7 +75,7 @@ public class UserRepositoryImplementation implements IUserRepository {
 	@Override
 	public List<User> getAllEmployee(User user) {
 		try {
-			String sql = "select ed.id,ed.email,ed.password,ed.name,ed.roll_id,ed.status_id,ed.emp_id,ed.mobileno,ed.address,rm.roll_value from employee_details ed, roll_master rm"
+			String sql = "select ed.id,ed.email,ed.password,ed.dob, ed.gender,ed.name,ed.roll_id,ed.status_id,ed.emp_id,ed.mobileno,ed.address,rm.roll_value from employee_details ed, roll_master rm"
 					+ " where ed.roll_id = rm.roll_id ";
 			if (user != null && user.getId() > 0) {
 				System.err.println("-------User Id  Find " + user.getId());
@@ -87,6 +87,7 @@ public class UserRepositoryImplementation implements IUserRepository {
 			List<User> employeeList = jdbcTemplate.query(sql, new UserMapper());
 			return employeeList;
 		} catch (DataAccessException e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
