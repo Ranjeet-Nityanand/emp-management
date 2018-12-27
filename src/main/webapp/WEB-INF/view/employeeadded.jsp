@@ -7,8 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="" method="post">
-<h1>Hiii this is User Profile</h1>
-</form>
+<h1>Employee added Successfully  </h1>
 </body>
 </html>

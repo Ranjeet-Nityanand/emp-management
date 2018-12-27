@@ -1,44 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-
-    
-    
-    
-    <!DOCTYPE html>
+<%@include file="resource.jsp"%>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <title>Flattern - Flat and trendy bootstrap site template</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-
-  <!-- css -->
-  <link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,400italic,700|Open+Sans:300,400,600,700" rel="stylesheet">
-  <link href="css/bootstrap.css" rel="stylesheet" />
-  <link href="css/bootstrap-responsive.css" rel="stylesheet" />
-  <link href="css/fancybox/jquery.fancybox.css" rel="stylesheet">
-  <link href="css/jcarousel.css" rel="stylesheet" />
-  <link href="css/flexslider.css" rel="stylesheet" />
-  <link href="css/style.css" rel="stylesheet" />
-  <!-- Theme skin -->
-  <link href="skins/default.css" rel="stylesheet" />
-  <!-- Fav and touch icons -->
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png" />
-  <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png" />
-  <link rel="shortcut icon" href="ico/favicon.png" />
-
-  <!-- =======================================================
-    Theme Name: Flattern
-    Theme URL: https://bootstrapmade.com/flattern-multipurpose-bootstrap-template/
-    Author: BootstrapMade.com
-    Author URL: https://bootstrapmade.com
-  ======================================================= -->
 </head>
 
 <body>
@@ -61,50 +31,25 @@
     <!-- start header -->
     <header>
       <div class="container">
-			
-			       <!-- hidden top area toggle link -->
+        <!-- hidden top area toggle link -->
         <div id="header-hidden-link">
           <a href="#" class="toggle-link" title="Click me you'll get a surprise" data-target=".hidden-top"><i></i>Open</a>
         </div>
         <!-- end toggle link -->
         <div class="row nomargin">
-       
           <div class="span12">
+            <div class="headnav">
+             
+            </div>
             <!-- Signup Modal -->
             <div id="mySignup" class="modal styled hide fade" tabindex="-1" role="dialog" aria-labelledby="mySignupModalLabel" aria-hidden="true">
               <div class="modal-header">
-              
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
                 <h4 id="mySignupModalLabel">Create an <strong>account</strong></h4>
               </div>
               <div class="modal-body">
                 <form class="form-horizontal">
-                  <div class="control-group">
-                    <label class="control-label" for="inputEmail">Email</label>
-                    <div class="controls">
-                      <input type="text" id="inputEmail" placeholder="Email">
-                    </div>
-                  </div>
-                  <div class="control-group">
-                    <label class="control-label" for="inputSignupPassword">Password</label>
-                    <div class="controls">
-                      <input type="password" id="inputSignupPassword" placeholder="Password">
-                    </div>
-                  </div>
-                  <div class="control-group">
-                    <label class="control-label" for="inputSignupPassword2">Confirm Password</label>
-                    <div class="controls">
-                      <input type="password" id="inputSignupPassword2" placeholder="Password">
-                    </div>
-                  </div>
-                  <div class="control-group">
-                    <div class="controls">
-                      <button type="submit" class="btn">Sign up</button>
-                    </div>
-                    <p class="aligncenter margintop20">
-                      Already have an account? <a href="#mySignin" data-dismiss="modal" aria-hidden="true" data-toggle="modal">Sign in</a>
-                    </p>
-                  </div>
+
                 </form>
               </div>
             </div>
@@ -112,26 +57,12 @@
             <!-- Sign in Modal -->
             <div id="mySignin" class="modal styled hide fade" tabindex="-1" role="dialog" aria-labelledby="mySigninModalLabel" aria-hidden="true">
               <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
                 <h4 id="mySigninModalLabel">Login to your <strong>account</strong></h4>
               </div>
               <div class="modal-body">
                 <form class="form-horizontal">
-                <table class="table table-hover table table-dark" border="2" style="width: 100%">
-			<thead>
-				<tr>
-					<th>Employee_ID</th>
-					<th>Name</th>
-					<th>Email</th>
-					<th>Address</th>
-					<th>Contact</th>
-					<th>Role</th>
-					<th>Status</th>
-				</tr>
-			</thead>
-					</table>
-                
-                  <%--<div class="control-group">
+                  <div class="control-group">
                     <label class="control-label" for="inputText">Username</label>
                     <div class="controls">
                       <input type="text" id="inputText" placeholder="Username">
@@ -141,7 +72,7 @@
                     <label class="control-label" for="inputSigninPassword">Password</label>
                     <div class="controls">
                       <input type="password" id="inputSigninPassword" placeholder="Password">
-                    </div>--%>
+                    </div>
                   </div>
                   <div class="control-group">
                     <div class="controls">
@@ -154,13 +85,11 @@
                 </form>
               </div>
             </div>
-      
-            
-                   <!-- end signin modal -->
+            <!-- end signin modal -->
             <!-- Reset Modal -->
             <div id="myReset" class="modal styled hide fade" tabindex="-1" role="dialog" aria-labelledby="myResetModalLabel" aria-hidden="true">
               <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
                 <h4 id="myResetModalLabel">Reset your <strong>password</strong></h4>
               </div>
               <div class="modal-body">
@@ -198,15 +127,60 @@
                 <nav>
                   <ul class="nav topnav">
                     <li class="dropdown">
-                      <a href="#">Manage Employee <i class="icon-angle-down"></i></a>
+                      <a href="index.html">Home <i class="icon-angle-down"></i></a>
                       <ul class="dropdown-menu">
-                        <li><a href="viewallEmployee">View Employee</a></li>
-                        
-                        <li><a href="add-employee">Add Employee</a></li>
+                        <li><a href="index-alt2.html">Homepage 2</a></li>
+                        <li><a href="index-alt3.html">Homepage 3</a></li>
                       </ul>
                     </li>
-                   </ul>
-                                        
+                    <li class="dropdown">
+                      <a href="#">Features <i class="icon-angle-down"></i></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="typography.html">Typography</a></li>
+                        <li><a href="components.html">Components</a></li>
+                        <li><a href="animations.html">56 Animations</a></li>
+                        <li><a href="icons.html">Icons</a></li>
+                        <li><a href="icon-variations.html">Icon variations</a></li>
+                        <li class="dropdown"><a href="#">3 Sliders <i class="icon-angle-right"></i></a>
+                          <ul class="dropdown-menu sub-menu-level1">
+                            <li><a href="index.html">Nivo slider</a></li>
+                            <li><a href="index-alt2.html">Slit slider</a></li>
+                            <li><a href="index-alt3.html">Parallax slider</a></li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="dropdown active">
+                      <a href="#">Pages <i class="icon-angle-down"></i></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="about.html">About us</a></li>
+                        <li><a href="pricingbox.html">Pricing boxes</a></li>
+                        <li><a href="testimonials.html">Testimonials</a></li>
+                        <li><a href="404.html">404</a></li>
+                      </ul>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#">Portfolio <i class="icon-angle-down"></i></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="portfolio-2cols.html">Portfolio 2 columns</a></li>
+                        <li><a href="portfolio-3cols.html">Portfolio 3 columns</a></li>
+                        <li><a href="portfolio-4cols.html">Portfolio 4 columns</a></li>
+                        <li><a href="portfolio-detail.html">Portfolio detail</a></li>
+                      </ul>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#">Blog <i class="icon-angle-down"></i></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="blog-left-sidebar.html">Blog left sidebar</a></li>
+                        <li><a href="blog-right-sidebar.html">Blog right sidebar</a></li>
+                        <li><a href="post-left-sidebar.html">Post left sidebar</a></li>
+                        <li><a href="post-right-sidebar.html">Post right sidebar</a></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="contact.html">Contact </a>
+                    </li>
+                  </ul>
                 </nav>
               </div>
               <!-- end navigation -->
@@ -216,29 +190,108 @@
       </div>
     </header>
     <!-- end header -->
-    <div class="container text-color">Welcome To Employee Management${ranjeet.name} </div>
-    <div class="container" id="bodydiv"></div>
     <section id="inner-headline">
       <div class="container">
         <div class="row">
           <div class="span4">
             <div class="inner-heading">
-              <h2>Icons</h2>
+              <h2>Testimonials</h2>
             </div>
           </div>
           <div class="span8">
             <ul class="breadcrumb">
               <li><a href="#"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
-              <li><a href="#">Features</a><i class="icon-angle-right"></i></li>
-              <li class="active">Icons</li>
+              <li><a href="#">Pages</a><i class="icon-angle-right"></i></li>
+              <li class="active">Testimonials</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
-                <!-- End Social Icons -->
-          </div>
-        </div>
+    <section id="content">
+      <div class="container" style="height: 700px;">
+			<form class="form-horizontal" action="addemployee" method="post">
+				<div class="control-group">
+                    <label class="control-label" for="inputName">Employee ID</label>
+                    <div class="controls">
+                      <input type="text" id="id" name="id" placeholder="Enter ID" required>
+                    </div>
+                    </div>
+				<div class="control-group">
+                    <label class="control-label" for="inputName">Name</label>
+                    <div class="controls">
+                      <input type="text" id="name" name="name" placeholder="Enter your Name" required>
+                    </div>
+                  </div>
+				  <div class="control-group">
+                    <label class="control-label" for="inputContact">Contact No.</label>
+                    <div class="controls">
+                      <input type="text" id="contact" name="contact" placeholder="Enter your mobile no." required>
+                    </div>
+                  </div>
+				  <div class="control-group">
+                    <label class="control-label" for="inputdob">Date of Birthdays</label>
+                    <div class="controls">
+                      <input type="Date" id="dob" name="dob" placeholder="Enter your birthdays" required>
+                    </div>
+                  </div>
+				  <div class="control-group">
+                    <label class="control-label" for="inputgender">Gender</label>
+                    <div class="controls">
+                      <input type="radio" value="male" name="gender" required>  Male  &nbsp &nbsp
+                      <input type="radio" value="female" name="gender" required> Female
+                    </div>
+                  </div>
+				  <div class="control-group">
+                    <label class="control-label" for="inputaddress">Address</label>
+                    <div class="controls">
+					<textarea class="form-control" rows="3" id="address" placeholder="Enter your address" name="address" required></textarea>
+                      
+                    </div>
+                  </div>
+				  
+				  <div class="control-group">
+                    <label class="control-label" for="inputEmail">Email</label>
+                    <div class="controls">
+                      <input type="email" id="email" placeholder="Email" required name="email">
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label class="control-label" for="inputSignupPassword">Password</label>
+                    <div class="controls">
+                      <input type="password" id="password" placeholder="Password" required name="password">
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label class="control-label" for="inputSignupPassword2">Confirm Password</label>
+                    <div class="controls">
+                      <input type="password" id="password2" placeholder="Confirm Password" required  name="passowrd2">
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label class="control-label" for="Role">Role id</label>
+                    <div class="controls">
+                      <input type="text" id="role" name="role" placeholder="Enter Role ID" required>
+                    </div>
+                    </div>
+                    <div class="control-group">
+                    <label class="control-label" for="Role">Status Id</label>
+                    <div class="controls">
+                      <input type="text" id="status" name="status" placeholder="Enter Status ID" required>
+                    </div>
+                    </div>
+                  <div class="control-group">
+                    <div class="controls">
+                      <button type="submit" class="btn">Add Data</button>
+                    </div>
+                    
+                  </div>
+                </form>
+  
+       
+       
+       
+       
       </div>
     </section>
     <footer>
@@ -328,29 +381,7 @@
     </footer>
   </div>
   <a href="#" class="scrollup"><i class="icon-chevron-up icon-square icon-32 active"></i></a>
-  <!-- javascript
-    ================================================== -->
-  <!-- Placed at the end of the document so the pages load faster -->
-  <script src="js/jquery.js"></script>
-  <script src="js/jquery.easing.1.3.js"></script>
-  <script src="js/bootstrap.js"></script>
-  <script src="js/jcarousel/jquery.jcarousel.min.js"></script>
-  <script src="js/jquery.fancybox.pack.js"></script>
-  <script src="js/jquery.fancybox-media.js"></script>
-  <script src="js/google-code-prettify/prettify.js"></script>
-  <script src="js/portfolio/jquery.quicksand.js"></script>
-  <script src="js/portfolio/setting.js"></script>
-  <script src="js/jquery.flexslider.js"></script>
-  <script src="js/jquery.nivo.slider.js"></script>
-  <script src="js/modernizr.custom.js"></script>
-  <script src="js/jquery.ba-cond.min.js"></script>
-  <script src="js/jquery.slitslider.js"></script>
-  <script src="js/animate.js"></script>
-
-  <!-- Template Custom JavaScript File -->
-  <script src="js/custom.js"></script>
 
 </body>
 
 </html>
-    

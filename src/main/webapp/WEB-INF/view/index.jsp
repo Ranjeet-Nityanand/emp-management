@@ -16,10 +16,10 @@
     <!-- toggle top area -->
     <div class="hidden-top">
       <div class="hidden-top-inner container">
-        <div class="row">
+         <div class="row">
           <div class="span12">
             <ul>
-              <li><strong>We are available for any custom works this month</strong></li>
+ 			  <li><strong>We are available for any custom works this month</strong></li>
               <li>Main office: JMD Megapolis Gurugaon,Haryana</li>
               <li>Call us <i class="icon-phone"></i>+918923496827</li>
             </ul>
@@ -31,7 +31,7 @@
     <!-- start header -->
     <header>
       <div class="container ">
-      ${message}
+     
         <!-- hidden top area toggle link -->
         <div id="header-hidden-link">
           <a href="#" class="toggle-link" title="Click me you'll get a surprise" data-target=".hidden-top"><i></i>Open</a>
@@ -119,6 +119,8 @@
               </div>
             </div>
             <!-- end signup modal -->
+            
+            
             <!-- Sign in Modal -->
             <div id="mySignin" class="modal styled hide fade" tabindex="-1" role="dialog" aria-labelledby="mySigninModalLabel" aria-hidden="true">
               <div class="modal-header">
