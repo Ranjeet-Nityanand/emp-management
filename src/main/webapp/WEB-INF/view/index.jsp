@@ -39,6 +39,7 @@
         <!-- end toggle link -->
         <div class="row nomargin">
          ${message}
+         <h3>  ${message1}</h3>
           <div class="span12">
             <div class="headnav">
               <ul>
@@ -50,6 +51,7 @@
             <div id="mySignup" class="modal styled hide fade" tabindex="-1" role="dialog" aria-labelledby="mySignupModalLabel" aria-hidden="true">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+               
                 <h4 id="mySignupModalLabel">Create an <strong>account</strong></h4>
               </div>
               <div class="modal-body">
@@ -100,6 +102,7 @@
                       <input type="email" id="email" placeholder="Email" required name="email">
                     </div>
                      <span id="semail" style="color:red;"></span>
+                    
                   </div>
                   <div class="control-group">
                     <label class="control-label" for="inputSignupPassword">Password</label>
@@ -128,7 +131,7 @@
               </div>
             </div>
             
-            <script type="text/javascript">
+            
            
                   
             

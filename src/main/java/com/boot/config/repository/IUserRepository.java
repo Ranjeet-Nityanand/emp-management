@@ -11,5 +11,14 @@ public interface IUserRepository {
 	
 	public List<User> getAllEmployee(User user);
 
-	
+		public int validateRegister(User user);
+
+
 }
+
+
+	
+
+	
+
+

@@ -15,6 +15,7 @@ public class User {
 	private String mobileno;
 	private String rollName;
 	private String cpassword;
+	private int emailcount;
 	
 	
 	public int getId() {
@@ -163,6 +164,16 @@ public class User {
 
 	public void setCpassword(String cpassword) {
 		this.cpassword = cpassword;
+	}
+
+
+	public int getEmailcount() {
+		return emailcount;
+	}
+
+
+	public void setEmailcount(int emailcount) {
+		this.emailcount = emailcount;
 	}
 	
 

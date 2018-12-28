@@ -39,30 +39,43 @@ public class UserServiceImplementation implements IUserService {
 	public User addUser(User user) {
 		try {
 			if (user != null && user.getEmail() != null && user.getEmail().trim() != null) {
-
+				
+				int emailcount = iUserRepository.validateRegister(user);
+				System.err.println("emailcount========"+emailcount);
+				if (emailcount ==0) {
+					
 				user.setStatus_id(1);
 				if (user.getRoll_id() == null) {
 					user.setRoll_id(2);
 				}
 				int register = iUserRepository.registerUser(user).intValue();
-				System.err.println("LAST ID===" + register);
-				user.setId(register);
-				List<User> userList = iUserRepository.getAllEmployee(user);
+					System.err.println("LAST ID===" + register);
+					user.setId(register);
+					List<User> userList = iUserRepository.getAllEmployee(user);
 
-				
-				if (userList != null) {
+					if (userList != null) {
 
-					User dbuser = userList.get(0);
-					System.err.println("value============================" + dbuser.getId());
-					return dbuser;
+						User dbuser = userList.get(0);
+						System.err.println("value============================" + dbuser.getId());
+						return dbuser;
+					}
 				}
+				else
+					return null;
 			}
-
-			return null;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 
+	@Override
+	public int validateRegister(User user) {
+		
+		int emailcount = iUserRepository.validateRegister(user);
+		System.err.println("====count========"+emailcount);
+		return emailcount;
+	}
+
+	
 }

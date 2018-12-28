@@ -4,6 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -38,8 +40,37 @@ public class UserRepositoryImplementation implements IUserRepository {
 		}
 
 	}
+	@Override
+public int validateRegister(User user) {
+		int emailcount=0;
+		try {
+			
+			System.err.println("email=====/////" + user.getEmail());
+			String sql = "SELECT COUNT(email) FROM employee_details WHERE email='" + user.getEmail().trim() + "'";
+			 emailcount=jdbcTemplate.queryForObject(sql, Integer.class);
+			
+			//Integer emailcount1 = getJdbcTemplate().queryForObject(sql, new Object[] { user.getEmail() }, Integer.class);
+			System.err.println("emailcount====" + emailcount);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		
+		}
+		
+		return emailcount;
+		
+	
+
+	}
+
+	public JdbcTemplate getJdbcTemplate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	public Long registerUser(User user) {
+
 		try {
 			System.err.println("NAME=======" + user.getName());
 			String insertsql = "INSERT INTO employee_details(email,name,password,mobileno,gender,dob,address,roll_id,status_id) VALUES(?,?,?,?,?,?,?,?,?)";
@@ -91,5 +122,10 @@ public class UserRepositoryImplementation implements IUserRepository {
 			return null;
 		}
 	}
+	
+	
+	
+	
 
+	
 }
