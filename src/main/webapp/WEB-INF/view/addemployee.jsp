@@ -127,7 +127,7 @@
                 <nav>
                   <ul class="nav topnav">
                     <li class="dropdown">
-                      <a href="index.html">Home <i class="icon-angle-down"></i></a>
+                      <a href="index.jsp">Home <i class="icon-angle-down"></i></a>
                       <ul class="dropdown-menu">
                         <li><a href="index-alt2.html">Homepage 2</a></li>
                         <li><a href="index-alt3.html">Homepage 3</a></li>
@@ -195,7 +195,7 @@
         <div class="row">
           <div class="span4">
             <div class="inner-heading">
-              <h2>Testimonials</h2>
+              <h2>Add Employee</h2>
             </div>
           </div>
           <div class="span8">
@@ -282,7 +282,7 @@
                     </div>
                   <div class="control-group">
                     <div class="controls">
-                      <button type="submit" class="btn">Add Data</button>
+                      <button type="submit" class="btn btn-primary">Add Record</button>
                     </div>
                     
                   </div>

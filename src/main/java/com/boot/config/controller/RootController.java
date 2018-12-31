@@ -185,7 +185,7 @@ public class RootController {
 			view.setViewName("view/viewallemployee");
 		} else {
 			view.addObject("allUser", allemployee);
-			view.addObject("message1", "!!! Not Added Record");
+			view.addObject("message1", "!!! Record Not Added ");
 			view.setViewName("view/viewallemployee");
 		}
 		return view;

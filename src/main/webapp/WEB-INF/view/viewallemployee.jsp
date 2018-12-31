@@ -253,7 +253,7 @@
 								</td>
 							</c:if>
 							<td><button type="button" class="btn-success" id="successbtn"
-									onclick="editProfile('${emp.id}','${emp.name}','${emp.email}','${emp.mobileno}','${emp.address}','${emp.rollName}')">Edit</button></td>
+									onclick="editProfile('${emp.id}','${emp.name}','${emp.email}','${emp.mobileno}','${emp.address}','${emp.roll_id}')">Edit</button></td>
 					</tr>
 					
 				</c:forEach>
@@ -296,26 +296,26 @@
         <div class="modal-body">
           <div class="container-fluid" >
           <input type="hidden" name="id" id="id">
-          <label>Name </label> <input type="text" class="form-control" id="name" name="name">
+          <label>Name </label> <input type="text" class="form-control" id="name" name="name" required>
           <span id="names" class="text-danger font-weight-bold"> </span>
           </div>
           <div class="container-fluid">
-          <label>Email</label> <input type="text" class="form-control" id="email" name="email">
+          <label>Email</label> <input type="text" class="form-control" id="email" name="email" required>
                     <span id="emails" class="text-danger font-weight-bold"> </span>
           
           </div>
           <div class="container-fluid">
-          <label>Contact</label><input type="text"class="form-control" id="contact" name="contact">
+          <label>Contact</label><input type="text"class="form-control" id="contact" name="contact" required>
                     <span id="contacts" class="text-danger font-weight-bold"> </span>
           
           </div>
           <div class="container-fluid">
-          <label>Address</label><input type="text"class="form-control" id="address" name="address">	
+          <label>Address</label><input type="text"class="form-control" id="address" name="address" required>	
                     <span id="addresss" class="text-danger font-weight-bold"> </span>
           
           </div>
           <div class="container-fluid">
-          <label>Role</label><input type="text" class="form-control" id="role" name="role">
+          <label>Role</label><input type="text" class="form-control" id="role" name="role" required>
           <span id="roles" class="text-danger font-weight-bold"> </span>
           
          </div>
@@ -424,13 +424,13 @@
  
 
 <script>
-function editProfile(id,name,email,mobileno,address,roleName){
+function editProfile(id,name,email,mobileno,address,roll_id){
 	//document.getElementById("myModal").innerHTML=""+name+""+email+""+mobileno+""+address+""+roleName+".";
 	$("#name").val(name);
 	$("#email").val(email);
 	$("#contact").val(mobileno);
 	$("#address").val(address);
-	$("#role").val(roleName);
+	$("#role").val(roll_id);
 	$("#id").val(id);
 	$("#myModal").modal();
 }
@@ -461,7 +461,7 @@ function changestatus(email, status) {
 									"onclick=changestatus('"+data[i].email+"',1)>Active</button></td>";
 									}
 							        trtable+="<td><button type='button' class='btn btn-success' "+
-									"onclick=editProfile('"+data[i].id+"','"+data[i].name+"','"+data[i].email+"','"+data[i].mobileno+"','"+data[i].address+"','"+data[i].rollName+"')>Edit</button></td>";
+									"onclick=editProfile('"+data[i].id+"','"+data[i].name+"','"+data[i].email+"','"+data[i].mobileno+"','"+data[i].address+"','"+data[i].roll_id+"')>Edit</button></td>";
 							trtable+="</tr>";
 							$("#empdata").append(trtable);
 							}

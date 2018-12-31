@@ -30,7 +30,7 @@ public class UserRepositoryImplementation implements IUserRepository {
 			String sql = "select ed.id,ed.email,ed.password,ed.name,ed.roll_id,ed.status_id,ed.emp_id,ed.mobileno,ed.address,rm.roll_value from employee_details ed, roll_master rm where ed.roll_id = rm.roll_id and ed.email='"
 					+ user.getEmail().trim() + "'and binary ed.password='" + user.getPassword().trim()
 					+ "'and ed.status_id=1";
-			System.err.println("Validate User SQL --  " + sql);
+			// System.err.println("Validate User SQL -- " + sql);
 			user = jdbcTemplate.queryForObject(sql, new UserMapper());
 			return user;
 		} catch (Exception e) {
@@ -42,7 +42,7 @@ public class UserRepositoryImplementation implements IUserRepository {
 
 	public Long registerUser(User user) {
 		try {
-			System.err.println("NAME=======" + user.getName());
+			// System.err.println("NAME=======" + user.getName());
 			String insertsql = "INSERT INTO employee_details(email,name,password,mobileno,gender,dob,address) VALUES(?,?,?,?,?,?,?)";
 			KeyHolder holder = new GeneratedKeyHolder();
 			jdbcTemplate.update(new PreparedStatementCreator() {
@@ -81,7 +81,7 @@ public class UserRepositoryImplementation implements IUserRepository {
 				sql += " and ed.id = " + user.getId();
 			}
 
-			System.err.println("Fetching Query " + sql);
+//			System.err.println("Fetching Query " + sql);
 
 			List<User> employeeList = jdbcTemplate.query(sql, new UserMapper());
 			return employeeList;
@@ -129,20 +129,17 @@ public class UserRepositoryImplementation implements IUserRepository {
 		}
 
 	}
-// <=====Edit Employee Using Statement=====>	
-//	@Override
-//	public int editEmployee(User user) {
-//
-//		try {
-//			String sql = "update employee_details set name='" + user.getName() + "',email='" + user.getEmail()
-//					+ "',mobileno='" + user.getContact() + "',address='" + user.getAddress() + "',roll_id='"
-//					+ user.getRoll_id() + "' where id='" + user.getId() + "'";
-//			System.err.println("sql query" + sql);
-//			return jdbcTemplate.update(sql);
-//		} catch (Exception e) {
-//			return 0;
-//		}
-//	}
+	/*
+	 * <=====Edit Employee Using Statement=====>
+	 * 
+	 * @Override public int editEmployee(User user) {
+	 * 
+	 * try { String sql = "update employee_details set name='" + user.getName() +
+	 * "',email='" + user.getEmail() + "',mobileno='" + user.getContact() +
+	 * "',address='" + user.getAddress() + "',roll_id='" + user.getRoll_id() +
+	 * "' where id='" + user.getId() + "'"; System.err.println("sql query" + sql);
+	 * return jdbcTemplate.update(sql); } catch (Exception e) { return 0; } }
+	 */
 
 	@Override
 	public int addEmployee(User user) {

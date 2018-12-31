@@ -133,9 +133,9 @@
               <%-- Login Form Action --%>>
                 <form action="login" method="post"class="form-horizontal">
                   <div class="control-group">
-                    <label class="control-label" for="inputText">Username</label>
+                    <label class="control-label" for="inputText">User Name</label>
                     <div class="controls">
-                      <input type="text" id="inputText" placeholder="Username" name="email">
+                      <input type="text" id="inputText" placeholder="Username" name="email" required>
                     </div>
                   </div>
                   <div class="control-group">
