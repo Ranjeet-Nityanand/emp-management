@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.boot.config.service.IUserService;
 
+import login.Product;
 import login.User;
 
 @Controller
@@ -19,6 +20,7 @@ public class RootController {
 	@Autowired
 	IUserService iUserService;
 	List<User> allemployee;
+	List<Product> allproduct;
 
 	@RequestMapping("/")
 	public ModelAndView indexController() {
@@ -187,6 +189,85 @@ public class RootController {
 			view.addObject("allUser", allemployee);
 			view.addObject("message1", "!!! Record Not Added ");
 			view.setViewName("view/viewallemployee");
+		}
+		return view;
+	}
+
+	@RequestMapping("/add-product")
+	public ModelAndView addProduct() {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("view/addproduct");
+		return view;
+	}
+
+	@RequestMapping(value = "/addproduct", method = RequestMethod.POST)
+	public ModelAndView addProduct(@RequestParam("name") String productname, @RequestParam("price") String productprice,
+			@RequestParam("quantity") String quantity) {
+		ModelAndView view = new ModelAndView();
+		Product addproduct = new Product();
+		addproduct.setName(productname);
+
+		try {
+			addproduct.setQuantity(Integer.parseInt(quantity));
+			addproduct.setPrice(Float.parseFloat(productprice));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		List<Product> product = iUserService.addProduct(addproduct);
+		if (product != null) {
+			Product viewproduct = new Product();
+			allproduct = iUserService.getAllProduct(viewproduct);
+			System.err.println(allproduct.isEmpty());
+			view.addObject("allUser", allproduct);
+			view.addObject("successmsg", "Added Successfull");
+			view.setViewName("redirect:viewallProduct");
+		} else {
+			view.addObject("allUser", allproduct);
+			view.addObject("message1", "!!! Record Not Added ");
+			view.setViewName("redirect:viewallProduct");
+		}
+		return view;
+	}
+
+	@RequestMapping("/viewallProduct")
+	public ModelAndView allProduct() {
+		ModelAndView view = new ModelAndView();
+		Product product = new Product();
+		List<Product> allproduct = iUserService.getAllProduct(product);
+		System.err.println(allproduct.isEmpty());
+		view.addObject("allUser", allproduct);
+		System.err.println(allproduct);
+		view.setViewName("view/viewallproduct");
+		return view;
+	}
+
+	@RequestMapping(value = "/editProduct", method = RequestMethod.POST)
+	public ModelAndView editProduct(@RequestParam("name") String productname,
+			@RequestParam("price") String productprice, @RequestParam("quantity") String quantity) {
+		ModelAndView view = new ModelAndView();
+
+		Product editprod = new Product();
+		editprod.setName(productname);
+		try {
+			editprod.setQuantity(Integer.parseInt(quantity));
+			editprod.setPrice(Float.parseFloat(productprice));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		List<Product> prod = iUserService.editProduct(editprod);
+		// System.err.println("Retrieve from Service" + dbuser);
+
+		if (prod != null) {
+			Product viewprod = new Product();
+			allproduct = iUserService.getAllProduct(viewprod);
+			System.err.println(allproduct.isEmpty());
+			view.addObject("allUser", allemployee);
+			view.addObject("successmsg", "Updation Successfull");
+			view.setViewName("view/viewallproduct");
+		} else {
+			view.addObject("allUser", allemployee);
+			view.addObject("message1", "Updation uncessfull");
+			view.setViewName("view/viewallproduct");
 		}
 		return view;
 	}

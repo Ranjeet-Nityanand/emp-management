@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.boot.config.repository.IUserRepository;
 
+import login.Product;
 import login.User;
 
 @Service
@@ -114,6 +115,55 @@ public class UserServiceImplementation implements IUserService {
 		try {
 			List<User> user2 = iUserRepository.getAllEmployee(user);
 			return user2;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+
+	@Override
+	public List<Product> addProduct(Product product) {
+		try {
+			if (product != null && product.getName() != null && product.getName().trim() != null
+					&& product.getPrice() != null) {
+				iUserRepository.addProduct(product);
+			} else
+				return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		try {
+			List<Product> product1 = iUserRepository.getAllProduct(product);
+			return product1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public List<Product> getAllProduct(Product product) {
+		List<Product> allproduct = iUserRepository.getAllProduct(product);
+		return allproduct;
+	}
+
+	@Override
+	public List<Product> editProduct(Product product) {
+		try {
+			if (product != null && product.getName() != null && product.getName().trim() != null
+					&& product.getPrice() != null) {
+				iUserRepository.editProduct(product);
+			} else
+				return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		try {
+			List<Product> product2 = iUserRepository.getAllProduct(product);
+			return product2;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

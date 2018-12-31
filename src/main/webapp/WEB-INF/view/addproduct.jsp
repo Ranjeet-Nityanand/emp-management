@@ -195,7 +195,7 @@
         <div class="row">
           <div class="span4">
             <div class="inner-heading">
-              <h2>Add Employee</h2>
+              <h2>Add Product...	</h2>
             </div>
           </div>
           <div class="span8">
@@ -209,86 +209,35 @@
       </div>
     </section>
     <section id="content">
-      <div class="container" style="height: 700px;">
-			<form class="form-horizontal" action="addemployee" method="post" onsubmit="return validation()">
+      <div class="container" style="height: 400px;">
+			<form class="form-horizontal" action="addproduct" method="post" onsubmit="return validation()">
 				<div class="control-group">
-                    <label class="control-label" for="inputName">Employee ID</label>
+                    <label class="control-label" for="inputName">Product Name</label>
                     <div class="controls">
-                      <input type="text" id="id" name="id" placeholder="Enter ID" required>
+                      <input type="text" id="name" name="name" placeholder="Enter Product Name" required>
                     </div>
                     </div>
 				<div class="control-group">
-                    <label class="control-label" for="inputName">Name</label>
+                    <label class="control-label" for="inputName">Price</label>
                     <div class="controls">
-                      <input type="text" id="name" name="name" placeholder="Enter your Name" required>
-                    </div>
-                  </div>
-				  <div class="control-group">
-                    <label class="control-label" for="inputContact">Contact No.</label>
-                    <div class="controls">
-                      <input type="text" id="contact" name="contact" placeholder="Enter your mobile no." required>
-                    </div>
-                  </div>
-				  <div class="control-group">
-                    <label class="control-label" for="inputdob">Date of Birthdays</label>
-                    <div class="controls">
-                      <input type="Date" id="dob" name="dob" placeholder="Enter your birthdays" required>
-                    </div>
-                  </div>
-				  <div class="control-group">
-                    <label class="control-label" for="inputgender">Gender</label>
-                    <div class="controls">
-                      <input type="radio" value="male" name="gender" required>  Male  &nbsp &nbsp
-                      <input type="radio" value="female" name="gender" required> Female
-                    </div>
-                  </div>
-				  <div class="control-group">
-                    <label class="control-label" for="inputaddress">Address</label>
-                    <div class="controls">
-					<textarea class="form-control" rows="3" id="address" placeholder="Enter your address" name="address" required></textarea>
-                      
-                    </div>
-                  </div>
-				  
-				  <div class="control-group">
-                    <label class="control-label" for="inputEmail">Email</label>
-                    <div class="controls">
-                      <input type="email" id="email" placeholder="Email" required name="email">
-                    </div>
-                  </div>
-                  <div class="control-group">
-                    <label class="control-label" for="inputSignupPassword">Password</label>
-                    <div class="controls">
-                      <input type="password" id="password" placeholder="Password" required name="password">
-                    </div>
-                  </div>
-                  <div class="control-group">
-                    <label class="control-label" for="inputSignupPassword2">Confirm Password</label>
-                    
-                    <div class="controls">
-                      <input type="password" id="password2" placeholder="Confirm Password" required  name="passowrd2">
-                   <span id="passwordd" class="text-danger; font-weight-bold"> </span>
-                    </div>
-                  </div>
-                  <div class="control-group">
-                    <label class="control-label" for="Role">Role id</label>
-                    <div class="controls">
-                      <input type="text" id="role" name="role" placeholder="Enter Role ID" required>
+                      <input type="text" id="price" name="price" placeholder="Enter Product Price" required>
+                   		<span id="prices" class="text-danger; font-weight-bold"> </span>
                     </div>
                     </div>
                     <div class="control-group">
-                    <label class="control-label" for="Role">Status Id</label>
+                    <label class="control-label" for="inputName">Quantity</label>
                     <div class="controls">
-                      <input type="text" id="status" name="status" placeholder="Enter Status ID" required>
+                      <input type="text" id="quantity" name="quantity" placeholder="Enter Product Quantity" required>
+                   		<span id="quantitys" class="text-danger; font-weight-bold"> </span>
                     </div>
                     </div>
-                  <div class="control-group">
+                 <div class="control-group">
                     <div class="controls">
-                      <button type="submit" class="btn btn-primary">Add Record</button>
+                      <button type="submit" class="btn btn-primary">Add Product</button>
                     </div>
                     
                   </div>
-                </form>
+                  </form>
   
        
        
@@ -385,14 +334,14 @@
   <a href="#" class="scrollup"><i class="icon-chevron-up icon-square icon-32 active"></i></a>
 <script>
 function validation(){
-	var pass = document.getElementById('password').value;
-	var pass2 = document.getElementById('password2').value;
-	if(pass!=pass2){
-		document.getElementById('passwordd').innerHTML =" ** Password does not match the confirm password";
+	var price = document.getElementById('price').value;
+	if(isNaN(price)){
+		document.getElementById('prices').innerHTML =" ** Price must be Digits only";
 		return false;
 	}
 }
 </script>
+
 </body>
 
 </html>

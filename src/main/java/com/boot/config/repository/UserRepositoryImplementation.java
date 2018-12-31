@@ -13,8 +13,10 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import com.boot.config.resultmapper.ProductMapper;
 import com.boot.config.resultmapper.UserMapper;
 
+import login.Product;
 import login.User;
 
 @Repository
@@ -171,5 +173,69 @@ public class UserRepositoryImplementation implements IUserRepository {
 			return 0;
 		}
 
+	}
+
+	@Override
+	public int addProduct(Product product) {
+		try {
+			System.err.println("NAME=======" + product.getName());
+			String insertsql = "INSERT INTO product_details(product_name,price,quantity) VALUES(?,?,?)";
+			jdbcTemplate.update(new PreparedStatementCreator() {
+				@Override
+				public java.sql.PreparedStatement createPreparedStatement(java.sql.Connection con) throws SQLException {
+					PreparedStatement ps = con.prepareStatement(insertsql);
+					ps.setString(1, product.getName());
+					ps.setFloat(2, product.getPrice());
+					ps.setInt(3, product.getQuantity());
+					return ps;
+				}
+			});
+
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+
+	}
+
+	@Override
+	public List<Product> getAllProduct(Product product) {
+		try {
+			String sql = "select id,product_name,price,quantity from product_details";
+			System.err.println("Fetching Query " + sql);
+
+			List<Product> productlist = jdbcTemplate.query(sql, new ProductMapper());
+//			System.err.println("id from database in Repository" + product.getId());
+			return productlist;
+
+		} catch (DataAccessException e) {
+			return null;
+		}
+
+	}
+
+	@Override
+	public int editProduct(Product user) {
+		try {
+			String updatesql = "update product_details set product_name= ?,price= ?,quantity= ? where id= ?";
+			jdbcTemplate.update(new PreparedStatementCreator() {
+				@Override
+				public java.sql.PreparedStatement createPreparedStatement(java.sql.Connection con) throws SQLException {
+					PreparedStatement ps = con.prepareStatement(updatesql);
+					ps.setString(1, user.getName());
+					ps.setFloat(2, user.getPrice());
+					ps.setInt(3, user.getQuantity());
+					ps.setInt(4, user.getId());
+					return ps;
+				}
+			});
+
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+
+		}
 	}
 }
