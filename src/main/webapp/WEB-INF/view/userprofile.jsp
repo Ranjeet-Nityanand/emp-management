@@ -149,7 +149,7 @@
         <!-- Default table -->
 	
         <div class="row"  >
-          <div class="span6">
+          <div class="span12">
 		  
           
             <table class="table" border="1">
