@@ -43,7 +43,7 @@ public class RootController {
 				}
 				if (user1.getRoll_id() == 2) {
 					view.addObject("ranjeet", user1);
-					view.setViewName("view/userprofile");
+					view.setViewName("view/shoping");
 				}
 
 			} else {

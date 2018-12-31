@@ -13,6 +13,8 @@ public interface IUserRepository {
 
 		public int validateRegister(User user);
 
+	public 	List<User> getAllItem(User user);
+
 
 }
 

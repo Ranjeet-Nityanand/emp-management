@@ -314,7 +314,7 @@
 
 
 								<%-- Login Form Action --%>
-								>
+								
 								<form action="login" method="post" class="form-horizontal">
 									<div class="control-group">
 										<label class="control-label" for="inputText">Username</label>

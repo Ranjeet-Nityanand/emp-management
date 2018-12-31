@@ -10,13 +10,13 @@
 <%@include file="resource.jsp"%>
 </head>
 <body>
-  <div id="wrapper">
+<div id="wrapper">
     <!-- toggle top area -->
     <div class="hidden-top">
       <div class="hidden-top-inner container">
         <div class="row">
           <div class="span12">
-           <ul>
+            <ul>
               <li><strong>We are available for any custom works this month</strong></li>
               <li>Main office: JMD Megapolis Gurugaon,Haryana</li>
               <li>Call us <i class="icon-phone"></i>+918923496827</li>
@@ -34,105 +34,15 @@
           <a href="#" class="toggle-link" title="Click me you'll get a surprise" data-target=".hidden-top"><i></i>Open</a>
         </div>
         <!-- end toggle link -->
-        <div class="row nomargin">
-          <div class="span12">
-            <div class="headnav">
-              <ul>
-                
-                <li><a href="#mySignin" data-toggle="modal">Sign in</a></li>
-              </ul>
-            </div>
-            <!-- Signup Modal -->
-       
-          <!-- Sign in Modal -->
-						<div id="mySignin" class="modal styled hide fade" tabindex="-1"
-							role="dialog" aria-labelledby="mySigninModalLabel"
-							aria-hidden="true">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-hidden="true">×</button>
-								<h4 id="mySigninModalLabel">
-									Login to your <strong>account</strong>
-								</h4>
-							</div>
-							<div class="modal-body">
-
-
-								<%-- Login Form Action --%>
-								
-								<form action="login" method="post" class="form-horizontal">
-									<div class="control-group">
-										<label class="control-label" for="inputText">Username</label>
-										<div class="controls">
-											<input type="text" id="inputText" placeholder="Username"
-												name="email">
-										</div>
-									</div>
-									<div class="control-group">
-										<label class="control-label" for="inputSigninPassword">Password</label>
-										<div class="controls">
-											<input type="password" id="inputSigninPassword"
-												placeholder="Password" name="password" required>
-										</div>
-									</div>
-									<div class="control-group">
-										<div class="controls">
-											<button type="submit" class="btn">Sign in</button>
-										</div>
-										<p class="aligncenter margintop20">
-											Forgot password? <a href="#myReset" data-dismiss="modal"
-												aria-hidden="true" data-toggle="modal">Reset</a>
-										</p>
-									</div>
-								</form>
-							</div>
-						</div>
-						<!-- end sign in modal -->
-						<!-- Reset Modal -->
-						<div id="myReset" class="modal styled hide fade" tabindex="-1"
-							role="dialog" aria-labelledby="myResetModalLabel"
-							aria-hidden="true">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-hidden="true">×</button>
-								<h4 id="myResetModalLabel">
-									Reset your <strong>password</strong>
-								</h4>
-							</div>
-							<div class="modal-body">
-								<form class="form-horizontal">
-									<div class="control-group">
-										<label class="control-label" for="inputResetEmail">Email</label>
-										<div class="controls">
-											<input type="email" id="inputResetEmail"
-												placeholder="Enter your register email" required>
-										</div>
-									</div>
-									<div class="control-group">
-										<div class="controls">
-											<button type="submit" class="btn">Reset password</button>
-										</div>
-										<p class="aligncenter margintop20" style="color: red">We
-											will send instructions on your registered email how to reset
-											your password to your inbox</p>
-									</div>
-								</form>
-							</div>
-						</div>
-						<!-- end reset modal -->
-					</div>
-				</div>
-           
-            <!-- end reset modal -->
-          </div>
-        </div>
+        
         <div class="row">
           <div class="span4">
             <div class="logo">
               <a href="index.html"><img src="img/logo.png" alt="" class="logo" /></a>
-              
+              <h1>We solve your Problems</h1>
             </div>
           </div>
+		  
           <div class="span8">
             <div class="navbar navbar-static-top">
               <div class="navigation">
@@ -145,11 +55,10 @@
                         <li><a href="index-alt3.html">Homepage 3</a></li>
                       </ul>
                     </li>
-                    <li class="dropdown active">
+                    <li class="dropdown">
                       <a href="#">Features <i class="icon-angle-down"></i></a>
                       <ul class="dropdown-menu">
                         <li><a href="typography.html">Typography</a></li>
-                        <li><a href="table.html">Table</a></li>
                         <li><a href="components.html">Components</a></li>
                         <li><a href="animations.html">56 Animations</a></li>
                         <li><a href="icons.html">Icons</a></li>
@@ -163,7 +72,7 @@
                         </li>
                       </ul>
                     </li>
-                    <li class="dropdown">
+                    <li class="dropdown active">
                       <a href="#">Pages <i class="icon-angle-down"></i></a>
                       <ul class="dropdown-menu">
                         <li><a href="about.html">About us</a></li>
@@ -200,66 +109,92 @@
             </div>
           </div>
         </div>
-      
-  
+      </div>
+    </header>
     <!-- end header -->
     <section id="inner-headline">
       <div class="container">
         <div class="row">
           <div class="span4">
             <div class="inner-heading">
-              <h2>Your Information</h2>
+              <h2>Testimonials</h2>
             </div>
           </div>
           <div class="span8">
             <ul class="breadcrumb">
               <li><a href="#"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
-              <li><a href="#">Features</a><i class="icon-angle-right"></i></li>
-              <li class="active">table</li>
+              <li><a href="#">Pages</a><i class="icon-angle-right"></i></li>
+              <li class="active">Testimonials</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
-    <section id="content">
+    
       <div class="container">
-        <!-- Default table -->
-	
-        <div class="row"  >
+        <div class="row marginbot30">
           <div class="span12">
-		  
+            
+            <div class="row">
+			
+              <div class="span3">
+                <div class="wrapper">
+                 <div class="testimonial">
+                   <table>
+				  <tbody>
+				  <tr>
+				  <th>S.no.</th>
+				  <th>Item Name</th>
+				  <th>Quantity</th>
+				  <th>Price</th>
+				  </tr>
+				 
+				<tr>  <th>Total Price</th></tr>
+				  </tbody>
+				  </table>
+				  </div>
+                </div>
+				</div>
+              </div>
+                </div>
+              </div>
+			 
+              <div class="span3">
+                <div class="wrapper">
+                 <div class="testimonial">
+                 product 1 here
+                 </div>
+                 
+                </div>
+              </div>
+			  
+			  <div class="span3">
+                <div class="wrapper">
+                <div class="testimonial">
+                 
+                 </div>
+                  product 2 here
+                </div>
+              </div>
+			 
+			  <div class="span3">
+                <div class="wrapper">
+                <div class="testimonial">
+                 
+                 </div>
+                  product 3 here
+                </div>
+              </div>
+			  <div class="span1">
+			  </div>
+			   
+            </div>
+            
           
-            <table class="table" border="1">
-              <thead>
-           
- 
-             <tbody>
-                  <tr>
-                  <th>
-                    Employee id </th><td>${register.getEmp_id()}</td>
-				  </tr>
-				  <tr>
-                  <th> Name</th><td>${register.getName()}</td>
-                   </tr>
-				  <tr>
-				  <th>Mobile no.</th><td>${register.getMobileno()}</td>
-				  </tr>
-				 <tr> <th>Gender</th><td>${register.getGender()}</td>
-				 </tr>
-				 <tr> <th>Date of Birthday</th><td>${register.getDob()}</td>
-				 </tr>
-				 <tr> <th>Address</th><td>${register.getAddress()}</td>
-				 <tr> <th>Email</th><td>${register.getEmail()}</td>
-                </tr>
-                </tbody>
-               
-              </thead>
-             </table>
-          </div>	   
-     </div>
-     </div>
-	
-    </section>
+          </div>
+        
+     
+    
     <footer>
       <div class="container">
         <div class="row">
@@ -345,7 +280,8 @@
         </div>
       </div>
     </footer>
-  </div>
+
   <a href="#" class="scrollup"><i class="icon-chevron-up icon-square icon-32 active"></i></a>
+
 </body>
 </html>

@@ -41,6 +41,20 @@ public class UserRepositoryImplementation implements IUserRepository {
 
 	}
 	@Override
+	public List<User>  addUserItem(User user)
+	{
+		try
+		{
+			String sql="SELECT pd.id,pd.product_name,pd.name,pd.price,pd.quantity,ed.email FROM employee_details ed, product_details pd WHERE "
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	@Override
 public int validateRegister(User user) {
 		int emailcount=0;
 		try {
