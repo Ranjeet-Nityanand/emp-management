@@ -1,29 +1,14 @@
 <!DOCTYPE html>
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@include file="resource.jsp"%>
-
 <html lang="en">
-<%@include file="resource.jsp" %>
 <head>
   <meta charset="utf-8">
   <title>Flattern - Flat and trendy bootstrap site template</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-
-   <!-- =======================================================
-    Theme Name: Flattern
-    Theme URL: https://bootstrapmade.com/flattern-multipurpose-bootstrap-template/
-    Author: BootstrapMade.com
-    Author URL: https://bootstrapmade.com
-  ======================================================= -->
-
 </head>
 
 <body>
@@ -33,17 +18,10 @@
       <div class="hidden-top-inner container">
         <div class="row">
           <div class="span12">
-
-           <ul>
-              <li><strong>We are available for any custom works this month</strong></li>
-              <li>Main office: JMD Megapolis Gurugaon,Haryana</li>
-              <li>Call us <i class="icon-phone"></i>+918923496827</li>
-
             <ul>
               <li><strong>We are available for any custom works this month</strong></li>
               <li>Main office: Springville center X264, Park Ave S.01</li>
               <li>Call us <i class="icon-phone"></i> (123) 456-7890 - (123) 555-7891</li>
-
             </ul>
           </div>
         </div>
@@ -61,98 +39,9 @@
         <div class="row nomargin">
           <div class="span12">
             <div class="headnav">
-              <ul>
-
-                
-
-                <li><a href="#mySignup" data-toggle="modal"><i class="icon-user"></i> Sign up</a></li>
-
-                <li><a href="#mySignin" data-toggle="modal">Sign in</a></li>
-              </ul>
+             
             </div>
             <!-- Signup Modal -->
-
-       
-          <!-- Sign in Modal -->
-						<div id="mySignin" class="modal styled hide fade" tabindex="-1"
-							role="dialog" aria-labelledby="mySigninModalLabel"
-							aria-hidden="true">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-hidden="true">×</button>
-								<h4 id="mySigninModalLabel">
-									Login to your <strong>account</strong>
-								</h4>
-							</div>
-							<div class="modal-body">
-
-
-								<%-- Login Form Action --%>
-								
-								<form action="login" method="post" class="form-horizontal">
-									<div class="control-group">
-										<label class="control-label" for="inputText">Username</label>
-										<div class="controls">
-											<input type="text" id="inputText" placeholder="Username"
-												name="email">
-										</div>
-									</div>
-									<div class="control-group">
-										<label class="control-label" for="inputSigninPassword">Password</label>
-										<div class="controls">
-											<input type="password" id="inputSigninPassword"
-												placeholder="Password" name="password" required>
-										</div>
-									</div>
-									<div class="control-group">
-										<div class="controls">
-											<button type="submit" class="btn">Sign in</button>
-										</div>
-										<p class="aligncenter margintop20">
-											Forgot password? <a href="#myReset" data-dismiss="modal"
-												aria-hidden="true" data-toggle="modal">Reset</a>
-										</p>
-									</div>
-								</form>
-							</div>
-						</div>
-						<!-- end sign in modal -->
-						<!-- Reset Modal -->
-						<div id="myReset" class="modal styled hide fade" tabindex="-1"
-							role="dialog" aria-labelledby="myResetModalLabel"
-							aria-hidden="true">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-hidden="true">×</button>
-								<h4 id="myResetModalLabel">
-									Reset your <strong>password</strong>
-								</h4>
-							</div>
-							<div class="modal-body">
-								<form class="form-horizontal">
-									<div class="control-group">
-										<label class="control-label" for="inputResetEmail">Email</label>
-										<div class="controls">
-											<input type="email" id="inputResetEmail"
-												placeholder="Enter your register email" required>
-										</div>
-									</div>
-									<div class="control-group">
-										<div class="controls">
-											<button type="submit" class="btn">Reset password</button>
-										</div>
-										<p class="aligncenter margintop20" style="color: red">We
-											will send instructions on your registered email how to reset
-											your password to your inbox</p>
-									</div>
-								</form>
-							</div>
-						</div>
-						<!-- end reset modal -->
-					</div>
-				</div>
-           
-
             <div id="mySignup" class="modal styled hide fade" tabindex="-1" role="dialog" aria-labelledby="mySignupModalLabel" aria-hidden="true">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
@@ -160,32 +49,7 @@
               </div>
               <div class="modal-body">
                 <form class="form-horizontal">
-                  <div class="control-group">
-                    <label class="control-label" for="inputEmail">Email</label>
-                    <div class="controls">
-                      <input type="text" id="inputEmail" placeholder="Email">
-                    </div>
-                  </div>
-                  <div class="control-group">
-                    <label class="control-label" for="inputSignupPassword">Password</label>
-                    <div class="controls">
-                      <input type="password" id="inputSignupPassword" placeholder="Password">
-                    </div>
-                  </div>
-                  <div class="control-group">
-                    <label class="control-label" for="inputSignupPassword2">Confirm Password</label>
-                    <div class="controls">
-                      <input type="password" id="inputSignupPassword2" placeholder="Password">
-                    </div>
-                  </div>
-                  <div class="control-group">
-                    <div class="controls">
-                      <button type="submit" class="btn">Sign up</button>
-                    </div>
-                    <p class="aligncenter margintop20">
-                      Already have an account? <a href="#mySignin" data-dismiss="modal" aria-hidden="true" data-toggle="modal">Sign in</a>
-                    </p>
-                  </div>
+
                 </form>
               </div>
             </div>
@@ -247,7 +111,6 @@
                 </form>
               </div>
             </div>
-
             <!-- end reset modal -->
           </div>
         </div>
@@ -255,11 +118,7 @@
           <div class="span4">
             <div class="logo">
               <a href="index.html"><img src="img/logo.png" alt="" class="logo" /></a>
-
-              
-
               <h1>Flat and trendy bootstrap template</h1>
-
             </div>
           </div>
           <div class="span8">
@@ -268,27 +127,16 @@
                 <nav>
                   <ul class="nav topnav">
                     <li class="dropdown">
-
-                      <a href="index.html">Home <i class="icon-angle-down"></i></a>
+                      <a href="index.jsp">Home <i class="icon-angle-down"></i></a>
                       <ul class="dropdown-menu">
                         <li><a href="index-alt2.html">Homepage 2</a></li>
                         <li><a href="index-alt3.html">Homepage 3</a></li>
                       </ul>
                     </li>
-                    <li class="dropdown active">
-
-                      <a href="#">Products <i class="icon-angle-down"></i></a>
-                      <ul class="dropdown-menu">
-                        <li><a href="add-product">Add Product</a></li>
-                        <li><a href="viewallProduct">View All Product</a></li>
-                      </ul>
-                    </li>
                     <li class="dropdown">
-
                       <a href="#">Features <i class="icon-angle-down"></i></a>
                       <ul class="dropdown-menu">
                         <li><a href="typography.html">Typography</a></li>
-                        <li><a href="table.html">Table</a></li>
                         <li><a href="components.html">Components</a></li>
                         <li><a href="animations.html">56 Animations</a></li>
                         <li><a href="icons.html">Icons</a></li>
@@ -302,7 +150,7 @@
                         </li>
                       </ul>
                     </li>
-                    <li class="dropdown">
+                    <li class="dropdown active">
                       <a href="#">Pages <i class="icon-angle-down"></i></a>
                       <ul class="dropdown-menu">
                         <li><a href="about.html">About us</a></li>
@@ -329,11 +177,7 @@
                         <li><a href="post-right-sidebar.html">Post right sidebar</a></li>
                       </ul>
                     </li>
-
                     <li>
-
-                    <li class="active">
-
                       <a href="contact.html">Contact </a>
                     </li>
                   </ul>
@@ -343,90 +187,116 @@
             </div>
           </div>
         </div>
-
-      
-  
+      </div>
+    </header>
     <!-- end header -->
     <section id="inner-headline">
       <div class="container">
         <div class="row">
           <div class="span4">
             <div class="inner-heading">
-              <h2>Your Information</h2>
-
-      </div>
-    </header>
-    <!-- end header -->
-    <section id="inner-headline">
-          <div class="container">
-        <div class="row">
-          <div class="span4">
-                 Welcome,    ${ranjeet.getName()}
-            <div class="inner-heading">
-              <h2>Employee page...</h2>
-
+              <h2>Add Employee</h2>
             </div>
           </div>
           <div class="span8">
             <ul class="breadcrumb">
               <li><a href="#"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
-
-              <li><a href="#">Features</a><i class="icon-angle-right"></i></li>
-              <li class="active">table</li>
-
-              <li class="active">Contact</li>
-
+              <li><a href="#">Pages</a><i class="icon-angle-right"></i></li>
+              <li class="active">Testimonials</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
-
     <section id="content">
-      <div class="container">
-        <!-- Default table -->
-	
-        <div class="row"  >
-          <div class="span12">
-		  
-          
-            <table class="table" border="1">
-              <thead>
-           
- 
-             <tbody>
-                  <tr>
-                  <th>
-                    Employee id </th><td>${register.getEmp_id()}</td>
-				  </tr>
-				  <tr>
-                  <th> Name</th><td>${register.getName()}</td>
-                   </tr>
-				  <tr>
-				  <th>Mobile no.</th><td>${register.getMobileno()}</td>
-				  </tr>
-				 <tr> <th>Gender</th><td>${register.getGender()}</td>
-				 </tr>
-				 <tr> <th>Date of Birthday</th><td>${register.getDob()}</td>
-				 </tr>
-				 <tr> <th>Address</th><td>${register.getAddress()}</td>
-				 <tr> <th>Email</th><td>${register.getEmail()}</td>
-                </tr>
-                </tbody>
-               
-              </thead>
-             </table>
-          </div>	   
-     </div>
-     </div>
-	
+      <div class="container" style="height: 700px;">
+			<form class="form-horizontal" action="addemployee" method="post" onsubmit="return validation()">
+				<div class="control-group">
+                    <label class="control-label" for="inputName">Employee ID</label>
+                    <div class="controls">
+                      <input type="text" id="id" name="id" placeholder="Enter ID" required>
+                    </div>
+                    </div>
+				<div class="control-group">
+                    <label class="control-label" for="inputName">Name</label>
+                    <div class="controls">
+                      <input type="text" id="name" name="name" placeholder="Enter your Name" required>
+                    </div>
+                  </div>
+				  <div class="control-group">
+                    <label class="control-label" for="inputContact">Contact No.</label>
+                    <div class="controls">
+                      <input type="text" id="contact" name="contact" placeholder="Enter your mobile no." required>
+                    </div>
+                  </div>
+				  <div class="control-group">
+                    <label class="control-label" for="inputdob">Date of Birthdays</label>
+                    <div class="controls">
+                      <input type="Date" id="dob" name="dob" placeholder="Enter your birthdays" required>
+                    </div>
+                  </div>
+				  <div class="control-group">
+                    <label class="control-label" for="inputgender">Gender</label>
+                    <div class="controls">
+                      <input type="radio" value="male" name="gender" required>  Male  &nbsp &nbsp
+                      <input type="radio" value="female" name="gender" required> Female
+                    </div>
+                  </div>
+				  <div class="control-group">
+                    <label class="control-label" for="inputaddress">Address</label>
+                    <div class="controls">
+					<textarea class="form-control" rows="3" id="address" placeholder="Enter your address" name="address" required></textarea>
+                      
+                    </div>
+                  </div>
+				  
+				  <div class="control-group">
+                    <label class="control-label" for="inputEmail">Email</label>
+                    <div class="controls">
+                      <input type="email" id="email" placeholder="Email" required name="email">
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label class="control-label" for="inputSignupPassword">Password</label>
+                    <div class="controls">
+                      <input type="password" id="password" placeholder="Password" required name="password">
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label class="control-label" for="inputSignupPassword2">Confirm Password</label>
+                    
+                    <div class="controls">
+                      <input type="password" id="password2" placeholder="Confirm Password" required  name="passowrd2">
+                   <span id="passwordd" class="text-danger; font-weight-bold"> </span>
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label class="control-label" for="Role">Role id</label>
+                    <div class="controls">
+                      <input type="text" id="role" name="role" placeholder="Enter Role ID" required>
+                    </div>
+                    </div>
+                    <div class="control-group">
+                    <label class="control-label" for="Role">Status Id</label>
+                    <div class="controls">
+                      <input type="text" id="status" name="status" placeholder="Enter Status ID" required>
+                    </div>
+                    </div>
+                  <div class="control-group">
+                    <div class="controls">
+                      <button type="submit" class="btn btn-primary">Add Record</button>
+                    </div>
+                    
+                  </div>
+                </form>
+  
+       
+       
+       
+       
+      </div>
     </section>
     <footer>
-
-    <div class="container" style="height:500px">
-    </div>
-        <footer>
-
       <div class="container">
         <div class="row">
           <div class="span3">
@@ -513,10 +383,16 @@
     </footer>
   </div>
   <a href="#" class="scrollup"><i class="icon-chevron-up icon-square icon-32 active"></i></a>
-
-  <!-- javascript
-    ================================================== -->
-
+<script>
+function validation(){
+	var pass = document.getElementById('password').value;
+	var pass2 = document.getElementById('password2').value;
+	if(pass!=pass2){
+		document.getElementById('passwordd').innerHTML =" ** Password does not match the confirm password";
+		return false;
+	}
+}
+</script>
 </body>
 
 </html>

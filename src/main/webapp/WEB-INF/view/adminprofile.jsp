@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
     
     
@@ -115,7 +117,21 @@
               </div>
               <div class="modal-body">
                 <form class="form-horizontal">
-                  <div class="control-group">
+                <table class="table table-hover table table-dark" border="2" style="width: 100%">
+			<thead>
+				<tr>
+					<th>Employee_ID</th>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Address</th>
+					<th>Contact</th>
+					<th>Role</th>
+					<th>Status</th>
+				</tr>
+			</thead>
+					</table>
+                
+                  <%--<div class="control-group">
                     <label class="control-label" for="inputText">Username</label>
                     <div class="controls">
                       <input type="text" id="inputText" placeholder="Username">
@@ -125,7 +141,7 @@
                     <label class="control-label" for="inputSigninPassword">Password</label>
                     <div class="controls">
                       <input type="password" id="inputSigninPassword" placeholder="Password">
-                    </div>
+                    </div>--%>
                   </div>
                   <div class="control-group">
                     <div class="controls">
@@ -182,10 +198,11 @@
                 <nav>
                   <ul class="nav topnav">
                     <li class="dropdown">
-                      <a href="index.html">Manage Employee <i class="icon-angle-down"></i></a>
+                      <a href="#">Manage Employee <i class="icon-angle-down"></i></a>
                       <ul class="dropdown-menu">
                         <li><a href="viewallEmployee">View Employee</a></li>
-                        <li><a href="editemployee">Edit Employee</a></li>
+                        
+                        <li><a href="add-employee">Add Employee</a></li>
                       </ul>
                     </li>
                    </ul>
