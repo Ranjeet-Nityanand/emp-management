@@ -163,11 +163,11 @@
                 <h4 id="myResetModalLabel">Reset your <strong>password</strong></h4>
               </div>
               <div class="modal-body">
-                <form class="form-horizontal">
+                <form class="form-horizontal" action="passwordReset" method="post">
                   <div class="control-group">
                     <label class="control-label" for="inputResetEmail">Email</label>
                     <div class="controls">
-                      <input type="email" id="inputResetEmail" placeholder="Enter your register email" required>
+                      <input type="email" id="inputResetEmail"name="email" placeholder="Enter your register email" required>
                     </div>
                   </div>
                   <div class="control-group">

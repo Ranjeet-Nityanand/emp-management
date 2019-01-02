@@ -23,4 +23,6 @@ public interface IUserRepository {
 	public List<Product> getAllProduct(Product product);
 
 	public int editProduct(Product user);
+
+//	public User resetPassword(User user);
 }

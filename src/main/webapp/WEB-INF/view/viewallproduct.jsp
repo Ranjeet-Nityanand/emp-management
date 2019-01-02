@@ -184,6 +184,7 @@
     </header>
     <!-- end header -->
     <div class="container color dark">
+     ${message}
      ${successmsg}
      ${message1}
      </div>
@@ -221,7 +222,7 @@
 					<!--  <input type="hidden" name="hid" value="${emp.id}">-->
 						<td>${prod.id}</td>
 						<td>${prod.name}</td>
-						<td>${prod.price}</td>
+						<td style="text-align:right">${prod.price}</td>
 						<td>${prod.quantity}</td>
 						<td><button type="button" class="btn-success" id="successbtn"
   						onclick="editProduct('${prod.id}','${prod.name}','${prod.price}','${prod.quantity}')">Edit</button></td>
@@ -279,7 +280,7 @@
                     <span id="quantitys" class="text-danger font-weight-bold"> </span>
           
           </div>
-          <button type="submit" class="btn btn-success" >Edit</button>
+          <button type="submit" class="btn btn-success" >Edit Record</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
        </div>
        </div>

@@ -238,4 +238,20 @@ public class UserRepositoryImplementation implements IUserRepository {
 
 		}
 	}
+
+//	@Override
+//	public User resetPassword(User user) {
+//		try {
+//			String sql = "select ed.id,ed.email,ed.password,ed.name,ed.roll_id,ed.status_id,ed.emp_id,ed.mobileno,ed.address,rm.roll_value from employee_details ed, roll_master rm where ed.roll_id = rm.roll_id and ed.email='"
+//					+ user.getEmail().trim();
+//			user = jdbcTemplate.queryForObject(sql, new UserMapper());
+//			if (user != null) {
+//
+//			}
+//			return user;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return null;
+//	}
 }

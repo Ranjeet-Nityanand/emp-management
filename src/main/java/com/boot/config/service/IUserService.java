@@ -23,4 +23,6 @@ public interface IUserService {
 	public List<Product> getAllProduct(Product product);
 
 	public List<Product> editProduct(Product product);
+
+//	public User resetPassword(User user);
 }

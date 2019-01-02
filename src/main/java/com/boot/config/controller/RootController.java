@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.boot.config.service.IUserService;
 
@@ -99,7 +101,7 @@ public class RootController {
 	}
 
 	@RequestMapping(value = "/update-emp-status", method = RequestMethod.GET)
-	@ResponseBody
+	@ResponseBody // return data as json Formate
 	public List<User> updateemployeeStatus(@RequestParam("email") String email,
 			@RequestParam("status") Integer status) {
 		User user2 = new User();
@@ -128,7 +130,7 @@ public class RootController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.err.println("id from view all user" + id);
+		System.err.println("Getting Id from view all user" + id);
 		List<User> dbuser = iUserService.editEmployee(register);
 		// System.err.println("Retrieve from Service" + dbuser);
 
@@ -201,9 +203,9 @@ public class RootController {
 	}
 
 	@RequestMapping(value = "/addproduct", method = RequestMethod.POST)
-	public ModelAndView addProduct(@RequestParam("name") String productname, @RequestParam("price") String productprice,
-			@RequestParam("quantity") String quantity) {
-		ModelAndView view = new ModelAndView();
+	public RedirectView addProduct(@RequestParam("name") String productname, @RequestParam("price") String productprice,
+			@RequestParam("quantity") String quantity, RedirectAttributes attributes) {
+		// ModelAndView view = new ModelAndView();
 		Product addproduct = new Product();
 		addproduct.setName(productname);
 
@@ -214,19 +216,24 @@ public class RootController {
 			e.printStackTrace();
 		}
 		List<Product> product = iUserService.addProduct(addproduct);
+
 		if (product != null) {
 			Product viewproduct = new Product();
 			allproduct = iUserService.getAllProduct(viewproduct);
 			System.err.println(allproduct.isEmpty());
-			view.addObject("allUser", allproduct);
-			view.addObject("successmsg", "Added Successfull");
-			view.setViewName("redirect:viewallProduct");
+			// view.addObject("allUser", allproduct);
+			// view.addObject("successmsg", "Added Successfull");
+			attributes.addFlashAttribute("message", "Inserted Successfully");
+			return new RedirectView("viewallProduct");
 		} else {
-			view.addObject("allUser", allproduct);
-			view.addObject("message1", "!!! Record Not Added ");
-			view.setViewName("redirect:viewallProduct");
+			// view.addObject("allUser", allproduct);
+			attributes.addFlashAttribute("message", "Not Inserted");
+			// view.addObject("message1", "!!! Record Not Added ");
+			// view.setViewName("redirect:viewallProduct");
+			return new RedirectView("viewallProduct");
 		}
-		return view;
+
+		// return new;
 	}
 
 	@RequestMapping("/viewallProduct")
@@ -243,11 +250,13 @@ public class RootController {
 
 	@RequestMapping(value = "/editProduct", method = RequestMethod.POST)
 	public ModelAndView editProduct(@RequestParam("name") String productname,
-			@RequestParam("price") String productprice, @RequestParam("quantity") String quantity) {
+			@RequestParam("price") String productprice, @RequestParam("quantity") String quantity,
+			@RequestParam("id") int prodid) {
 		ModelAndView view = new ModelAndView();
 
 		Product editprod = new Product();
 		editprod.setName(productname);
+		editprod.setId(prodid);
 		try {
 			editprod.setQuantity(Integer.parseInt(quantity));
 			editprod.setPrice(Float.parseFloat(productprice));
@@ -255,21 +264,36 @@ public class RootController {
 			e.printStackTrace();
 		}
 		List<Product> prod = iUserService.editProduct(editprod);
-		// System.err.println("Retrieve from Service" + dbuser);
-
 		if (prod != null) {
+			System.err.println("Edited product ================" + prod);
 			Product viewprod = new Product();
 			allproduct = iUserService.getAllProduct(viewprod);
 			System.err.println(allproduct.isEmpty());
-			view.addObject("allUser", allemployee);
+			view.addObject("allUser", allproduct);
 			view.addObject("successmsg", "Updation Successfull");
-			view.setViewName("view/viewallproduct");
+			view.setViewName("redirect:viewallProduct");
 		} else {
-			view.addObject("allUser", allemployee);
+			view.addObject("allUser", allproduct);
 			view.addObject("message1", "Updation uncessfull");
-			view.setViewName("view/viewallproduct");
+			view.setViewName("redirect:viewallProduct");
 		}
 		return view;
 	}
+
+//	@RequestMapping(value = "/passwordReset", method = RequestMethod.POST)
+//	public ModelAndView passwordReset(@RequestParam("email") String email) {
+//		ModelAndView view = new ModelAndView();
+//		User user = new User();
+//		user.setEmail(email);
+//		User useremail = iUserService.resetPassword(user);
+//		if (useremail != null) {
+//			view.addObject("resetp", useremail);
+//			view.setViewName("view/index");
+//		} else {
+//			view.addObject("resetp", "invalid credentials!!!");
+//			view.setViewName("view/index");
+//		}
+//		return view;
+//	}
 
 }
