@@ -3,6 +3,7 @@ package login;
 
 public class Product {
 	private String name;
+	private int userid;
 	private Float price;
 	private int id;
 	private int quantity;
@@ -69,5 +70,18 @@ public class Product {
 
 	public void setTotalprice(Float totalprice) {
 		this.totalprice = totalprice;
+	}
+
+	public int getUserid() {
+		return userid;
+	}
+
+	public void setUserid(int userid) {
+		this.userid = userid;
+	}
+
+	public void setSeleteditem(int parseInt) {
+		// TODO Auto-generated method stub
+		
 	}
 }

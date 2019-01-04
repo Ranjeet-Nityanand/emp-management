@@ -265,7 +265,7 @@ register=DTODomainConverter.convertRegiterDTOToDomain(adduser);
 		return view;
 	}
 
-	@RequestMapping(value = "/adduser", method = RequestMethod.POST)
+	@RequestMapping(value = "/addproduct", method = RequestMethod.POST)
 	public ModelAndView addProduct(@RequestParam("name") String productname, @RequestParam("price") String productprice,
 			@RequestParam("quantity") String quantity) {
 		ModelAndView view = new ModelAndView();
@@ -320,18 +320,18 @@ register=DTODomainConverter.convertRegiterDTOToDomain(adduser);
 		}
 		return view;
 	}
-
-	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public ModelAndView addItems(@RequestParam("email") String email, @RequestParam("itemid") String itemid,
-			@RequestParam("price") String price, @RequestParam("totalprice") String totalprice,
-			@RequestParam("quantity") String Quantity) {
+//sudhir
+	@RequestMapping(value = "/addUserItem", method = RequestMethod.POST)
+	public ModelAndView addItems(@RequestParam("userId") String userid, @RequestParam("itemId") String itemid,
+			@RequestParam("selectedItem") String selecteditem, @RequestParam("itemPrice") String itemprice)
+			 {
 		ModelAndView view = new ModelAndView();
 		Product additem = new Product();
-		additem.setEmail(email);
-		additem.setPrice(Float.parseFloat(price));
-		additem.setQuantity(Integer.parseInt(Quantity));
+		additem.setUserid(Integer.parseInt(userid));
+		additem.setPrice(Float.parseFloat(itemprice));
+		additem.setSeleteditem(Integer.parseInt(selecteditem));
 		additem.setItemid(Integer.parseInt(itemid));
-		additem.setTotalprice(Float.parseFloat(totalprice));
+		//additem.setTotalprice(Float.parseFloat(totalprice));
 		List<Product> edititem = iUserService.addItems(additem);
 		view.addObject("addeditems",edititem);
 		view.setViewName("view/");
@@ -351,7 +351,7 @@ register=DTODomainConverter.convertRegiterDTOToDomain(adduser);
 		return view;
 	}
 
-	@RequestMapping(value = "/addUserItem", method = RequestMethod.POST)
+	@RequestMapping(value = "/editProduct", method = RequestMethod.POST)
 	public ModelAndView editProduct(@RequestParam("name") String productname,
 			@RequestParam("price") String productprice, @RequestParam("quantity") String quantity,
 			@RequestParam("id") int prodid) {
