@@ -213,10 +213,11 @@
            </div>
       </div>
     </section>
+    
     <div class="container" id="bodydiv">
     <div class="container-fluid">
 		
-		<table class="table table-hover table table-dark" border="2" style="width: 100%">
+		<table class="table table-hover table table-dark" style="width: 100%" border="1">
 			<thead>
 				<tr>
 					<th>Employee_ID</th>
@@ -275,7 +276,6 @@
           </div>
         </div>
       </div>
-    </section>
     
        
     
@@ -417,7 +417,7 @@
         </div>
       </div>
     </footer>
-  </div>
+  
   <a href="#" class="scrollup"><i class="icon-chevron-up icon-square icon-32 active"></i></a>
  
 

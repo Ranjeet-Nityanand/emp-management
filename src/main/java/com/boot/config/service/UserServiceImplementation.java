@@ -171,18 +171,4 @@ public class UserServiceImplementation implements IUserService {
 
 	}
 
-//	@Override
-//	public User resetPassword(User user) {
-//		try {
-//			if (user != null && user.getEmail() != null && user.getEmail().trim() != null) {
-//				return iUserRepository.resetPassword(user);
-//
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return null;
-//		}
-//
-//		return null;
-//	}
 }

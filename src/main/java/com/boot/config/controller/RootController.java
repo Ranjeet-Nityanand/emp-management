@@ -1,5 +1,6 @@
 package com.boot.config.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.boot.config.dto.AddEmployeeDTO;
+import com.boot.config.dto.ProductDTO;
 import com.boot.config.service.IUserService;
 
+import login.DTODomainConverter;
 import login.Product;
 import login.User;
 
@@ -51,9 +55,13 @@ public class RootController {
 					view.addObject("ranjeet", user1);
 					view.setViewName("view/userprofile");
 				}
+				if (user1.getRoll_id() == 3) {
+					view.addObject("ranjeet", user1);
+					view.setViewName("view/user");
+				}
 
 			} else {
-				view.addObject("message", "Sorry You Wrong entries!!!");
+				view.addObject("message", "Sorry  Wrong entries!!!");
 				// view.setViewName("redirect:/");
 				view.setViewName("view/index");
 			}
@@ -156,29 +164,47 @@ public class RootController {
 		return view;
 	}
 
+	/*
+	 * <<<<<<<ADDEMPLOYEE USING REQUEST PARAM>>>>>>>>>>>
+	 *
+	 * @RequestMapping(value = "/addemployee", method = RequestMethod.POST) public
+	 * ModelAndView editEmployee(@RequestParam("status") String
+	 * statusid, @RequestParam("role") String roleid,
+	 * 
+	 * @RequestParam("id") String empid, @RequestParam("email") String
+	 * email, @RequestParam("name") String name,
+	 * 
+	 * @RequestParam("contact") String contact, @RequestParam("password") String
+	 * password,
+	 * 
+	 * @RequestParam("dob") String dob, @RequestParam("address") String address,
+	 * 
+	 * @RequestParam("gender") String gender) { ModelAndView view = new
+	 * ModelAndView(); System.err.println("Add User ------------------------"); User
+	 * addemp = new User(); addemp.setName(name); addemp.setEmail(email);
+	 * addemp.setDob(dob); addemp.setAddress(address); addemp.setGender(gender);
+	 * addemp.setPassword(password); addemp.setContact(contact);
+	 * addemp.setEmp_id(empid); try { addemp.setRoll_id(Integer.parseInt(roleid));
+	 * addemp.setStatus_id(Integer.parseInt(statusid)); } catch (Exception e) {
+	 * e.printStackTrace(); } List<User> employee =
+	 * iUserService.addEmployee(addemp); if (employee != null) { User viewemp = new
+	 * User(); allemployee = iUserService.getAllEmployee(viewemp);
+	 * System.err.println(allemployee.isEmpty()); view.addObject("allUser",
+	 * allemployee); view.addObject("successmsg", "Added Successfull");
+	 * view.setViewName("view/viewallemployee"); } else { view.addObject("allUser",
+	 * allemployee); view.addObject("message1", "!!! Record Not Added ");
+	 * view.setViewName("view/viewallemployee"); } return view; }
+	 */
+
+	// <<<<<<<<<<<<ADD EMPLOYEE USING DTO CLASS>>>>>>>>>>>>>>>>
+
 	@RequestMapping(value = "/addemployee", method = RequestMethod.POST)
-	public ModelAndView editEmployee(@RequestParam("status") String statusid, @RequestParam("role") String roleid,
-			@RequestParam("id") String empid, @RequestParam("email") String email, @RequestParam("name") String name,
-			@RequestParam("contact") String contact, @RequestParam("password") String password,
-			@RequestParam("dob") String dob, @RequestParam("address") String address,
-			@RequestParam("gender") String gender) {
+	public ModelAndView addEmployee(AddEmployeeDTO addempdto) {
 		ModelAndView view = new ModelAndView();
-		System.err.println("Add User ------------------------");
 		User addemp = new User();
-		addemp.setName(name);
-		addemp.setEmail(email);
-		addemp.setDob(dob);
-		addemp.setAddress(address);
-		addemp.setGender(gender);
-		addemp.setPassword(password);
-		addemp.setContact(contact);
-		addemp.setEmp_id(empid);
-		try {
-			addemp.setRoll_id(Integer.parseInt(roleid));
-			addemp.setStatus_id(Integer.parseInt(statusid));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		System.err.println("this is the DTO Value--------" + addempdto);
+		addemp = DTODomainConverter.convertAddEmployeeDTOToDomain(addempdto);
+		System.err.println("DTO to Domain Value After Converting------" + addemp);
 		List<User> employee = iUserService.addEmployee(addemp);
 		if (employee != null) {
 			User viewemp = new User();
@@ -202,70 +228,59 @@ public class RootController {
 		return view;
 	}
 
-	@RequestMapping(value = "/addproduct", method = RequestMethod.POST)
-	public RedirectView addProduct(@RequestParam("name") String productname, @RequestParam("price") String productprice,
-			@RequestParam("quantity") String quantity, RedirectAttributes attributes) {
-		// ModelAndView view = new ModelAndView();
-		Product addproduct = new Product();
-		addproduct.setName(productname);
-
-		try {
-			addproduct.setQuantity(Integer.parseInt(quantity));
-			addproduct.setPrice(Float.parseFloat(productprice));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		List<Product> product = iUserService.addProduct(addproduct);
-
-		if (product != null) {
-			Product viewproduct = new Product();
-			allproduct = iUserService.getAllProduct(viewproduct);
-			System.err.println(allproduct.isEmpty());
-			// view.addObject("allUser", allproduct);
-			// view.addObject("successmsg", "Added Successfull");
-			attributes.addFlashAttribute("message", "Inserted Successfully");
-			return new RedirectView("viewallProduct");
-		} else {
-			// view.addObject("allUser", allproduct);
-			attributes.addFlashAttribute("message", "Not Inserted");
-			// view.addObject("message1", "!!! Record Not Added ");
-			// view.setViewName("redirect:viewallProduct");
-			return new RedirectView("viewallProduct");
-		}
-
-		// return new;
-	}
+	/*
+	 * @RequestMapping(value = "/addproduct", method = RequestMethod.POST) public
+	 * RedirectView addProduct(@RequestParam("name") String
+	 * productname, @RequestParam("price") String productprice,
+	 * 
+	 * @RequestParam("quantity") String quantity, RedirectAttributes attributes) {
+	 * // ModelAndView view = new ModelAndView(); Product addproduct = new
+	 * Product(); addproduct.setName(productname);
+	 * 
+	 * try { addproduct.setQuantity(Integer.parseInt(quantity));
+	 * addproduct.setPrice(Float.parseFloat(productprice)); } catch (Exception e) {
+	 * e.printStackTrace(); } List<Product> product =
+	 * iUserService.addProduct(addproduct);
+	 * 
+	 * if (product != null) { Product viewproduct = new Product(); allproduct =
+	 * iUserService.getAllProduct(viewproduct);
+	 * System.err.println(allproduct.isEmpty()); // view.addObject("allUser",
+	 * allproduct); // view.addObject("successmsg", "Added Successfull");
+	 * attributes.addFlashAttribute("message", "Inserted Successfully"); return new
+	 * RedirectView("viewallProduct"); } else { // view.addObject("allUser",
+	 * allproduct); attributes.addFlashAttribute("message", "Not Inserted"); //
+	 * view.addObject("message1", "!!! Record Not Added "); //
+	 * view.setViewName("redirect:viewallProduct"); return new
+	 * RedirectView("viewallProduct"); }
+	 * 
+	 * // return new; }
+	 */
 
 	@RequestMapping("/viewallProduct")
 	public ModelAndView allProduct() {
 		ModelAndView view = new ModelAndView();
 		Product product = new Product();
 		List<Product> allproduct = iUserService.getAllProduct(product);
-		System.err.println(allproduct.isEmpty());
-		view.addObject("allUser", allproduct);
-		System.err.println(allproduct);
+		List<ProductDTO> viewallProduct = new ArrayList<>();
+		for (Product product2 : allproduct) {
+			viewallProduct.add(DTODomainConverter.convertProductDomainToDTO(product2));
+		}
+//		System.err.println(viewallProduct.isEmpty());
+		view.addObject("allUser", viewallProduct);
+//		System.err.println("View AllProduct list from DTO Classssss ======" + viewallProduct);
 		view.setViewName("view/viewallproduct");
 		return view;
 	}
 
 	@RequestMapping(value = "/editProduct", method = RequestMethod.POST)
-	public ModelAndView editProduct(@RequestParam("name") String productname,
-			@RequestParam("price") String productprice, @RequestParam("quantity") String quantity,
-			@RequestParam("id") int prodid) {
+	public ModelAndView editProduct(ProductDTO product) {
 		ModelAndView view = new ModelAndView();
-
 		Product editprod = new Product();
-		editprod.setName(productname);
-		editprod.setId(prodid);
-		try {
-			editprod.setQuantity(Integer.parseInt(quantity));
-			editprod.setPrice(Float.parseFloat(productprice));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		editprod = DTODomainConverter.convertProductDTOToDomain(product);
+		System.err.println("After convert dto to domain========>" + editprod);
 		List<Product> prod = iUserService.editProduct(editprod);
 		if (prod != null) {
-			System.err.println("Edited product ================" + prod);
+//			System.err.println("Edited product ================" + prod);
 			Product viewprod = new Product();
 			allproduct = iUserService.getAllProduct(viewprod);
 			System.err.println(allproduct.isEmpty());
@@ -280,20 +295,35 @@ public class RootController {
 		return view;
 	}
 
-//	@RequestMapping(value = "/passwordReset", method = RequestMethod.POST)
-//	public ModelAndView passwordReset(@RequestParam("email") String email) {
-//		ModelAndView view = new ModelAndView();
-//		User user = new User();
-//		user.setEmail(email);
-//		User useremail = iUserService.resetPassword(user);
-//		if (useremail != null) {
-//			view.addObject("resetp", useremail);
-//			view.setViewName("view/index");
-//		} else {
-//			view.addObject("resetp", "invalid credentials!!!");
-//			view.setViewName("view/index");
-//		}
-//		return view;
-//	}
+	// Add Product Using DTO Class....
+
+	@RequestMapping(value = "/addproduct", method = RequestMethod.POST)
+	public RedirectView addProduct(ProductDTO prd, RedirectAttributes attributes) {
+		Product addproduct = new Product();
+//   Converting DTO Values to Domain........		
+		addproduct = DTODomainConverter.convertProductDTOToDomain(prd);
+		// ProductDTO productdto = new ProductDTO();
+		List<Product> productlist = iUserService.addProduct(addproduct);
+
+		List<ProductDTO> proddtolist = new ArrayList<>();
+		for (Product product2 : productlist) {
+			proddtolist.add(DTODomainConverter.convertProductDomainToDTO(product2));
+
+		}
+		System.err.println("Final data after converting Domain to DTO" + proddtolist);
+		if (productlist != null) {
+			Product viewproduct = new Product();
+			allproduct = iUserService.getAllProduct(viewproduct);
+			System.err.println(allproduct.isEmpty());
+			attributes.addFlashAttribute("message", "Inserted Successfully");
+			return new RedirectView("viewallProduct");
+		} else {
+			attributes.addFlashAttribute("message", "Not Inserted");
+			// view.setViewName("redirect:viewallProduct");
+			return new RedirectView("viewallProduct");
+		}
+
+		// return view;
+	}
 
 }
