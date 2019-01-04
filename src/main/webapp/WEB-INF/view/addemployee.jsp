@@ -214,7 +214,7 @@
 				<div class="control-group">
                     <label class="control-label" for="inputName">Employee ID</label>
                     <div class="controls">
-                      <input type="text" id="id" name="id" placeholder="Enter ID" required>
+                      <input type="text" id="empid" name="id" placeholder="Enter ID" required>
                     </div>
                     </div>
 				<div class="control-group">

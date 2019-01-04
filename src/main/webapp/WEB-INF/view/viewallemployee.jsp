@@ -170,8 +170,8 @@
                     <li class="dropdown">
                       <a href="">Manage Employee <i class="icon-angle-down"></i></a>
                       <ul class="dropdown-menu">
-                        <li><a href="index-alt2.html">Add Employee</a></li>
-                        <li><a href="index-alt3.html">Edit Employee</a></li>
+                        <li><a href="">Add Employee</a></li>
+                        <li><a href="">Edit Employee</a></li>
                       </ul>
                     </li>
                    </ul>
@@ -213,11 +213,10 @@
            </div>
       </div>
     </section>
-    
     <div class="container" id="bodydiv">
     <div class="container-fluid">
 		
-		<table class="table table-hover table table-dark" style="width: 100%" border="1">
+		<table class="table table-hover table table-dark" border="2" style="width: 100%">
 			<thead>
 				<tr>
 					<th>Employee_ID</th>
@@ -240,7 +239,7 @@
 						<td>${emp.name}</td>
 						<td>${emp.email}</td>
 						<td>${emp.address}</td>
-						<td>${emp.mobileno}
+						<td>${emp.contact}
 						<td>${emp.rollName}</td>
 						<c:if test="${emp.status_id==1}">
 							<td><button type="button" class="btn-danger" id="dangerbtn"
@@ -254,7 +253,7 @@
 								</td>
 							</c:if>
 							<td><button type="button" class="btn-success" id="successbtn"
-									onclick="editProfile('${emp.id}','${emp.name}','${emp.email}','${emp.mobileno}','${emp.address}','${emp.roll_id}')">Edit</button></td>
+									onclick="editProfile('${emp.id}','${emp.name}','${emp.email}','${emp.contact}','${emp.address}','${emp.roll_id}')">Edit</button></td>
 					</tr>
 					
 				</c:forEach>
@@ -276,6 +275,7 @@
           </div>
         </div>
       </div>
+    </section>
     
        
     
@@ -417,18 +417,18 @@
         </div>
       </div>
     </footer>
-  
+  </div>
   <a href="#" class="scrollup"><i class="icon-chevron-up icon-square icon-32 active"></i></a>
  
 
  
 
 <script>
-function editProfile(id,name,email,mobileno,address,roll_id){
+function editProfile(id,name,email,contact,address,roll_id){
 	//document.getElementById("myModal").innerHTML=""+name+""+email+""+mobileno+""+address+""+roleName+".";
 	$("#name").val(name);
 	$("#email").val(email);
-	$("#contact").val(mobileno);
+	$("#contact").val(contact);
 	$("#address").val(address);
 	$("#role").val(roll_id);
 	$("#id").val(id);
@@ -450,7 +450,7 @@ function changestatus(email, status) {
 							"<td>"+data[i].name+"</td>"+
 							"<td>"+data[i].email+"</td>"+
 							"<td>"+data[i].address+"</td>"+
-							"<td>"+data[i].mobileno+"</td>"+
+							"<td>"+data[i].contact+"</td>"+
 							"<td>"+data[i].rollName+"</td>"
 							if(data[i].status_id==1){
 								trtable+=" <td><button type='button' class='btn-danger' "+
@@ -461,7 +461,7 @@ function changestatus(email, status) {
 									"onclick=changestatus('"+data[i].email+"',1)>Active</button></td>";
 									}
 							        trtable+="<td><button type='button' class='btn btn-success' "+
-									"onclick=editProfile('"+data[i].id+"','"+data[i].name+"','"+data[i].email+"','"+data[i].mobileno+"','"+data[i].address+"','"+data[i].roll_id+"')>Edit</button></td>";
+									"onclick=editProfile('"+data[i].id+"','"+data[i].name+"','"+data[i].email+"','"+data[i].contact+"','"+data[i].address+"','"+data[i].roll_id+"')>Edit</button></td>";
 							trtable+="</tr>";
 							$("#empdata").append(trtable);
 							}

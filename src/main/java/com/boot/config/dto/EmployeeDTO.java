@@ -1,9 +1,9 @@
 package com.boot.config.dto;
 
-public class AddEmployeeDTO {
+public class EmployeeDTO {
 	private int status;
 	private int role;
-	private String id;
+	private String empid;
 	private String email;
 	private String name;
 	private String contact;
@@ -11,6 +11,32 @@ public class AddEmployeeDTO {
 	private String dob;
 	private String address;
 	private String gender;
+	private String rollName;
+	private int id;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getEmpid() {
+		return empid;
+	}
+
+	public void setEmpid(String empid) {
+		this.empid = empid;
+	}
+
+	public String getRollName() {
+		return rollName;
+	}
+
+	public void setRollName(String rollName) {
+		this.rollName = rollName;
+	}
 
 	public int getStatus() {
 		return status;
@@ -26,14 +52,6 @@ public class AddEmployeeDTO {
 
 	public void setRole(int role) {
 		this.role = role;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public String getEmail() {
@@ -94,8 +112,8 @@ public class AddEmployeeDTO {
 
 	@Override
 	public String toString() {
-		return "[Id= " + id + ",Roll=" + role + ",Status=" + status + ", Email=" + email + ", Name=" + name
-				+ ", Contact=" + contact + ", Password=" + password + ", Dob=" + dob + ", Address=" + address
-				+ ", Gender" + gender + "]";
+		return "[EMpId= " + empid + ", ID= " + id + ",Roll=" + role + ",Status=" + status + ", Email=" + email
+				+ ", Name=" + name + ", Contact=" + contact + ", Password=" + password + ", Dob=" + dob + ", Address="
+				+ address + ", Gender" + gender + "]";
 	}
 }
