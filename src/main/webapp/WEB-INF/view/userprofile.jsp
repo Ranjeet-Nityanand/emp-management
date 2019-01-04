@@ -52,7 +52,7 @@
             <!-- Signup Modal -->
             <div id="mySignup" class="modal styled hide fade" tabindex="-1" role="dialog" aria-labelledby="mySignupModalLabel" aria-hidden="true">
               <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã</button>
                 <h4 id="mySignupModalLabel">Create an <strong>account</strong></h4>
               </div>
               <div class="modal-body">
@@ -90,7 +90,7 @@
             <!-- Sign in Modal -->
             <div id="mySignin" class="modal styled hide fade" tabindex="-1" role="dialog" aria-labelledby="mySigninModalLabel" aria-hidden="true">
               <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã</button>
                 <h4 id="mySigninModalLabel">Login to your <strong>account</strong></h4>
               </div>
               <div class="modal-body">
@@ -122,7 +122,7 @@
             <!-- Reset Modal -->
             <div id="myReset" class="modal styled hide fade" tabindex="-1" role="dialog" aria-labelledby="myResetModalLabel" aria-hidden="true">
               <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã</button>
                 <h4 id="myResetModalLabel">Reset your <strong>password</strong></h4>
               </div>
               <div class="modal-body">

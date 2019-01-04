@@ -21,6 +21,7 @@ public class UserMapper implements RowMapper<User> {
 		user.setContact(rs.getString("mobileno"));
 		user.setAddress(rs.getString("address"));
 		user.setRollName(rs.getString("roll_value"));
+		//user.setDob(rs.getString("dob"));
 		user.setId(rs.getInt("id"));
 		return user;
 	}

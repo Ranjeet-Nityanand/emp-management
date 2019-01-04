@@ -6,7 +6,10 @@ import login.Product;
 import login.User;
 
 public interface IUserService {
-	public User validateUser(User user);
+
+public int validateRegister(User user);
+
+public User validateUser(User user);
 
 	public User addUser(User user);
 
@@ -24,5 +27,6 @@ public interface IUserService {
 
 	public List<Product> editProduct(Product product);
 
-//	public User resetPassword(User user);
+	public List<Product> addItems(Product additem);
+
 }

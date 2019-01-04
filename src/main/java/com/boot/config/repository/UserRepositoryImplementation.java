@@ -1,9 +1,13 @@
 package com.boot.config.repository;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+
+
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -32,7 +36,9 @@ public class UserRepositoryImplementation implements IUserRepository {
 			String sql = "select ed.id,ed.email,ed.password,ed.name,ed.roll_id,ed.status_id,ed.emp_id,ed.mobileno,ed.address,rm.roll_value from employee_details ed, roll_master rm where ed.roll_id = rm.roll_id and ed.email='"
 					+ user.getEmail().trim() + "'and binary ed.password='" + user.getPassword().trim()
 					+ "'and ed.status_id=1";
+			System.err.println("Validate User SQL --  " + sql);
 			// System.err.println("Validate User SQL -- " + sql);
+
 			user = jdbcTemplate.queryForObject(sql, new UserMapper());
 			return user;
 		} catch (Exception e) {
@@ -42,10 +48,24 @@ public class UserRepositoryImplementation implements IUserRepository {
 
 	}
 
-	public Long registerUser(User user) {
+	@Override
+	public List<User>  addUserItem(User user)
+	{
+		try
+		{
+			//String sql="SELECT pd.id,pd.product_name,pd.name,pd.price,pd.quantity,ed.email FROM employee_details ed, product_details pd";
+
+		}
+		catch (Exception e) {
+			
+		}
+		return null;
+	}
+	public Long registerUser(User user)
+	{
 		try {
 			// System.err.println("NAME=======" + user.getName());
-			String insertsql = "INSERT INTO employee_details(email,name,password,mobileno,gender,dob,address) VALUES(?,?,?,?,?,?,?)";
+			String insertsql = "INSERT INTO employee_details(email,name,password,mobileno,gender,dob,address,roll_id,status_id) VALUES(?,?,?,?,?,?,?,?,?)";
 			KeyHolder holder = new GeneratedKeyHolder();
 			jdbcTemplate.update(new PreparedStatementCreator() {
 
@@ -59,6 +79,8 @@ public class UserRepositoryImplementation implements IUserRepository {
 					ps.setString(5, user.getGender());
 					ps.setString(6, user.getDob());
 					ps.setString(7, user.getAddress());
+					ps.setInt(8, user.getRoll_id());
+					ps.setInt(9, user.getStatus_id());
 					return ps;
 				}
 			}, holder);
@@ -69,28 +91,44 @@ public class UserRepositoryImplementation implements IUserRepository {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
+
 		}
-
+		
+		
 	}
-
+	
 	@Override
-	public List<User> getAllEmployee(User user) {
+public int validateRegister(User user) {
+		int emailcount=0;
 		try {
-			String sql = "select ed.id,ed.email,ed.password,ed.name,ed.roll_id,ed.status_id,ed.emp_id,ed.mobileno,ed.address,rm.roll_value from employee_details ed, roll_master rm"
-					+ " where ed.roll_id = rm.roll_id ";
-			if (user != null && user.getId() > 0) {
-				System.err.println("-------User Id  FInd " + user.getId());
-				sql += " and ed.id = " + user.getId();
-			}
+			
+			System.err.println("email=====/////" + user.getEmail());
+			String sql = "SELECT COUNT(email) FROM employee_details WHERE email='" + user.getEmail().trim() + "'";
+			 emailcount=jdbcTemplate.queryForObject(sql, Integer.class);
+			
+			//Integer emailcount1 = getJdbcTemplate().queryForObject(sql, new Object[] { user.getEmail() }, Integer.class);
+			System.err.println("emailcount====" + emailcount);
 
-//			System.err.println("Fetching Query " + sql);
 
-			List<User> employeeList = jdbcTemplate.query(sql, new UserMapper());
-			return employeeList;
-		} catch (DataAccessException e) {
-			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		
 		}
+		
+		return emailcount;
+		
+	
+
 	}
+
+	public JdbcTemplate getJdbcTemplate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	
 
 	@Override
 	public int updateemployeeStatus(User user) {
@@ -131,17 +169,7 @@ public class UserRepositoryImplementation implements IUserRepository {
 		}
 
 	}
-	/*
-	 * <=====Edit Employee Using Statement=====>
-	 * 
-	 * @Override public int editEmployee(User user) {
-	 * 
-	 * try { String sql = "update employee_details set name='" + user.getName() +
-	 * "',email='" + user.getEmail() + "',mobileno='" + user.getContact() +
-	 * "',address='" + user.getAddress() + "',roll_id='" + user.getRoll_id() +
-	 * "' where id='" + user.getId() + "'"; System.err.println("sql query" + sql);
-	 * return jdbcTemplate.update(sql); } catch (Exception e) { return 0; } }
-	 */
+	
 
 	@Override
 	public int addEmployee(User user) {
@@ -171,11 +199,32 @@ public class UserRepositoryImplementation implements IUserRepository {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
+
 		}
 
 	}
 
 	@Override
+
+	public List<User> getAllEmployee(User user) {
+		try {
+			String sql = "select ed.id,ed.email,ed.password,ed.dob, ed.gender,ed.name,ed.roll_id,ed.status_id,ed.emp_id,ed.mobileno,ed.address,rm.roll_value from employee_details ed, roll_master rm"
+					+ " where ed.roll_id = rm.roll_id ";
+			if (user != null && user.getId() > 0) {
+				System.err.println("-------User Id  Find " + user.getId());
+				sql += " and ed.id = " + user.getId();
+			}
+
+			System.err.println("Fetching Query " + sql);
+
+			List<User> employeeList = jdbcTemplate.query(sql, new UserMapper());
+			return employeeList;
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public int addProduct(Product product) {
 		try {
 			System.err.println("NAME=======" + product.getName());
@@ -210,13 +259,20 @@ public class UserRepositoryImplementation implements IUserRepository {
 			return productlist;
 
 		} catch (DataAccessException e) {
+
 			return null;
 		}
-
 	}
+	
+	
+	
+	
+		
+	
 
 	@Override
-	public int editProduct(Product user) {
+	public int editProduct(Product user)
+	{
 		try {
 			String updatesql = "update product_details set product_name= ?,price= ?,quantity= ? where id= ?";
 			jdbcTemplate.update(new PreparedStatementCreator() {
@@ -239,19 +295,35 @@ public class UserRepositoryImplementation implements IUserRepository {
 		}
 	}
 
-//	@Override
-//	public User resetPassword(User user) {
-//		try {
-//			String sql = "select ed.id,ed.email,ed.password,ed.name,ed.roll_id,ed.status_id,ed.emp_id,ed.mobileno,ed.address,rm.roll_value from employee_details ed, roll_master rm where ed.roll_id = rm.roll_id and ed.email='"
-//					+ user.getEmail().trim();
-//			user = jdbcTemplate.queryForObject(sql, new UserMapper());
-//			if (user != null) {
-//
-//			}
-//			return user;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return null;
-//	}
-}
+	@Override
+	public void addItems(Product additem) {
+		try
+		{
+			String sql="update shoping_cart set item_id=?,user_email=?,price=?,item_quantity=?,total_price=? ";
+			jdbcTemplate.update(new PreparedStatementCreator(){
+
+				@Override
+				public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+					PreparedStatement ps=con.prepareStatement(sql);
+					ps.setInt(1, additem.getItemid());
+					ps.setString(2, additem.getEmail());
+					ps.setInt(3, additem.getQuantity());
+					ps.setFloat(4, additem.getPrice());
+					ps.setFloat(5, additem.getTotalprice());
+					return ps;
+				}
+				
+				
+				
+			}); 
+				
+			}	
+		
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	
+	}
+

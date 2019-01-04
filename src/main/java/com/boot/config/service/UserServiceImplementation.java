@@ -42,16 +42,55 @@ public class UserServiceImplementation implements IUserService {
 	public User addUser(User user) {
 		try {
 			if (user != null && user.getEmail() != null && user.getEmail().trim() != null) {
+
+				
+				int emailcount = iUserRepository.validateRegister(user);
+				System.err.println("emailcount========"+emailcount);
+				if (emailcount ==0) {
+					
+				user.setStatus_id(1);
+				if (user.getRoll_id() == null) {
+					user.setRoll_id(3);
+				}
 				int register = iUserRepository.registerUser(user).intValue();
-				System.err.print("LAST ID===" + register);
+					System.err.println("LAST ID===" + register);
+					user.setId(register);
+					List<User> userList = iUserRepository.getAllEmployee(user);
+
+					if (userList != null) {
+
+						User dbuser = userList.get(0);
+						System.err.println("value============================" + dbuser.getId());
+						return dbuser;
+					}
+				}
+				else
+					return null;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public int validateRegister(User user) {
+		int emailcount = 0;
+		try {
+		 emailcount = iUserRepository.validateRegister(user);
+		System.err.println("====count========"+emailcount);
+		
+	
+				int register = iUserRepository.registerUser(user).intValue();
 				user.setId(register);
 				List<User> userList = iUserRepository.getAllEmployee(user);
 				System.err.println("After DB ISERT " + userList.isEmpty());
 				if (userList != null) {
 
 					User dbuser = userList.get(0);
-					return dbuser;
+					return emailcount;
 				}
+
 				return null;
 			}
 
@@ -60,6 +99,16 @@ public class UserServiceImplementation implements IUserService {
 		} catch (Exception e) {
 			return null;
 		}
+		 catch (Exception e) {
+			e.printStackTrace();
+		
+		
+	
+		 }
+		return emailcount;
+	
+		}
+		
 
 	}
 
@@ -171,4 +220,20 @@ public class UserServiceImplementation implements IUserService {
 
 	}
 
+	@Override
+	public List<Product> addItems(Product additem) {
+		try
+		{
+			if(additem !=null)
+			{
+				iUserRepository.addItems(additem);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }
+

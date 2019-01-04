@@ -10,7 +10,7 @@ public class User {
 	private String gender;
 	private String dob;
 	private int status_id;
-	private int roll_id;
+	private Integer roll_id;
 	private String emp_id;
 	// private String mobileno;
 	private String rollName;

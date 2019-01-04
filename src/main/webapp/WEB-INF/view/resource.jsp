@@ -17,6 +17,12 @@
   <link rel="shortcut icon" href="ico/favicon.png" />
 
 
+
+
+
+
+
+
 <!--  Script resource -->
 <script src="js/jquery.js"></script>
   <script src="js/jquery.easing.1.3.js"></script>

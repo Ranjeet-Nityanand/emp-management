@@ -12,6 +12,10 @@ public interface IUserRepository {
 
 	public List<User> getAllEmployee(User user);
 
+
+		public int validateRegister(User user);
+
+
 	public int updateemployeeStatus(User user);
 
 	public int editEmployee(User user);
@@ -24,5 +28,8 @@ public interface IUserRepository {
 
 	public int editProduct(Product user);
 
-//	public User resetPassword(User user);
+	public List<User> addUserItem(User user);
+
+	public void addItems(Product additem);
 }
+

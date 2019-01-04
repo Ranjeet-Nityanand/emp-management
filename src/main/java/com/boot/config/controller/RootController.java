@@ -3,6 +3,7 @@ package com.boot.config.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.zookeeper.KeeperException.SystemErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.boot.config.dto.DTODomainConverter;
+import com.boot.config.dto.RegisterDTO;
 import com.boot.config.dto.ProductDTO;
 import com.boot.config.service.IUserService;
 
@@ -24,6 +27,7 @@ import login.User;
 public class RootController {
 	@Autowired
 	IUserService iUserService;
+
 	List<User> allemployee;
 	List<Product> allproduct;
 
@@ -50,16 +54,28 @@ public class RootController {
 					view.addObject("ranjeet", user1);
 					view.setViewName("view/adminprofile");
 				}
-				if (user1.getRoll_id() == 2) {
-					view.addObject("ranjeet", user1);
+				if(user1.getRoll_id()==2)
+				{
+					view.addObject("ranjeet",user1);
 					view.setViewName("view/userprofile");
+					
 				}
 				if (user1.getRoll_id() == 3) {
 					view.addObject("user", user1);
 					Product product = new Product();
 					List<Product> allproduct = iUserService.getAllProduct(product);
 					view.addObject("allitem", allproduct);
+					System.err.println("=========name"+allproduct.size());
+					
 					view.setViewName("view/shoping");
+				if (user1.getRoll_id() == 3) {
+					view.addObject("user", user1);
+					Product product = new Product();
+					List<Product> allproduct = iUserService.getAllProduct(product);
+					view.addObject("allitem", allproduct);
+					view.setViewName("view/shoping");
+				}
+
 				}
 
 			} else {
@@ -75,13 +91,51 @@ public class RootController {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ModelAndView register(@RequestParam("email") String email, @RequestParam("name") String name,
-			@RequestParam("contact") String contact, @RequestParam("password") String password,
-			@RequestParam("dob") String dob, @RequestParam("address") String address,
-			@RequestParam("gender") String gender) {
+	public ModelAndView register(RegisterDTO adduser ) {
+		System.err.println("user name===="+adduser.getName());
+		
+		
+	/*public ModelAndView register(@RequestParam("email") String email, @RequestParam("name") String name,
+		//	@RequestParam("contact") String contact, @RequestParam("password") String password,
+			//@RequestParam("dob") String dob, @RequestParam("address") String address,
+
+			//@RequestParam("cpassword") String cpassword, @RequestParam("gender") String gender) { */
 		ModelAndView view = new ModelAndView();
-		System.err.println("Register User ------------------------");
+		
 		User register = new User();
+		{
+register=DTODomainConverter.convertRegiterDTOToDomain(adduser);
+			/*register.setName(name);
+			register.setEmail(email);
+			register.setDob(dob);
+			register.setAddress(address);
+			register.setGender(gender);
+			register.setPassword(password);
+			register.setContact(contact);*/
+			User dbuser = iUserService.addUser(register);
+			RegisterDTO userprofile=new RegisterDTO();
+			userprofile=DTODomainConverter.convertDomainToRegisterDTO(dbuser);
+			int emailcount = iUserService.validateRegister(register);
+
+			view.addObject("register", dbuser);
+
+			if (dbuser != null) {
+				System.err.println("After Insert In DB Controller :" + dbuser.getId() + "" + dbuser.getMobileno());
+
+				view.setViewName("view/userprofile");
+			} else {
+				view.addObject("message1", "Email allready exits");
+				view.setViewName("view/index");
+				// view.setViewName("redirect:/");
+			}
+
+			if (dbuser != null) {
+				System.err.println("After Insert In DB Controller :" + dbuser.getId() + "====" + dbuser.getMobileno());
+			}
+
+			view.setViewName("view/userprofile");
+
+			return view;
 		register.setName(name);
 		register.setEmail(email);
 		register.setDob(dob);
@@ -93,11 +147,8 @@ public class RootController {
 		if (dbuser != null) {
 			System.err.println("After Insert In DB Controller :" + dbuser.getId() + "" + dbuser.getContact());
 		}
-
-		view.setViewName("view/userinfo");
-		return view;
+	
 	}
-
 	@RequestMapping("/viewallEmployee")
 	public ModelAndView allUser() {
 		ModelAndView view = new ModelAndView();
@@ -110,6 +161,8 @@ public class RootController {
 		return view;
 	}
 
+	@RequestMapping(value = "/update-emp-status", method = RequestMethod.POST)
+	@ResponseBody
 	@RequestMapping(value = "/update-emp-status", method = RequestMethod.GET)
 	@ResponseBody // return data as json Formate
 	public List<User> updateemployeeStatus(@RequestParam("email") String email,
@@ -212,6 +265,12 @@ public class RootController {
 		return view;
 	}
 
+	@RequestMapping(value = "/adduser", method = RequestMethod.POST)
+	public ModelAndView addProduct(@RequestParam("name") String productname, @RequestParam("price") String productprice,
+			@RequestParam("quantity") String quantity) {
+		ModelAndView view = new ModelAndView();
+		Product addproduct = new Product();
+		addproduct.setName(productname);
 	/*
 	 * @RequestMapping(value = "/addproduct", method = RequestMethod.POST) public
 	 * RedirectView addProduct(@RequestParam("name") String
@@ -240,6 +299,46 @@ public class RootController {
 	 * // return new; }
 	 */
 
+		try {
+			addproduct.setQuantity(Integer.parseInt(quantity));
+			addproduct.setPrice(Float.parseFloat(productprice));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		List<Product> product = iUserService.addProduct(addproduct);
+		if (product != null) {
+			Product viewproduct = new Product();
+			allproduct = iUserService.getAllProduct(viewproduct);
+			System.err.println(allproduct.isEmpty());
+			view.addObject("allUser", allproduct);
+			view.addObject("successmsg", "Added Successfull");
+			view.setViewName("redirect:viewallProduct");
+		} else {
+			view.addObject("allUser", allproduct);
+			view.addObject("message1", "!!! Record Not Added ");
+			view.setViewName("redirect:viewallProduct");
+		}
+		return view;
+	}
+
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+	public ModelAndView addItems(@RequestParam("email") String email, @RequestParam("itemid") String itemid,
+			@RequestParam("price") String price, @RequestParam("totalprice") String totalprice,
+			@RequestParam("quantity") String Quantity) {
+		ModelAndView view = new ModelAndView();
+		Product additem = new Product();
+		additem.setEmail(email);
+		additem.setPrice(Float.parseFloat(price));
+		additem.setQuantity(Integer.parseInt(Quantity));
+		additem.setItemid(Integer.parseInt(itemid));
+		additem.setTotalprice(Float.parseFloat(totalprice));
+		List<Product> edititem = iUserService.addItems(additem);
+		view.addObject("addeditems",edititem);
+		view.setViewName("view/");
+		return view;
+
+	}
+
 	@RequestMapping("/viewallProduct")
 	public ModelAndView allProduct() {
 		ModelAndView view = new ModelAndView();
@@ -252,7 +351,7 @@ public class RootController {
 		return view;
 	}
 
-	@RequestMapping(value = "/editProduct", method = RequestMethod.POST)
+	@RequestMapping(value = "/addUserItem", method = RequestMethod.POST)
 	public ModelAndView editProduct(@RequestParam("name") String productname,
 			@RequestParam("price") String productprice, @RequestParam("quantity") String quantity,
 			@RequestParam("id") int prodid) {
