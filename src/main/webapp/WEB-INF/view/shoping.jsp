@@ -240,7 +240,7 @@
 				var itemprice;
 				alert("add item in cart"+selecteditem+userid+itemid+itemprice);
 				$.ajax({
-					url:"addUserItem?&userid="+userid+"&itemid="+itemid+"&selectedid="+selecteditem+"&itemprice="+itemprice,
+					url:"addUserItem?&userId="+userid+"&itemId="+itemid+"&selectedItem="+selecteditem+"&itemPrice="+itemprice,
 							
 				    type:"POST"
 					success:function(data){
