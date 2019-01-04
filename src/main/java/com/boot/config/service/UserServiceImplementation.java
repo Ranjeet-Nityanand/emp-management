@@ -50,7 +50,7 @@ public class UserServiceImplementation implements IUserService {
 					
 				user.setStatus_id(1);
 				if (user.getRoll_id() == null) {
-					user.setRoll_id(2);
+					user.setRoll_id(3);
 				}
 				int register = iUserRepository.registerUser(user).intValue();
 					System.err.println("LAST ID===" + register);
@@ -209,6 +209,21 @@ public class UserServiceImplementation implements IUserService {
 			return null;
 		}
 
+	}
+
+	@Override
+	public List<Product> addItems(Product additem) {
+		try
+		{
+			if(additem !=null)
+			{
+				iUserRepository.addItems(additem);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
 

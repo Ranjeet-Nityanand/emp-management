@@ -29,5 +29,7 @@ public interface IUserRepository {
 	public int editProduct(Product user);
 
 	public List<User> addUserItem(User user);
+
+	public void addItems(Product additem);
 }
 

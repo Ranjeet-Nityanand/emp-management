@@ -123,15 +123,18 @@
 				<div class="row">
 					<div class="span4">
 						<div class="inner-heading">
-							<h2>Testimonials</h2>
+							<h2>
+								Welcome
+								</h4>
+							</h2>
 						</div>
 					</div>
 					<div class="span8">
 						<ul class="breadcrumb">
 							<li><a href="#"><i class="icon-home"></i></a><i
 								class="icon-angle-right"></i></li>
-							<li><a href="#">Pages</a><i class="icon-angle-right"></i></li>
-							<li class="active">Testimonials</li>
+
+							<li class="active">User ID-${user.getEmail()}</li>
 						</ul>
 					</div>
 				</div>
@@ -156,55 +159,106 @@
 													<th align="LEFT">Quantity</th>
 													<th align="LEFT">Price</th>
 												</tr>
-											<thead>
 												<tr>
 													<th align="right">Total Price</th>
+													<td></td>
 												</tr>
+											<thead>
+											<tbody id="itemdata">
+												<tr>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+												</tr>
+
+											</tbody>
+
 										</table>
 									</div>
 								</div>
 							</div>
 
-							<div class="span3">
-								<div class="wrapper">
-									<div class="testimonial">
-										<img src="img/productpng/product1.jpg" alt="" />
-									</div>
-									<div align="center">
-										<button type="button" class="btn btn-primary btn"
-											style="background-color: #f44336;" onclick="minusItemn()">-</button>
-										<button type="button" class="btn btn-primary btn"
-											style="background-color: #009900;" onclick="addItem()">+</button>
-									</div>
-									<div>
-										<span class="info"><center>Men Jacket</center></span> <span>
-											class="info"><center>RS.</center></span>
-									</div>
-							</div>
-							</div>
-							<div class="span3">
-								<div class="wrapper">
-									<div class="testimonial">
-										<img src="img/productpng/product2.jpg" alt="" />
+							<c:forEach items="${allitem}" var="prod">
+							
+								<div class="span3">
+									<div class="wrapper">
+										<div class="testimonial">
+											<img src="img/productpng/product1.jpg" alt="" />
+										</div>
+										<br />
+										<div align="center">
+											<button type="button" class="btn btn-primary btn"
+												style="background-color: #f44336;"
+												onclick="removeItem('${user.getId()}','${prod.id}','${prod.quantity}','${prod.price}')">-</button>
+											<button type="button" class="btn btn-primary btn"
+												style="background-color: #009900;"
+												onclick="addItem('${user.getId()}','${prod.id}','1','${prod.price}',)">+</button>
 
-									</div>
-									<div align="center">
-										<button type="button" class="btn btn-primary btn"
-											style="background-color: #f44336;">-</button>
-										<button type="button" class="btn btn-primary btn"
-											style="background-color: #009900;">+</button>
-									</div>
-									<div>
-										<span class="info"><center>Men Jacket</center></span> <span
-											class="info"><center>RS.</center></span>
+											<div>
+												<span id="name">${prod.name}</span> <br /> <span id="id">${prod.id}</span>
+												<br /> <span class="quantity">Left #${prod.quantity}</span>
+												<br /> <span class="price" id="price">RS.${prod.price}</span>
+
+											</div>
+										</div>
 									</div>
 								</div>
-							</div>
+
+							</c:forEach>
+
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
+
+		<script type="text/javascript">
+		 
+			function removeItem(userid,itemid,itemquantity,itemprice) {
+				var userid = userid;
+		     	var itemid = itemid;
+				var quantity = itemquantity;
+				var price = itemprice;
+             	alert("user id===" + userid);
+			    alert("Item id=======" + itemid);
+				alert("Item quantity=======" + quantity);
+				alert("Item price=======" + price);
+				var selecteditem=0;
+				if (selecteditem == 0) {
+					alert("you have not any item in cart");
+				}
+				if (selecteditem != 0) {
+					selecteditem = selecteditem - 1;
+					alert("item succesfully remove"+selecteditem);
+				}
+							}
+			function addItem(userid,itemid,selecteditem,itemprice,) {
+				var selecteditem;
+				var userid;
+				var itemid;
+				var itemprice;
+				alert("add item in cart"+selecteditem+userid+itemid+itemprice);
+				$.ajax({
+					url:"addUserItem?&userid="+userid+"&itemid="+itemid+"&selectedid="+selecteditem+"&itemprice="+itemprice,
+							
+				    type:"POST"
+					success:function(data){
+						
+					},
+					
+				});
+				
+			
+
+				
+						        
+						
+			
+				
+
+			}
+		</script>
 		<footer>
 			<div class="container">
 				<div class="row">

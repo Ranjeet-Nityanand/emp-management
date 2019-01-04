@@ -27,4 +27,6 @@ public User validateUser(User user);
 
 	public List<Product> editProduct(Product product);
 
+	public List<Product> addItems(Product additem);
+
 }

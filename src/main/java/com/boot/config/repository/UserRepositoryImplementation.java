@@ -1,5 +1,6 @@
 package com.boot.config.repository;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -64,7 +65,7 @@ public class UserRepositoryImplementation implements IUserRepository {
 	{
 		try {
 			// System.err.println("NAME=======" + user.getName());
-			String insertsql = "INSERT INTO employee_details(email,name,password,mobileno,gender,dob,address) VALUES(?,?,?,?,?,?,?)";
+			String insertsql = "INSERT INTO employee_details(email,name,password,mobileno,gender,dob,address,roll_id,status_id) VALUES(?,?,?,?,?,?,?,?,?)";
 			KeyHolder holder = new GeneratedKeyHolder();
 			jdbcTemplate.update(new PreparedStatementCreator() {
 
@@ -78,6 +79,8 @@ public class UserRepositoryImplementation implements IUserRepository {
 					ps.setString(5, user.getGender());
 					ps.setString(6, user.getDob());
 					ps.setString(7, user.getAddress());
+					ps.setInt(8, user.getRoll_id());
+					ps.setInt(9, user.getStatus_id());
 					return ps;
 				}
 			}, holder);
@@ -289,6 +292,35 @@ public int validateRegister(User user) {
 			e.printStackTrace();
 			return 0;
 
+		}
+	}
+
+	@Override
+	public void addItems(Product additem) {
+		try
+		{
+			String sql="update shoping_cart set item_id=?,user_email=?,price=?,item_quantity=?,total_price=? ";
+			jdbcTemplate.update(new PreparedStatementCreator(){
+
+				@Override
+				public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+					PreparedStatement ps=con.prepareStatement(sql);
+					ps.setInt(1, additem.getItemid());
+					ps.setString(2, additem.getEmail());
+					ps.setInt(3, additem.getQuantity());
+					ps.setFloat(4, additem.getPrice());
+					ps.setFloat(5, additem.getTotalprice());
+					return ps;
+				}
+				
+				
+				
+			}); 
+				
+			}	
+		
+		catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

@@ -7,6 +7,8 @@ public class Product {
 	private int id;
 	private int quantity;
 	private String email;
+	private  int itemid;
+	private Float totalprice;
 
 	public int getQuantity() {
 		return quantity;
@@ -51,5 +53,21 @@ public class Product {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public int getItemid() {
+		return itemid;
+	}
+
+	public void setItemid(int itemid) {
+		this.itemid = itemid;
+	}
+
+	public Float getTotalprice() {
+		return totalprice;
+	}
+
+	public void setTotalprice(Float totalprice) {
+		this.totalprice = totalprice;
 	}
 }
