@@ -6,9 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,9 +14,11 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import com.boot.config.resultmapper.CartMapper;
 import com.boot.config.resultmapper.ProductMapper;
 import com.boot.config.resultmapper.UserMapper;
 
+import login.CartDomain;
 import login.Product;
 import login.User;
 
@@ -49,20 +48,19 @@ public class UserRepositoryImplementation implements IUserRepository {
 	}
 
 	@Override
-	public List<User>  addUserItem(User user)
-	{
-		try
-		{
-			//String sql="SELECT pd.id,pd.product_name,pd.name,pd.price,pd.quantity,ed.email FROM employee_details ed, product_details pd";
+	public List<User> addUserItem(User user) {
+		try {
+			// String sql="SELECT
+			// pd.id,pd.product_name,pd.name,pd.price,pd.quantity,ed.email FROM
+			// employee_details ed, product_details pd";
 
-		}
-		catch (Exception e) {
-			
+		} catch (Exception e) {
+
 		}
 		return null;
 	}
-	public Long registerUser(User user)
-	{
+
+	public Long registerUser(User user) {
 		try {
 			// System.err.println("NAME=======" + user.getName());
 			String insertsql = "INSERT INTO employee_details(email,name,password,mobileno,gender,dob,address,roll_id,status_id) VALUES(?,?,?,?,?,?,?,?,?)";
@@ -93,32 +91,28 @@ public class UserRepositoryImplementation implements IUserRepository {
 			return null;
 
 		}
-		
-		
+
 	}
-	
+
 	@Override
-public int validateRegister(User user) {
-		int emailcount=0;
+	public int validateRegister(User user) {
+		int emailcount = 0;
 		try {
-			
+
 			System.err.println("email=====/////" + user.getEmail());
 			String sql = "SELECT COUNT(email) FROM employee_details WHERE email='" + user.getEmail().trim() + "'";
-			 emailcount=jdbcTemplate.queryForObject(sql, Integer.class);
-			
-			//Integer emailcount1 = getJdbcTemplate().queryForObject(sql, new Object[] { user.getEmail() }, Integer.class);
-			System.err.println("emailcount====" + emailcount);
+			emailcount = jdbcTemplate.queryForObject(sql, Integer.class);
 
+			// Integer emailcount1 = getJdbcTemplate().queryForObject(sql, new Object[] {
+			// user.getEmail() }, Integer.class);
+			System.err.println("emailcount====" + emailcount);
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			
-		
+
 		}
-		
+
 		return emailcount;
-		
-	
 
 	}
 
@@ -126,9 +120,6 @@ public int validateRegister(User user) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
-	
 
 	@Override
 	public int updateemployeeStatus(User user) {
@@ -169,7 +160,6 @@ public int validateRegister(User user) {
 		}
 
 	}
-	
 
 	@Override
 	public int addEmployee(User user) {
@@ -263,16 +253,9 @@ public int validateRegister(User user) {
 			return null;
 		}
 	}
-	
-	
-	
-	
-		
-	
 
 	@Override
-	public int editProduct(Product user)
-	{
+	public int editProduct(Product user) {
 		try {
 			String updatesql = "update product_details set product_name= ?,price= ?,quantity= ? where id= ?";
 			jdbcTemplate.update(new PreparedStatementCreator() {
@@ -297,14 +280,13 @@ public int validateRegister(User user) {
 
 	@Override
 	public void addItems(Product additem) {
-		try
-		{
-			String sql="update shoping_cart set item_id=?,user_email=?,price=?,item_quantity=?,total_price=? ";
-			jdbcTemplate.update(new PreparedStatementCreator(){
+		try {
+			String sql = "update shoping_cart set item_id=?,user_email=?,price=?,item_quantity=?,total_price=? ";
+			jdbcTemplate.update(new PreparedStatementCreator() {
 
 				@Override
 				public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-					PreparedStatement ps=con.prepareStatement(sql);
+					PreparedStatement ps = con.prepareStatement(sql);
 					ps.setInt(1, additem.getItemid());
 					ps.setString(2, additem.getEmail());
 					ps.setInt(3, additem.getQuantity());
@@ -312,18 +294,88 @@ public int validateRegister(User user) {
 					ps.setFloat(5, additem.getTotalprice());
 					return ps;
 				}
-				
-				
-				
-			}); 
-				
-			}	
-		
+
+			});
+
+		}
+
 		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	
+	@Override
+	public int addCardData(CartDomain cartdomain) {
+		try {
+			String insertsql = "INSERT INTO shopping_cart(user_id,item_id,item_price,item_quantity) VALUES(?,?,?,?)";
+			jdbcTemplate.update(new PreparedStatementCreator() {
+				@Override
+				public java.sql.PreparedStatement createPreparedStatement(java.sql.Connection con) throws SQLException {
+					PreparedStatement ps = con.prepareStatement(insertsql);
+					ps.setInt(1, cartdomain.getUserid());
+					ps.setInt(2, cartdomain.getItemid());
+					ps.setFloat(3, cartdomain.getItemprice());
+					ps.setInt(4, cartdomain.getItemquantity());
+
+					return ps;
+				}
+			});
+
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 
+	@Override
+	public List<CartDomain> getAllCartData(CartDomain crd) {
+		try {
+			String sql = "select id,user_id,item_id,item_quantity,item_price from shopping_cart";
+			List<CartDomain> cartDomain = jdbcTemplate.query(sql, new CartMapper());
+			return cartDomain;
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+			return null;
+		}
+//		return null;
+	}
+
+	@Override
+	public int itemCount(CartDomain additem) {
+		int itemcount = 0;
+		try {
+			String sql = "SELECT item_quantity FROM shopping_cart WHERE user_id='" + additem.getUserid()
+					+ "' AND item_id='" + additem.getItemid() + "'";
+			itemcount = jdbcTemplate.queryForObject(sql, Integer.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return itemcount;
+	}
+
+	@Override
+	public void updateCartItem(CartDomain cartdomain) {
+		try {
+			String sqlid = "SELECT id FROM shopping_cart WHERE user_id='" + cartdomain.getUserid() + "' AND item_id='"
+					+ cartdomain.getItemid() + "'";
+			int id = jdbcTemplate.queryForObject(sqlid, Integer.class);
+			System.err.println("id in update cartitem" + id);
+			String sql = "UPDATE shopping_cart SET item_quantity=?,total_price=? WHERE item_id='"
+					+ cartdomain.getItemid() + "' AND id='" + id + "'";
+			jdbcTemplate.update(new PreparedStatementCreator() {
+
+				@Override
+				public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+					PreparedStatement ps = con.prepareStatement(sql);
+					ps.setInt(1, cartdomain.getItemquantity());
+					ps.setFloat(2, cartdomain.getTotalprice());
+					return ps;
+				}
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+}

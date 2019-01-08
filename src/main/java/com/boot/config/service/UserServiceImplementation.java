@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.boot.config.repository.IUserRepository;
 
+import login.CartDomain;
 import login.Product;
 import login.User;
 
@@ -43,16 +44,15 @@ public class UserServiceImplementation implements IUserService {
 		try {
 			if (user != null && user.getEmail() != null && user.getEmail().trim() != null) {
 
-				
 				int emailcount = iUserRepository.validateRegister(user);
-				System.err.println("emailcount========"+emailcount);
-				if (emailcount ==0) {
-					
-				user.setStatus_id(1);
-				if (user.getRoll_id() == null) {
-					user.setRoll_id(3);
-				}
-				int register = iUserRepository.registerUser(user).intValue();
+				System.err.println("emailcount========" + emailcount);
+				if (emailcount == 0) {
+
+					user.setStatus_id(1);
+					if (user.getRoll_id() == 0) {
+						user.setRoll_id(3);
+					}
+					int register = iUserRepository.registerUser(user).intValue();
 					System.err.println("LAST ID===" + register);
 					user.setId(register);
 					List<User> userList = iUserRepository.getAllEmployee(user);
@@ -63,8 +63,7 @@ public class UserServiceImplementation implements IUserService {
 						System.err.println("value============================" + dbuser.getId());
 						return dbuser;
 					}
-				}
-				else
+				} else
 					return null;
 			}
 		} catch (Exception e) {
@@ -77,38 +76,24 @@ public class UserServiceImplementation implements IUserService {
 	public int validateRegister(User user) {
 		int emailcount = 0;
 		try {
-		 emailcount = iUserRepository.validateRegister(user);
-		System.err.println("====count========"+emailcount);
-		
-	
-				int register = iUserRepository.registerUser(user).intValue();
-				user.setId(register);
-				List<User> userList = iUserRepository.getAllEmployee(user);
-				System.err.println("After DB ISERT " + userList.isEmpty());
-				if (userList != null) {
+			emailcount = iUserRepository.validateRegister(user);
+			System.err.println("====count========" + emailcount);
 
-					User dbuser = userList.get(0);
-					return emailcount;
-				}
+			int register = iUserRepository.registerUser(user).intValue();
+			user.setId(register);
+			List<User> userList = iUserRepository.getAllEmployee(user);
+			System.err.println("After DB ISERT " + userList.isEmpty());
+			if (userList != null) {
 
-				return null;
+				User dbuser = userList.get(0);
+				return emailcount;
 			}
-
-			else
-				return null;
 		} catch (Exception e) {
-			return null;
-		}
-		 catch (Exception e) {
 			e.printStackTrace();
-		
-		
-	
-		 }
-		return emailcount;
-	
+
 		}
-		
+
+		return emailcount;
 
 	}
 
@@ -222,18 +207,45 @@ public class UserServiceImplementation implements IUserService {
 
 	@Override
 	public List<Product> addItems(Product additem) {
-		try
-		{
-			if(additem !=null)
-			{
+		try {
+			if (additem != null) {
 				iUserRepository.addItems(additem);
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		catch (Exception e) {
+		return null;
+	}
+
+	@Override
+	public List<CartDomain> getAllCartData(CartDomain cartdom) {
+		List<CartDomain> allCartdata = iUserRepository.getAllCartData(cartdom);
+		return allCartdata;
+	}
+
+	@Override
+	public List<CartDomain> addCartData(CartDomain cartdomain) {
+		try {
+			if (cartdomain != null) {
+				int itemcount = iUserRepository.itemCount(cartdomain);
+				System.err.println("item count data------->" + itemcount);
+				if (itemcount > 0) {
+					cartdomain.setItemquantity(++itemcount);
+					Float totalprice = itemcount * (cartdomain.getItemprice());
+					cartdomain.setTotalprice(totalprice);
+					iUserRepository.updateCartItem(cartdomain);
+				} else {
+					cartdomain.setTotalprice(cartdomain.getItemprice());
+					iUserRepository.addCardData(cartdomain);
+				}
+
+			}
+			List<CartDomain> addCartdata = iUserRepository.getAllCartData(cartdomain);
+			return addCartdata;
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 
 }
-

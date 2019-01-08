@@ -213,10 +213,11 @@
            </div>
       </div>
     </section>
+    <section>
     <div class="container" id="bodydiv">
     <div class="container-fluid">
 		
-		<table class="table table-hover table table-dark" border="2" style="width: 100%">
+		<table class="table table-hover table table-dark table table-border:2" style="width: 100%">
 			<thead>
 				<tr>
 					<th>Employee_ID</th>
@@ -239,7 +240,7 @@
 						<td>${emp.name}</td>
 						<td>${emp.email}</td>
 						<td>${emp.address}</td>
-						<td>${emp.contact}
+						<td>${emp.contact}</td>
 						<td>${emp.rollName}</td>
 						<c:if test="${emp.status_id==1}">
 							<td><button type="button" class="btn-danger" id="dangerbtn"
@@ -255,15 +256,12 @@
 							<td><button type="button" class="btn-success" id="successbtn"
 									onclick="editProfile('${emp.id}','${emp.name}','${emp.email}','${emp.contact}','${emp.address}','${emp.roll_id}')">Edit</button></td>
 					</tr>
-					
 				</c:forEach>
-
-
 			</tbody>
 		</table>
-    
     </div>
-   
+    </div>
+    </section>
    
    
           <div class="span8">
@@ -274,8 +272,8 @@
             </ul>
           </div>
         </div>
-      </div>
-    </section>
+      
+   
     
        
     
@@ -422,7 +420,6 @@
  
 
  
-
 <script>
 function editProfile(id,name,email,contact,address,roll_id){
 	//document.getElementById("myModal").innerHTML=""+name+""+email+""+mobileno+""+address+""+roleName+".";

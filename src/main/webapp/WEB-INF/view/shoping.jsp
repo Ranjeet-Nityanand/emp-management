@@ -38,7 +38,6 @@
 						title="Click me you'll get a surprise" data-target=".hidden-top"><i></i>Open</a>
 				</div>
 				<!-- end toggle link -->
-
 				<div class="row">
 					<div class="span4">
 						<div class="logo">
@@ -47,7 +46,6 @@
 							<h1>We solve your Problems</h1>
 						</div>
 					</div>
-
 					<div class="span8">
 						<div class="navbar navbar-static-top">
 							<div class="navigation">
@@ -158,10 +156,10 @@
 													<th align="LEFT">Item Name</th>
 													<th align="LEFT">Quantity</th>
 													<th align="LEFT">Price</th>
-												</tr>
-												<tr>
+
+
 													<th align="right">Total Price</th>
-													<td></td>
+
 												</tr>
 											<thead>
 											<tbody id="itemdata">
@@ -179,92 +177,103 @@
 								</div>
 							</div>
 
-							<c:forEach items="${allitem}" var="prod">
-							
-								<div class="span3">
-									<div class="wrapper">
-										<div class="testimonial">
-											<img src="img/productpng/product1.jpg" alt="" />
-										</div>
-										<br />
-										<div align="center">
-											<button type="button" class="btn btn-primary btn"
-												style="background-color: #f44336;"
-												onclick="removeItem('${user.getId()}','${prod.id}','${prod.quantity}','${prod.price}')">-</button>
-											<button type="button" class="btn btn-primary btn"
-												style="background-color: #009900;"
-												onclick="addItem('${user.getId()}','${prod.id}','1','${prod.price}',)">+</button>
-
-											<div>
-												<span id="name">${prod.name}</span> <br /> <span id="id">${prod.id}</span>
-												<br /> <span class="quantity">Left #${prod.quantity}</span>
-												<br /> <span class="price" id="price">RS.${prod.price}</span>
-
-											</div>
-										</div>
-									</div>
-								</div>
-
-							</c:forEach>
-
-						</div>
+			<c:forEach items="${allitem}" var="prod">
+				<div class="span3">
+					<div class="wrapper">
+					<div class="testimonial">
+						<img src="img/productpng/appleiphone.jpeg"
+						style="height: 200px" alt="" />
 					</div>
+					<br />
+				<div align="center">
+				<button type="button" class="btn btn-primary btn"
+				style="background-color: #f44336;"
+				onclick="removeItem('${user.getId()}','${prod.id}','${prod.quantity}','${prod.price}')">-</button>
+				<button type="button" class="btn btn-primary btn"
+				style="background-color: #009900;"
+				onclick="addItem('${user.getId()}','${prod.id}','1','${prod.price}')">+</button>
+				<div>
+					<span id="name">${prod.name}</span> <br /> <span id="id">${prod.id}</span>
+					<br /> <span class="quantity">Left #${prod.quantity}</span>
+					<br /> <span class="price" id="price">RS.${prod.price}</span>
 				</div>
 			</div>
-		</section>
+		</div>
+</div>
+			</c:forEach>
+		</div>
+	</div>
+	</div>
+</div>
+</section>
 
-		<script type="text/javascript">
+<script type="text/javascript">
+	
 		 
-			function removeItem(userid,itemid,itemquantity,itemprice) {
-				var userid = userid;
-		     	var itemid = itemid;
-				var quantity = itemquantity;
-				var price = itemprice;
-             	alert("user id===" + userid);
-			    alert("Item id=======" + itemid);
-				alert("Item quantity=======" + quantity);
-				alert("Item price=======" + price);
-				var selecteditem=0;
-				if (selecteditem == 0) {
-					alert("you have not any item in cart");
-				}
-				if (selecteditem != 0) {
-					selecteditem = selecteditem - 1;
-					alert("item succesfully remove"+selecteditem);
-				}
-							}
-			function addItem(userid,itemid,selecteditem,itemprice,) {
-				var selecteditem;
-				var userid;
-				var itemid;
-				var itemprice;
-				alert("add item in cart"+selecteditem+userid+itemid+itemprice);
-				$.ajax({
-					url:"addUserItem?&userId="+userid+"&itemId="+itemid+"&selectedItem="+selecteditem+"&itemPrice="+itemprice,
-							
-				    type:"POST"
-					success:function(data){
-						
-					},
-					
-				});
-				
-			
-
-				
-						        
-						
-			
-				
-
+		function removeItem(userid,itemid,itemquantity,itemprice) {
+			var userid = userid;
+	     	var itemid = itemid;
+			var quantity = itemquantity;
+			var price = itemprice;
+         	alert("user id===" + userid);
+		    alert("Item id=======" + itemid);
+			alert("Item quantity=======" + quantity);
+			alert("Item price=======" + price);
+			var selecteditem=0;
+			if (selecteditem == 0) {
+				alert("you have not any item in cart");
 			}
-		</script>
-		<footer>
-			<div class="container">
-				<div class="row">
-					<div class="span3">
-						<div class="widget">
-							<h5 class="widgetheading">Browse pages</h5>
+			if (selecteditem != 0) {
+				selecteditem = selecteditem - 1;
+				alert("item succesfully remove"+selecteditem);
+			}
+						}
+		function addItem(userid,itemid,selecteditem,itemprice,) {
+			var selectedItem=selecteditem;
+			var userId=userid;
+			var itemId=itemid;
+			var itemPrice=itemprice;
+			alert(itemId+"  "+userid);
+			$.ajax({
+				type:"POST",
+				url:'/process-item',
+				data:JSON.stringify({"userid":userId,"itemid":itemId,"selecteditem":selectedItem,"itemprice":itemPrice}),
+				contentType :'application/json',		
+			    success : function(data){
+					$("#itemdata").empty();
+					if(data!=null && data.length>0){
+						for(var i=0;i<data.length;i++){
+							var trtable ="<tr>"+
+							"<td>"+data[i].userid+"</td>"+
+							"<td>"+data[i].itemid+"</td>"+
+							"<td>"+data[i].itemquantity+"</td>"+
+							"<td>"+data[i].itemprice+"</td>"
+							trtable +="</tr>";
+							$("#itemdata").append(trtable);
+								}
+								
+					}
+					else{
+						alert("No Data found");
+					}
+				},error :function(){
+					
+				}
+				
+			});
+	
+		
+			
+
+		}
+		
+</script>
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="span3">
+					<div class="widget">
+						<h5 class="widgetheading">Browse pages</h5>
 							<ul class="link-list">
 								<li><a href="#">About our company</a></li>
 								<li><a href="#">Our services</a></li>
