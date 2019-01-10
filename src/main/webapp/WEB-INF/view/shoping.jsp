@@ -122,8 +122,7 @@
 					<div class="span4">
 						<div class="inner-heading">
 							<h2>
-								Welcome
-								</h4>
+								
 							</h2>
 						</div>
 					</div>
@@ -142,36 +141,26 @@
 			<div class="container">
 				<div class="row marginbot30">
 					<div class="span12">
-
 						<div class="row">
-
 							<div class="span4">
 								<div class="wrapper">
 									<div class="testimonial">
 										<table class="table">
 											<thead>
-
 												<tr>
 													<th align="LEFT">S.no.</th>
 													<th align="LEFT">Item Name</th>
 													<th align="LEFT">Quantity</th>
 													<th align="LEFT">Price</th>
-
-
-													<th align="right">Total Price</th>
-
 												</tr>
+											
 											<thead>
 											<tbody id="itemdata">
-												<tr>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
-												</tr>
-
+												
 											</tbody>
-
+									
+				
+											
 										</table>
 									</div>
 								</div>
@@ -182,16 +171,16 @@
 					<div class="wrapper">
 					<div class="testimonial">
 						<img src="img/productpng/appleiphone.jpeg"
-						style="height: 200px" alt="" />
+						style="height: 200px;padding-left:70px"alt="" />
 					</div>
 					<br />
 				<div align="center">
 				<button type="button" class="btn btn-primary btn"
 				style="background-color: #f44336;"
-				onclick="removeItem('${user.getId()}','${prod.id}','${prod.quantity}','${prod.price}')">-</button>
+				onclick="removeItem('${user.getId()}','${prod.id}','${prod.quantity}','${prod.price}','${prod.name}')">-</button>
 				<button type="button" class="btn btn-primary btn"
 				style="background-color: #009900;"
-				onclick="addItem('${user.getId()}','${prod.id}','1','${prod.price}')">+</button>
+				onclick="addItem('${user.getId()}','${prod.id}','1','${prod.price}','${prod.name}')">+</button>
 				<div>
 					<span id="name">${prod.name}</span> <br /> <span id="id">${prod.id}</span>
 					<br /> <span class="quantity">Left #${prod.quantity}</span>
@@ -210,47 +199,86 @@
 <script type="text/javascript">
 	
 		 
-		function removeItem(userid,itemid,itemquantity,itemprice) {
-			var userid = userid;
-	     	var itemid = itemid;
-			var quantity = itemquantity;
-			var price = itemprice;
-         	alert("user id===" + userid);
-		    alert("Item id=======" + itemid);
-			alert("Item quantity=======" + quantity);
-			alert("Item price=======" + price);
-			var selecteditem=0;
-			if (selecteditem == 0) {
-				alert("you have not any item in cart");
-			}
-			if (selecteditem != 0) {
-				selecteditem = selecteditem - 1;
-				alert("item succesfully remove"+selecteditem);
-			}
-						}
-		function addItem(userid,itemid,selecteditem,itemprice,) {
-			var selectedItem=selecteditem;
-			var userId=userid;
-			var itemId=itemid;
-			var itemPrice=itemprice;
-			alert(itemId+"  "+userid);
+		function removeItem(userid,itemid,itemquantity,itemprice,itemname) {
+			var userId = userid;
+	     	var itemId = itemid;
+			var selectedItem = itemquantity;
+			var itemPrice = itemprice;
+			var itemName=itemname;
 			$.ajax({
 				type:"POST",
-				url:'/process-item',
-				data:JSON.stringify({"userid":userId,"itemid":itemId,"selecteditem":selectedItem,"itemprice":itemPrice}),
+				url:'/process-item1',
+				data:JSON.stringify({"userid":userId,"itemid":itemId,"selecteditem":selectedItem,"itemprice":itemPrice,"itemname":itemName}),
 				contentType :'application/json',		
 			    success : function(data){
 					$("#itemdata").empty();
 					if(data!=null && data.length>0){
 						for(var i=0;i<data.length;i++){
+							var srno=i+1;
 							var trtable ="<tr>"+
-							"<td>"+data[i].userid+"</td>"+
-							"<td>"+data[i].itemid+"</td>"+
+							"<td>"+srno+"</td>"+
+							"<td>"+data[i].itemname+"</td>"+
 							"<td>"+data[i].itemquantity+"</td>"+
-							"<td>"+data[i].itemprice+"</td>"
+							"<td>"+data[i].totalprice+"</td>"
 							trtable +="</tr>";
 							$("#itemdata").append(trtable);
-								}
+						}
+						
+							var totalamount1=0;
+							for(var j=0;j<data.length;j++){
+								totalamount1=totalamount1+data[j].totalprice;
+							}
+							
+							$("#itemdata").append("<tr>"+
+									"<td>Total Amount<td><td>"+ totalamount1+"</td>"+
+									"</tr>");
+							
+					}
+					
+					else{
+						//alert("No Data found");
+					}
+				},error :function(){
+				}
+				
+			});
+						}
+		function addItem(userid,itemid,selecteditem,itemprice,itemname) {
+			var selectedItem=selecteditem;
+			var userId=userid;
+			var itemId=itemid;
+			var itemPrice=itemprice;
+			var itemName=itemname;
+			$.ajax({
+				type:"POST",
+				url:'/process-item',
+				data:JSON.stringify({"userid":userId,"itemid":itemId,"selecteditem":selectedItem,"itemprice":itemPrice,"itemname":itemName}),
+				contentType :'application/json',		
+			    success : function(data){
+					$("#itemdata").empty();
+					if(data!=null && data.length>0){
+						for(var i=0;i<data.length;i++){
+							var srno=i+1;
+							var trtable ="<tr>"+
+							"<td>"+srno+"</td>"+
+							"<td>"+data[i].itemname+"</td>"+
+							"<td>"+data[i].itemquantity+"</td>"+
+							"<td>"+data[i].totalprice+"</td>"
+							trtable +="</tr>";
+							$("#itemdata").append(trtable);
+							}
+						
+						var totalamount1=0;
+						for(var j=0;j<data.length;j++){
+							totalamount1=totalamount1+data[j].totalprice;
+						}
+						
+						$("#itemdata").append("<tr>"+
+								"<td>Total Amount<td><td>"+ totalamount1+"</td>"+
+								"</tr>");
+											
+						
+					
 								
 					}
 					else{

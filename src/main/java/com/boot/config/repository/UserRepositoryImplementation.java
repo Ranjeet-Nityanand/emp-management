@@ -307,7 +307,7 @@ public class UserRepositoryImplementation implements IUserRepository {
 	@Override
 	public int addCardData(CartDomain cartdomain) {
 		try {
-			String insertsql = "INSERT INTO shopping_cart(user_id,item_id,item_price,item_quantity) VALUES(?,?,?,?)";
+			String insertsql = "INSERT INTO shopping_cart(user_id,item_id,item_price,item_quantity,item_name,total_price) VALUES(?,?,?,?,?,?)";
 			jdbcTemplate.update(new PreparedStatementCreator() {
 				@Override
 				public java.sql.PreparedStatement createPreparedStatement(java.sql.Connection con) throws SQLException {
@@ -316,7 +316,8 @@ public class UserRepositoryImplementation implements IUserRepository {
 					ps.setInt(2, cartdomain.getItemid());
 					ps.setFloat(3, cartdomain.getItemprice());
 					ps.setInt(4, cartdomain.getItemquantity());
-
+					ps.setString(5, cartdomain.getItemname());
+					ps.setFloat(6, cartdomain.getItemprice() * cartdomain.getItemquantity());
 					return ps;
 				}
 			});
@@ -331,7 +332,7 @@ public class UserRepositoryImplementation implements IUserRepository {
 	@Override
 	public List<CartDomain> getAllCartData(CartDomain crd) {
 		try {
-			String sql = "select id,user_id,item_id,item_quantity,item_price from shopping_cart";
+			String sql = "select id,user_id,item_id,item_quantity,item_price,item_name,total_price from shopping_cart";
 			List<CartDomain> cartDomain = jdbcTemplate.query(sql, new CartMapper());
 			return cartDomain;
 		} catch (DataAccessException e) {
@@ -375,6 +376,32 @@ public class UserRepositoryImplementation implements IUserRepository {
 			});
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public int removeCardData(CartDomain cartdomain) {
+		try {
+			String sqlid = "SELECT id FROM shopping_cart WHERE user_id='" + cartdomain.getUserid() + "' AND item_id='"
+					+ cartdomain.getItemid() + "'";
+			int id = jdbcTemplate.queryForObject(sqlid, Integer.class);
+			System.err.println("id in update cartitem in deletion======>" + id);
+			String insertsql = "delete from shopping_cart where id= ? and user_id=? and item_id=?";
+			jdbcTemplate.update(new PreparedStatementCreator() {
+				@Override
+				public java.sql.PreparedStatement createPreparedStatement(java.sql.Connection con) throws SQLException {
+					PreparedStatement ps = con.prepareStatement(insertsql);
+					ps.setInt(1, id);
+					ps.setInt(2, cartdomain.getUserid());
+					ps.setFloat(3, cartdomain.getItemid());
+					return ps;
+				}
+			});
+
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
 		}
 	}
 

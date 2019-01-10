@@ -34,4 +34,6 @@ public interface IUserService {
 
 	public List<CartDomain> getAllCartData(CartDomain cartdom);
 
+	public List<CartDomain> removeCartData(CartDomain cartdomain);
+
 }

@@ -33,6 +33,8 @@ public interface IUserRepository {
 
 	public int addCardData(CartDomain cartdomain);
 
+	public int removeCardData(CartDomain cartdomain);
+
 	public List<CartDomain> getAllCartData(CartDomain crd);
 
 	int itemCount(CartDomain additem);

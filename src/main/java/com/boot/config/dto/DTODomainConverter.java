@@ -92,6 +92,7 @@ public class DTODomainConverter {
 		cdomain.setItemid(cdto.getItemid());
 		cdomain.setItemprice(cdto.getItemprice());
 		cdomain.setItemquantity(cdto.getSelecteditem());
+		cdomain.setItemname(cdto.getItemname());
 		return cdomain;
 	}
 

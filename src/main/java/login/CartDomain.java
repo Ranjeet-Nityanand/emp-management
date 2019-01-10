@@ -7,10 +7,19 @@ public class CartDomain {
 	private Integer itemquantity;
 	private Float itemprice;
 	private Float totalprice;
+	private String itemname;
 
 	@Override
 	public String toString() {
 		return "[ id=" + id + ", userid=" + userid + ", itemid=" + itemid + ", itemPrice=" + itemprice + "]";
+	}
+
+	public String getItemname() {
+		return itemname;
+	}
+
+	public void setItemname(String itemname) {
+		this.itemname = itemname;
 	}
 
 	public Integer getId() {

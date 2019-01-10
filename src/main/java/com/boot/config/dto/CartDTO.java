@@ -6,6 +6,24 @@ public class CartDTO {
 	private Integer itemid;
 	private Integer selecteditem;
 	private Float itemprice;
+	private String itemname;
+	private Float totalprice;
+
+	public Float getTotalprice() {
+		return totalprice;
+	}
+
+	public void setTotalprice(Float totalprice) {
+		this.totalprice = totalprice;
+	}
+
+	public String getItemname() {
+		return itemname;
+	}
+
+	public void setItemname(String itemname) {
+		this.itemname = itemname;
+	}
 
 	public Integer getId() {
 		return id;

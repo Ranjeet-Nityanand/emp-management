@@ -235,8 +235,33 @@ public class UserServiceImplementation implements IUserService {
 					cartdomain.setTotalprice(totalprice);
 					iUserRepository.updateCartItem(cartdomain);
 				} else {
-					cartdomain.setTotalprice(cartdomain.getItemprice());
+					// cartdomain.setTotalprice(cartdomain.getItemprice());
 					iUserRepository.addCardData(cartdomain);
+				}
+
+			}
+			List<CartDomain> addCartdata = iUserRepository.getAllCartData(cartdomain);
+			return addCartdata;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<CartDomain> removeCartData(CartDomain cartdomain) {
+		try {
+			if (cartdomain != null) {
+				int itemcount = iUserRepository.itemCount(cartdomain);
+				System.err.println("item count data------->" + itemcount);
+				if (itemcount > 1) {
+					cartdomain.setItemquantity(--itemcount);
+					Float totalprice = itemcount * (cartdomain.getItemprice());
+					cartdomain.setTotalprice(totalprice);
+					iUserRepository.updateCartItem(cartdomain);
+				} else {
+					cartdomain.setTotalprice(cartdomain.getItemprice());
+					iUserRepository.removeCardData(cartdomain);
 				}
 
 			}

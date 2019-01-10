@@ -17,6 +17,8 @@ public class CartMapper implements RowMapper<CartDomain> {
 		cartdom.setItemid(rs.getInt("item_id"));
 		cartdom.setItemquantity(rs.getInt("item_quantity"));
 		cartdom.setItemprice(rs.getFloat("item_price"));
+		cartdom.setItemname(rs.getString("item_name"));
+		cartdom.setTotalprice(rs.getFloat("total_price"));
 		return cartdom;
 	}
 

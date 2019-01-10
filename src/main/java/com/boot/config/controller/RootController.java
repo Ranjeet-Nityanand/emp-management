@@ -328,4 +328,17 @@ public class RootController {
 		return cartdomain2;
 	}
 
+	@RequestMapping(value = "/process-item1", method = RequestMethod.POST)
+	@ResponseBody // return data as json Formate
+	public List<CartDomain> processItem1(@RequestBody CartDTO cart) {
+		CartDomain cartdomain = new CartDomain();
+		System.err.println("Shopping cart data" + cart);
+		cartdomain = DTODomainConverter.convertCartDTOToDomain(cart);
+		iUserService.removeCartData(cartdomain);
+		List<CartDomain> cartdomain2 = iUserService.getAllCartData(cartdomain);
+
+		System.err.println("this is the vlaue in Root Controller" + cartdomain2);
+		return cartdomain2;
+	}
+
 }
