@@ -210,7 +210,7 @@
     </section>
     <section id="content">
       <div class="container" style="height: 400px;">
-			<form class="form-horizontal" action="addproduct" method="post" onsubmit="return validation()">
+			<form class="form-horizontal" action="addproduct" method="post" enctype="multipart/form-data"  onsubmit="return validation()">
 				<div class="control-group">
                     <label class="control-label" for="inputName">Product Name</label>
                     <div class="controls">
@@ -228,6 +228,13 @@
                     <label class="control-label" for="inputName">Quantity</label>
                     <div class="controls">
                       <input type="text" id="quantity" name="quantity" placeholder="Enter Product Quantity" required>
+                   		<span id="quantitys" class="text-danger; font-weight-bold"> </span>
+                    </div>
+                    </div>
+                    <div class="control-group">
+                    <label class="control-label" for="inputName">Image</label>
+                    <div class="controls">
+                      <input type="file" id="datadto" size="60" name="file">
                    		<span id="quantitys" class="text-danger; font-weight-bold"> </span>
                     </div>
                     </div>

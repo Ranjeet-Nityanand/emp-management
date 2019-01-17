@@ -1,13 +1,20 @@
 package com.boot.config.service;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import com.boot.config.repository.IUserRepository;
 
 import login.CartDomain;
+import login.MailSender;
 import login.Product;
 import login.User;
 
@@ -16,6 +23,10 @@ public class UserServiceImplementation implements IUserService {
 
 	@Autowired
 	IUserRepository iUserRepository;
+	@Autowired
+	JavaMailSender javaMailSender;
+	@Autowired
+	private Environment env;
 
 	@Override
 	public User validateUser(User user) {
@@ -85,7 +96,7 @@ public class UserServiceImplementation implements IUserService {
 			System.err.println("After DB ISERT " + userList.isEmpty());
 			if (userList != null) {
 
-				User dbuser = userList.get(0);
+//				User dbuser = userList.get(0);
 				return emailcount;
 			}
 		} catch (Exception e) {
@@ -271,6 +282,39 @@ public class UserServiceImplementation implements IUserService {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public void sendEmail(User user) {
+		try {
+			if (user != null && user.getEmail() != null && user.getEmail().trim() != null) {
+				List<User> user1 = iUserRepository.sendEmail(user);
+
+				MailSender mailSender = new MailSender();
+				MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+				try {
+					// Properties env = new Properties();
+					MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage,
+							MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
+					messageHelper.setFrom(env.getProperty("spring.mail.username"));
+					System.err.println("User email from database============>>>>>>>>>." + user1.get(0).getEmail());
+					messageHelper.setTo(user1.get(0).getEmail());
+					messageHelper.setSubject("Hii This is Test Email");
+					messageHelper.setText(
+							"Hi, " + "<br><br>New customer " + user1.get(0).getPassword().trim()
+									+ " has been registered with us. " + "<br><br>Thanks & Regards<br>GST Solutions",
+							true);
+					javaMailSender.send(mimeMessage);
+//					mailSender.sendMail(javaMailSender, mimeMessage);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+//				ms.sendMail(javaMailSender, "yk635541@gmail.com", user1.getEmail(), "Testing", "hiii");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

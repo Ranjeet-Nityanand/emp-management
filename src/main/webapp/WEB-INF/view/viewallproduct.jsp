@@ -201,8 +201,19 @@
            </div>
       </div>
     </section>
-    <div class="container" id="bodydiv">
-    <div class="container-fluid">
+    
+    
+   
+   
+          <!--  <div class="span8">
+            <ul class="breadcrumb">
+              <li><a href="#"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
+              <li><a href="#">Features</a><i class="icon-angle-right"></i></li>
+              <li class="active">Icons</li>
+            </ul>
+          </div>-->
+    <div class="container" id="bodydiv">      
+           <div class="container-fluid">
 		
 		<table class="table table-hover table table-dark" border="2" style="width: 100%">
 			<thead>
@@ -235,16 +246,8 @@
 		</table>
     
     </div>
-   
-   
-   
-          <div class="span8">
-            <ul class="breadcrumb">
-              <li><a href="#"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
-              <li><a href="#">Features</a><i class="icon-angle-right"></i></li>
-              <li class="active">Icons</li>
-            </ul>
-          </div>
+  
+          
         </div>
       </div>
     

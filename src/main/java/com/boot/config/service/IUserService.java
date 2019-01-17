@@ -36,4 +36,6 @@ public interface IUserService {
 
 	public List<CartDomain> removeCartData(CartDomain cartdomain);
 
+	public void sendEmail(User user);
+
 }

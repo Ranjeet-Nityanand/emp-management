@@ -1,24 +1,32 @@
 package com.boot.config.controller;
 
-import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.boot.config.dto.CartDTO;
 import com.boot.config.dto.DTODomainConverter;
-import com.boot.config.dto.ProductDTO;
 import com.boot.config.dto.RegisterDTO;
 import com.boot.config.service.IUserService;
+import com.mysql.fabric.xmlrpc.base.Data;
 
 import login.CartDomain;
 import login.Product;
@@ -28,7 +36,8 @@ import login.User;
 public class RootController {
 	@Autowired
 	IUserService iUserService;
-
+	@Autowired
+	Environment env;
 	List<User> allemployee;
 	List<Product> allproduct;
 
@@ -48,7 +57,6 @@ public class RootController {
 			User login = new User();
 			login.setEmail(email);
 			login.setPassword(password);
-
 			User user1 = iUserService.validateUser(login);
 			if (user1 != null) {
 				if (user1.getRoll_id() == 1) {
@@ -92,7 +100,7 @@ public class RootController {
 		User dbuser = iUserService.addUser(register);
 //		RegisterDTO userprofile = new RegisterDTO();
 //		userprofile = DTODomainConverter.convertDomainToRegisterDTO(dbuser);
-		int emailcount = iUserService.validateRegister(register);
+		/* int emailcount = */iUserService.validateRegister(register);
 
 		view.addObject("register", dbuser);
 
@@ -223,24 +231,6 @@ public class RootController {
 		return view;
 	}
 
-//sudhir
-	@RequestMapping(value = "/addUserItem", method = RequestMethod.POST)
-	public ModelAndView addItems(@RequestParam("userId") String userid, @RequestParam("itemId") String itemid,
-			@RequestParam("selectedItem") String selecteditem, @RequestParam("itemPrice") String itemprice) {
-		ModelAndView view = new ModelAndView();
-		Product additem = new Product();
-		additem.setUserid(Integer.parseInt(userid));
-		additem.setPrice(Float.parseFloat(itemprice));
-		additem.setSeleteditem(Integer.parseInt(selecteditem));
-		additem.setItemid(Integer.parseInt(itemid));
-		// additem.setTotalprice(Float.parseFloat(totalprice));
-		List<Product> edititem = iUserService.addItems(additem);
-		view.addObject("addeditems", edititem);
-		view.setViewName("view/");
-		return view;
-
-	}
-
 	@RequestMapping("/viewallProduct")
 	public ModelAndView allProduct() {
 		ModelAndView view = new ModelAndView();
@@ -287,19 +277,65 @@ public class RootController {
 
 	// Add Product Using DTO Class....
 
+//	@RequestMapping(value = "/addproduct", method = RequestMethod.POST)
+//	public RedirectView addProduct(ProductDTO prd, RedirectAttributes attributes) {
+//		Product addproduct = new Product();
+//		// Converting DTO Values toDomain........
+//		addproduct = DTODomainConverter.convertProductDTOToDomain(prd);
+//		List<Product> productlist = iUserService.addProduct(addproduct);
+//		List<ProductDTO> proddtolist = new ArrayList<>();
+//		for (Product product2 : productlist) {
+//			proddtolist.add(DTODomainConverter.convertProductDomainToDTO(product2));
+//
+//		}
+//		System.err.println("Final data after converting Domain to DTO" + proddtolist);
+//		if (productlist != null) {
+//			Product viewproduct = new Product();
+//			allproduct = iUserService.getAllProduct(viewproduct);
+//			System.err.println(allproduct.isEmpty());
+//			attributes.addFlashAttribute("message", "Inserted Successfully");
+//			return new RedirectView("viewallProduct");
+//		} else {
+//			attributes.addFlashAttribute("message", "Not Inserted");
+//			// view.setViewName("redirect:viewallProduct");
+//			return new RedirectView("viewallProduct");
+//
+//		}
+//
+//	}
+	
+
+	//private static String UPLOADED_FOLDER = "E:/videos/java/";
+	static int c=0;
 	@RequestMapping(value = "/addproduct", method = RequestMethod.POST)
-	public RedirectView addProduct(ProductDTO prd, RedirectAttributes attributes) {
+	public RedirectView addProduct(@RequestParam("name") String productname, @RequestParam("price") Float productprice,
+			@RequestParam("quantity") int quantity, @RequestParam("file") MultipartFile file,
+			RedirectAttributes attributes) {
+		
+		try {
+			Path path;
+//			File original=new File(env.getProperty("UPLOADED_FOLDER")+file.getOriginalFilename());
+//			File dir=original.getParentFile();
+//			File result=new File(dir,"myfile.jpg");
+//			System.err.println("Original File path inside the file-------------------->"+original);
+			Long l=System.currentTimeMillis();
+			byte[] bytes = file.getBytes();
+			 path = Paths.get(env.getProperty("UPLOADED_FOLDER") +l+(++c)+"ranjeet.JPG");
+			Files.write(path, bytes);
+			System.err.println("File Name=====>" + file.getOriginalFilename());
+			System.err.println("File Address======>" + env.getProperty("UPLOADED_FOLDER"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		Product addproduct = new Product();
-//   Converting DTO Values to Domain........		
-		addproduct = DTODomainConverter.convertProductDTOToDomain(prd);
+		addproduct.setName(productname);
+		addproduct.setQuantity(quantity);
+		addproduct.setPrice(productprice);
+		addproduct.setFilename(env.getProperty("UPLOADED_FOLDER")+file.getOriginalFilename());
+		//addproduct.setFilename(file.getOriginalFilename());
+		//addproduct.setFileaddress(env.getProperty("UPLOADED_FOLDER"));
 		List<Product> productlist = iUserService.addProduct(addproduct);
 
-		List<ProductDTO> proddtolist = new ArrayList<>();
-		for (Product product2 : productlist) {
-			proddtolist.add(DTODomainConverter.convertProductDomainToDTO(product2));
-
-		}
-		System.err.println("Final data after converting Domain to DTO" + proddtolist);
 		if (productlist != null) {
 			Product viewproduct = new Product();
 			allproduct = iUserService.getAllProduct(viewproduct);
@@ -308,11 +344,9 @@ public class RootController {
 			return new RedirectView("viewallProduct");
 		} else {
 			attributes.addFlashAttribute("message", "Not Inserted");
-			// view.setViewName("redirect:viewallProduct");
 			return new RedirectView("viewallProduct");
 		}
 
-		// return view;
 	}
 
 	@RequestMapping(value = "/process-item", method = RequestMethod.POST)
@@ -341,4 +375,19 @@ public class RootController {
 		return cartdomain2;
 	}
 
+	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
+	public ModelAndView resetPassword(@RequestParam("email") String maildto) {
+		ModelAndView view = new ModelAndView();
+		try {
+			User user = new User();
+			user.setEmail(maildto);
+			System.err.println("In Root ---------------->" + user.getEmail());
+			iUserService.sendEmail(user);
+			view.setViewName("view/index");
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		return view;
+	}
 }

@@ -8,8 +8,26 @@ public class Product {
 	private int id;
 	private int quantity;
 	private String email;
-	private  int itemid;
+	private int itemid;
 	private Float totalprice;
+	private String filename;
+	private String fileaddress;
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
+	public String getFileaddress() {
+		return fileaddress;
+	}
+
+	public void setFileaddress(String fileaddress) {
+		this.fileaddress = fileaddress;
+	}
 
 	public int getQuantity() {
 		return quantity;
@@ -82,6 +100,6 @@ public class Product {
 
 	public void setSeleteditem(int parseInt) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

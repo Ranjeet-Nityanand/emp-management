@@ -1,10 +1,19 @@
 package com.boot.config.dto;
 
 public class ProductDTO {
+	private byte[] datadto;
 	private String name;
 	private float price;
 	private int quantity;
 	private int id;
+
+	public byte[] getDatadto() {
+		return datadto;
+	}
+
+	public void setDatadto(byte[] datadto) {
+		this.datadto = datadto;
+	}
 
 	public int getId() {
 		return id;

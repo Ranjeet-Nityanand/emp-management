@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.boot.config.resultmapper.CartMapper;
 import com.boot.config.resultmapper.ProductMapper;
@@ -23,6 +24,7 @@ import login.Product;
 import login.User;
 
 @Repository
+//@Transactional(readOnly = true)
 public class UserRepositoryImplementation implements IUserRepository {
 
 	@Autowired
@@ -218,7 +220,7 @@ public class UserRepositoryImplementation implements IUserRepository {
 	public int addProduct(Product product) {
 		try {
 			System.err.println("NAME=======" + product.getName());
-			String insertsql = "INSERT INTO product_details(product_name,price,quantity) VALUES(?,?,?)";
+			String insertsql = "INSERT INTO product_details(product_name,price,quantity,file_name,file_address) VALUES(?,?,?,?,?)";
 			jdbcTemplate.update(new PreparedStatementCreator() {
 				@Override
 				public java.sql.PreparedStatement createPreparedStatement(java.sql.Connection con) throws SQLException {
@@ -226,6 +228,9 @@ public class UserRepositoryImplementation implements IUserRepository {
 					ps.setString(1, product.getName());
 					ps.setFloat(2, product.getPrice());
 					ps.setInt(3, product.getQuantity());
+					ps.setString(4, product.getFilename());
+					ps.setString(5, product.getFileaddress());
+//					ps.setBytes(4, product.getData());
 					return ps;
 				}
 			});
@@ -403,6 +408,22 @@ public class UserRepositoryImplementation implements IUserRepository {
 			e.printStackTrace();
 			return 0;
 		}
+	}
+
+	@Override
+	public List<User> sendEmail(User user) {
+		try {
+			String emailQuery = "select ed.id,ed.email,ed.password,ed.dob, ed.gender,ed.name,ed.roll_id,ed.status_id,ed.emp_id,ed.mobileno,ed.address,rm.roll_value from employee_details ed, roll_master rm"
+					+ " where ed.email='" + user.getEmail() + "' ";
+			System.err.println("Repository Class Email" + user.getEmail());
+			List<User> user1 = jdbcTemplate.query(emailQuery, new UserMapper());
+			System.err.println(emailQuery);
+			return user1;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 
 }

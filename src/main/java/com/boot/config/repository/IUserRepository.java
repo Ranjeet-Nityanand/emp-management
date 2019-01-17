@@ -40,4 +40,6 @@ public interface IUserRepository {
 	int itemCount(CartDomain additem);
 
 	public void updateCartItem(CartDomain cartdomain);
+
+	public List<User> sendEmail(User user);
 }
