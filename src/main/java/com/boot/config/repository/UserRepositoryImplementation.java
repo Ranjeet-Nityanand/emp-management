@@ -13,7 +13,6 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.boot.config.resultmapper.CartMapper;
 import com.boot.config.resultmapper.ProductMapper;
@@ -26,7 +25,7 @@ import login.User;
 @Repository
 //@Transactional(readOnly = true)
 public class UserRepositoryImplementation implements IUserRepository {
-
+	// static Integer count = 14;
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
@@ -34,11 +33,10 @@ public class UserRepositoryImplementation implements IUserRepository {
 	public User validateUser(User user) {
 		try {
 
-			String sql = "select ed.id,ed.email,ed.password,ed.name,ed.roll_id,ed.status_id,ed.emp_id,ed.mobileno,ed.address,rm.roll_value from employee_details ed, roll_master rm where ed.roll_id = rm.roll_id and ed.email='"
+			String sql = "select ed.id,ed.email,ed.password,ed.name,ed.gender,ed.dob,ed.roll_id,ed.status_id,ed.emp_id,ed.mobileno,ed.address,rm.roll_value from employee_details ed, roll_master rm where ed.roll_id = rm.roll_id and ed.email='"
 					+ user.getEmail().trim() + "'and binary ed.password='" + user.getPassword().trim()
 					+ "'and ed.status_id=1";
 			System.err.println("Validate User SQL --  " + sql);
-			// System.err.println("Validate User SQL -- " + sql);
 
 			user = jdbcTemplate.queryForObject(sql, new UserMapper());
 			return user;
@@ -62,10 +60,14 @@ public class UserRepositoryImplementation implements IUserRepository {
 		return null;
 	}
 
+	Integer itemcount;
 	public Long registerUser(User user) {
+
 		try {
-			// System.err.println("NAME=======" + user.getName());
-			String insertsql = "INSERT INTO employee_details(email,name,password,mobileno,gender,dob,address,roll_id,status_id) VALUES(?,?,?,?,?,?,?,?,?)";
+			String coun = "select count(*) from employee_details";
+			itemcount = jdbcTemplate.queryForObject(coun, Integer.class);
+			System.err.println("Total count in database is=======>>>> " + itemcount);
+			String insertsql = "INSERT INTO employee_details(email,name,password,mobileno,gender,dob,address,roll_id,status_id,emp_id) VALUES(?,?,?,?,?,?,?,?,?,?)";
 			KeyHolder holder = new GeneratedKeyHolder();
 			jdbcTemplate.update(new PreparedStatementCreator() {
 
@@ -81,6 +83,7 @@ public class UserRepositoryImplementation implements IUserRepository {
 					ps.setString(7, user.getAddress());
 					ps.setInt(8, user.getRoll_id());
 					ps.setInt(9, user.getStatus_id());
+					ps.setString(10, "emp0" + (++itemcount).toString());
 					return ps;
 				}
 			}, holder);
@@ -101,33 +104,26 @@ public class UserRepositoryImplementation implements IUserRepository {
 		int emailcount = 0;
 		try {
 
-			System.err.println("email=====/////" + user.getEmail());
 			String sql = "SELECT COUNT(email) FROM employee_details WHERE email='" + user.getEmail().trim() + "'";
 			emailcount = jdbcTemplate.queryForObject(sql, Integer.class);
 
 			// Integer emailcount1 = getJdbcTemplate().queryForObject(sql, new Object[] {
 			// user.getEmail() }, Integer.class);
-			System.err.println("emailcount====" + emailcount);
-
+			// System.err.println("emailcount====" + emailcount);
+			return emailcount;
 		} catch (Exception e) {
 			e.printStackTrace();
 
 		}
 
 		return emailcount;
-
-	}
-
-	public JdbcTemplate getJdbcTemplate() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
 	public int updateemployeeStatus(User user) {
 		try {
-			String sql = "update employee_details set status_id='" + user.getStatus_id() + "' where email='"
-					+ user.getEmail() + "' ";
+			String sql = "update employee_details set status_id='" + user.getStatus_id() + "' where id='"
+					+ user.getId() + "' ";
 			return jdbcTemplate.update(sql);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -166,7 +162,6 @@ public class UserRepositoryImplementation implements IUserRepository {
 	@Override
 	public int addEmployee(User user) {
 		try {
-			System.err.println("NAME=======" + user.getName());
 			String insertsql = "INSERT INTO employee_details(emp_id,name,email,password,mobileno,gender,dob,address,roll_id,status_id) VALUES(?,?,?,?,?,?,?,?,?,?)";
 			jdbcTemplate.update(new PreparedStatementCreator() {
 				@Override
@@ -206,7 +201,6 @@ public class UserRepositoryImplementation implements IUserRepository {
 				System.err.println("-------User Id  Find " + user.getId());
 				sql += " and ed.id = " + user.getId();
 			}
-
 			System.err.println("Fetching Query " + sql);
 
 			List<User> employeeList = jdbcTemplate.query(sql, new UserMapper());
@@ -246,7 +240,7 @@ public class UserRepositoryImplementation implements IUserRepository {
 	@Override
 	public List<Product> getAllProduct(Product product) {
 		try {
-			String sql = "select id,product_name,price,quantity from product_details";
+			String sql = "select id,product_name,price,quantity,file_name from product_details";
 			System.err.println("Fetching Query " + sql);
 
 			List<Product> productlist = jdbcTemplate.query(sql, new ProductMapper());
@@ -411,12 +405,15 @@ public class UserRepositoryImplementation implements IUserRepository {
 	}
 
 	@Override
-	public List<User> sendEmail(User user) {
+	public User sendEmail(User user) {
+		User user1 = new User();
 		try {
 			String emailQuery = "select ed.id,ed.email,ed.password,ed.dob, ed.gender,ed.name,ed.roll_id,ed.status_id,ed.emp_id,ed.mobileno,ed.address,rm.roll_value from employee_details ed, roll_master rm"
-					+ " where ed.email='" + user.getEmail() + "' ";
-			System.err.println("Repository Class Email" + user.getEmail());
-			List<User> user1 = jdbcTemplate.query(emailQuery, new UserMapper());
+					+ " where ed.roll_id=rm.roll_id and ed.email='" + user.getEmail() + "' ";
+			System.err.println(emailQuery);
+			System.err.println("Repository Class Email  (Get Email)" + user.getEmail());
+			user1 = jdbcTemplate.queryForObject(emailQuery, new UserMapper());
+			System.err.println(user1);
 			System.err.println(emailQuery);
 			return user1;
 		} catch (Exception e) {
@@ -424,6 +421,21 @@ public class UserRepositoryImplementation implements IUserRepository {
 		}
 
 		return null;
+	}
+
+
+	@Override
+	public int validateEmployee(User addemp) {
+		int totalcount = 0;
+		try {
+			String fetch = "select count(*) from employee_details where email='" + addemp.getEmail() + "'";
+			totalcount = jdbcTemplate.queryForObject(fetch, Integer.class);
+			return totalcount;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.err.println("count value in repository ====>" + totalcount);
+		return totalcount;
 	}
 
 }

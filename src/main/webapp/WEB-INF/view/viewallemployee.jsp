@@ -213,11 +213,20 @@
            </div>
       </div>
     </section>
-    <section>
-    <div class="container" id="bodydiv">
-    <div class="container-fluid">
-		
-		<table class="table table-hover table table-dark table table-border:2" style="width: 100%">
+   
+   
+   
+          <div class="span8">
+            <ul class="breadcrumb">
+              <li><a href="#"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
+              <li><a href="#">Features</a><i class="icon-angle-right"></i></li>
+              <li class="active">Icons</li>
+            </ul>
+          </div>
+        </div>
+      
+   <div class="container" style="overflow-x:auto;">
+	<table id="tables" class="table table-hover table-bordered table-dark table-striped dt-responsive nowrap" style="padding-top:10px">
 			<thead>
 				<tr>
 					<th>Employee_ID</th>
@@ -231,7 +240,6 @@
 				</tr>
 			</thead>
 			<tbody id="empdata">
-
 				<c:forEach items="${allUser}" var="emp">
 
 					<tr style="font-size: 16px">
@@ -244,13 +252,13 @@
 						<td>${emp.rollName}</td>
 						<c:if test="${emp.status_id==1}">
 							<td><button type="button" class="btn-danger" id="dangerbtn"
-									onclick="changestatus('${emp.email}','2')">Inactive</button>
+									onclick="changestatus('${emp.id}','2')">Inactive</button>
 									</td>
 									
 						</c:if>
 						<c:if test="${emp.status_id==2}">
 							<td><button type="button" class="btn-success" id="successbtn"
-									onclick="changestatus('${emp.email}','1')">Active</button>
+									onclick="changestatus('${emp.id}','1')">Active</button>
 								</td>
 							</c:if>
 							<td><button type="button" class="btn-success" id="successbtn"
@@ -259,30 +267,12 @@
 				</c:forEach>
 			</tbody>
 		</table>
-    </div>
-    </div>
-    </section>
-   
-   
-          <div class="span8">
-            <ul class="breadcrumb">
-              <li><a href="#"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
-              <li><a href="#">Features</a><i class="icon-angle-right"></i></li>
-              <li class="active">Icons</li>
-            </ul>
-          </div>
-        </div>
-      
-   
-    
-       
-    
-    
+		</div>
+		<br><br>
     <!-- change     -->
    
       <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-lg">
-    
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -415,7 +405,8 @@
         </div>
       </div>
     </footer>
-  </div>
+ 
+ 
   <a href="#" class="scrollup"><i class="icon-chevron-up icon-square icon-32 active"></i></a>
  
 
@@ -423,7 +414,8 @@
 <script>
 function editProfile(id,name,email,contact,address,roll_id){
 	//document.getElementById("myModal").innerHTML=""+name+""+email+""+mobileno+""+address+""+roleName+".";
-	$("#name").val(name);
+	$("#name").val(name);    //setting Value in #name from name//
+	
 	$("#email").val(email);
 	$("#contact").val(contact);
 	$("#address").val(address);
@@ -433,14 +425,15 @@ function editProfile(id,name,email,contact,address,roll_id){
 }
 
 	
-function changestatus(email, status) {
-	alert(email + "----" + status);
+function changestatus(id, status) {
+	//alert(id + "----" + status);
 	$.ajax({
-		url : "update-emp-status?email=" + email +"&status=" +status,
+		url : "update-emp-status?id=" + id +"&status=" +status,
 		type:"GET",
 		success:function(data){
 					$("#empdata").empty();
 					if(data!=null && data.length>0){
+						alert("length of data="+data.length);
 						for(var i=0;i<data.length;i++){
 							var trtable="<tr>"+
 							"<td>"+data[i].id+"</td>"+
@@ -451,11 +444,11 @@ function changestatus(email, status) {
 							"<td>"+data[i].rollName+"</td>"
 							if(data[i].status_id==1){
 								trtable+=" <td><button type='button' class='btn-danger' "+
-								"onclick=changestatus('"+data[i].email+"',2)>Inactive</button></td>";
+								"onclick=changestatus('"+data[i].id+"',2)>Inactive</button></td>";
 								}
 								else{
 									trtable+="<td><button type='button' class='btn-success' "+
-									"onclick=changestatus('"+data[i].email+"',1)>Active</button></td>";
+									"onclick=changestatus('"+data[i].id+"',1)>Active</button></td>";
 									}
 							        trtable+="<td><button type='button' class='btn btn-success' "+
 									"onclick=editProfile('"+data[i].id+"','"+data[i].name+"','"+data[i].email+"','"+data[i].contact+"','"+data[i].address+"','"+data[i].roll_id+"')>Edit</button></td>";
@@ -470,7 +463,7 @@ function changestatus(email, status) {
 						},
 	error : function(response)
 	{
-		alert("Error");
+		alert("Error:");
 	}
 				
 	});
@@ -488,17 +481,17 @@ function validation(){
 	var contact1 = document.getElementById('contact').value;
 	var address1 = document.getElementById('address').value;
 	var role1 = document.getElementById('role').value;
-
+	const n=$('#name').val();
 
 
 
 
 	if(name1 == ""){
-		document.getElementById('names').innerHTML =" ** Please fill the Name field";
+		document.getElementById('names').innerHTML =" *** Please fill the Name field";
 		return false;
 	}
 	if((name1.length <= 2) || (name1.length > 40)) {
-		document.getElementById('names').innerHTML =" ** Name lenght must be between 2 and 40";
+		document.getElementById('names').innerHTML =" *** Name lenght must be between 2 and 40";
 		return false;	
 	}
 	if(!isNaN(name1)){
@@ -522,10 +515,10 @@ function validation(){
 	}
 
 
-	//if((role1.length <= 1) || (role1.length > 10)){
-		//document.getElementById('roles').innerHTML =" ** Role Must be between 1 to 10";
-		//return false;
-//	}
+/* 	if((role1.length <= 1) || (role1.length > 10)){
+		document.getElementById('roles').innerHTML =" ** Role Must be between 1 to 10";
+		return false;
+	} */
 
 
 
@@ -552,6 +545,7 @@ function validation(){
 
 
 
+	
 	if(email1 == ""){
 		document.getElementById('emails').innerHTML =" ** Please fill the email idx` field";
 		return false;
@@ -566,7 +560,9 @@ function validation(){
 		return false;
 	}
 }
-
+$(document).ready(function() {
+    $('#tables').DataTable();
+} );
 </script>
 
 </body>

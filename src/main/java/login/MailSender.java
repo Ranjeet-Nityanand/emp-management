@@ -50,6 +50,7 @@ public class MailSender {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		logger.info("Done!");
 
 	}

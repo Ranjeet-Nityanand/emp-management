@@ -41,5 +41,7 @@ public interface IUserRepository {
 
 	public void updateCartItem(CartDomain cartdomain);
 
-	public List<User> sendEmail(User user);
+	public User sendEmail(User user);
+
+	public int validateEmployee(User addemp);
 }

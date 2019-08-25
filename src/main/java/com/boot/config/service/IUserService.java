@@ -38,4 +38,6 @@ public interface IUserService {
 
 	public void sendEmail(User user);
 
+	public int validateEmployee(User addemp);
+
 }

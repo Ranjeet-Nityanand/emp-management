@@ -1,17 +1,22 @@
 package com.boot.config.controller;
-
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Date;
-import java.sql.Time;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,7 +31,6 @@ import com.boot.config.dto.CartDTO;
 import com.boot.config.dto.DTODomainConverter;
 import com.boot.config.dto.RegisterDTO;
 import com.boot.config.service.IUserService;
-import com.mysql.fabric.xmlrpc.base.Data;
 
 import login.CartDomain;
 import login.Product;
@@ -40,6 +44,10 @@ public class RootController {
 	Environment env;
 	List<User> allemployee;
 	List<Product> allproduct;
+	@Value("${UPLOADED_FOLDER}")
+	private String uploadDirectory;
+	@Autowired
+	ServletContext context;
 
 	@RequestMapping("/")
 	public ModelAndView indexController() {
@@ -90,6 +98,7 @@ public class RootController {
 		return view;
 	}
 
+	// ===Sudhir====//
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ModelAndView register(RegisterDTO adduser) {
 		System.err.println("user name====" + adduser.getName());
@@ -97,6 +106,7 @@ public class RootController {
 		User register = new User();
 
 		register = DTODomainConverter.convertRegiterDTOToDomain(adduser);
+		System.err.println("Root in Register Domain--------------"+register);
 		User dbuser = iUserService.addUser(register);
 //		RegisterDTO userprofile = new RegisterDTO();
 //		userprofile = DTODomainConverter.convertDomainToRegisterDTO(dbuser);
@@ -105,7 +115,7 @@ public class RootController {
 		view.addObject("register", dbuser);
 
 		if (dbuser != null) {
-			System.err.println("After Insert In DB Controller :" + dbuser.getId() + "" + dbuser.getContact());
+			System.err.println("After Insert In DB Controller :" + dbuser.getDob() + "" + dbuser.getGender());
 
 			view.setViewName("view/userprofile");
 		} else {
@@ -129,14 +139,25 @@ public class RootController {
 		return view;
 	}
 
+	@RequestMapping("/viewallEmployee1")
+	public ModelAndView allUser1() {
+		ModelAndView view = new ModelAndView();
+		User user = new User();
+		List<User> allemployee = iUserService.getAllEmployee(user);
+		System.err.println(allemployee.isEmpty());
+		view.addObject("allUser", allemployee);
+		System.err.println("Testing");
+		view.setViewName("view/viewallemployee1");
+		return view;
+	}
 	@RequestMapping(value = "/update-emp-status", method = RequestMethod.GET)
 	@ResponseBody // return data as json Formate
-	public List<User> updateemployeeStatus(@RequestParam("email") String email,
+	public List<User> updateemployeeStatus(@RequestParam("id") int id,
 			@RequestParam("status") Integer status) {
 		User user2 = new User();
-		user2.setEmail(email);
+		user2.setId(id);
 		user2.setStatus_id(status);
-		System.err.println("value=" + user2.getEmail() + "==" + user2.getStatus_id());
+		System.err.println("value=" + user2.getId() + "==" + user2.getStatus_id());
 		List<User> alluser1 = iUserService.updateemployeeStatus(user2);
 		System.err.println("Length ----" + alluser1.size());
 		return alluser1;
@@ -162,7 +183,6 @@ public class RootController {
 		System.err.println("Getting Id from view all user" + id);
 		List<User> dbuser = iUserService.editEmployee(register);
 		// System.err.println("Retrieve from Service" + dbuser);
-
 		if (dbuser != null) {
 			User viewemp = new User();
 			allemployee = iUserService.getAllEmployee(viewemp);
@@ -208,6 +228,8 @@ public class RootController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		int count = iUserService.validateEmployee(addemp);
+		if (count == 0) {
 		List<User> employee = iUserService.addEmployee(addemp);
 		if (employee != null) {
 			User viewemp = new User();
@@ -216,10 +238,15 @@ public class RootController {
 			view.addObject("allUser", allemployee);
 			view.addObject("successmsg", "Added Successfull");
 			view.setViewName("view/viewallemployee");
+
 		} else {
 			view.addObject("allUser", allemployee);
-			view.addObject("message1", "!!! Record Not Added ");
+				view.addObject("message1", "!!! Record not added");
 			view.setViewName("view/viewallemployee");
+		}
+		} else {
+			view.addObject("message1", " Employee Already Registered");
+			view.setViewName("view/adminprofile");
 		}
 		return view;
 	}
@@ -304,7 +331,7 @@ public class RootController {
 //
 //	}
 	
-
+	Path path,path1;
 	//private static String UPLOADED_FOLDER = "E:/videos/java/";
 	static int c=0;
 	@RequestMapping(value = "/addproduct", method = RequestMethod.POST)
@@ -313,17 +340,25 @@ public class RootController {
 			RedirectAttributes attributes) {
 		
 		try {
-			Path path;
 //			File original=new File(env.getProperty("UPLOADED_FOLDER")+file.getOriginalFilename());
 //			File dir=original.getParentFile();
 //			File result=new File(dir,"myfile.jpg");
 //			System.err.println("Original File path inside the file-------------------->"+original);
+
 			Long l=System.currentTimeMillis();
 			byte[] bytes = file.getBytes();
-			 path = Paths.get(env.getProperty("UPLOADED_FOLDER") +l+(++c)+"ranjeet.JPG");
-			Files.write(path, bytes);
-			System.err.println("File Name=====>" + file.getOriginalFilename());
-			System.err.println("File Address======>" + env.getProperty("UPLOADED_FOLDER"));
+			String basePath=env.getProperty("UPLOADED_FOLDER");
+			path = Paths.get("/MyImage/" + l + (++c) + "ranjeet.jpeg");
+			path1 = Paths.get(basePath + path.toString());
+			System.err.println("Base Path ============>>>>" + path1);
+			Files.write(path1, bytes);
+			 
+			 
+//			System.err.println("File Name=====>" + file.getOriginalFilename());
+//			System.err.println("File Properties Address======>" + env.getProperty("UPLOADED_FOLDER"));
+//			System.err.println("Complete File Path====>>"+path);
+			 
+			 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -331,7 +366,7 @@ public class RootController {
 		addproduct.setName(productname);
 		addproduct.setQuantity(quantity);
 		addproduct.setPrice(productprice);
-		addproduct.setFilename(env.getProperty("UPLOADED_FOLDER")+file.getOriginalFilename());
+		addproduct.setFilename(path.toString());//env.getProperty("UPLOADED_FOLDER")+file.getOriginalFilename());
 		//addproduct.setFilename(file.getOriginalFilename());
 		//addproduct.setFileaddress(env.getProperty("UPLOADED_FOLDER"));
 		List<Product> productlist = iUserService.addProduct(addproduct);
@@ -357,10 +392,35 @@ public class RootController {
 		cartdomain = DTODomainConverter.convertCartDTOToDomain(cart);
 		iUserService.addCartData(cartdomain);
 		List<CartDomain> cartdomain2 = iUserService.getAllCartData(cartdomain);
-
 		System.err.println("this is the vlaue in Root Controller" + cartdomain2);
 		return cartdomain2;
 	}
+
+	@RequestMapping(value = "/process", method = RequestMethod.GET)
+	@ResponseBody // return data as json Formate
+	public List<CartDomain> process(@RequestBody CartDTO cart) {
+		CartDomain cartdomain = new CartDomain();
+		System.err.println("Shopping cart data" + cart);
+		cartdomain = DTODomainConverter.convertCartDTOToDomain(cart);
+		iUserService.addCartData(cartdomain);
+		List<CartDomain> cartdomain2 = iUserService.getAllCartData(cartdomain);
+		System.err.println("this is the vlaue in Root Controller" + cartdomain2);
+		return cartdomain2;
+	}
+
+	@RequestMapping(value = "/proces", method = RequestMethod.GET)
+	public ModelAndView abc() {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("view/viewallemployee1");
+		return view;
+	}
+
+//	@RequestMapping(value = "/process-item", method = RequestMethod.GET)
+//	public ModelAndView abc() {
+//		ModelAndView view = new ModelAndView();
+//		view.setViewName("view/viewallemployee1");
+//		return view;
+//	}
 
 	@RequestMapping(value = "/process-item1", method = RequestMethod.POST)
 	@ResponseBody // return data as json Formate
@@ -381,7 +441,6 @@ public class RootController {
 		try {
 			User user = new User();
 			user.setEmail(maildto);
-			System.err.println("In Root ---------------->" + user.getEmail());
 			iUserService.sendEmail(user);
 			view.setViewName("view/index");
 		} catch (Exception e) {
@@ -389,5 +448,26 @@ public class RootController {
 			e.printStackTrace();
 		}
 		return view;
+
+	}
+	// Image Call API
+	@GetMapping("/MyImage/**")//Last FName in Database(MyImage\doc\filename.jpg)
+	public void renderImage(HttpServletRequest request, HttpServletResponse response)
+			throws UnsupportedEncodingException {
+			if (uploadDirectory != null) {
+			String path = uploadDirectory;
+			String servletPath=request.getServletPath();
+			System.err.println(servletPath);
+			String filename = URLDecoder.decode(servletPath.substring(1), "UTF-8");
+			File file = new File(path, filename);
+			response.setHeader("Content-Type", context.getMimeType(filename));
+			response.setHeader("Content-Length", String.valueOf(file.length()));
+			System.err.println("Length of file"+String.valueOf(file.length()));
+			response.setHeader("Content-Disposition", "inline; filename=\"" + file.getName() + "\"");
+			try {
+				Files.copy(file.toPath(), response.getOutputStream());
+			} catch (IOException e) {
+			}
+		}
 	}
 }

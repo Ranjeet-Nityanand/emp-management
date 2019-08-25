@@ -162,6 +162,7 @@
 				
 											
 										</table>
+										<div class="container" id="div1"></div>
 									</div>
 								</div>
 							</div>
@@ -170,9 +171,15 @@
 				<div class="span3">
 					<div class="wrapper">
 					<div class="testimonial">
-						<img src="img/productpng/appleiphone.jpeg"
-						style="height: 200px;padding-left:70px"alt="" />
+						<!--<img src="img/productpng/appleiphone.jpeg"
+						style="height: 200px;padding-left:70px"alt="" />-->
+						<figure class="figure">
+						<a href="${prod.filename}">
+					
+					<img src="${prod.filename}" class="figure-img img-fluid rounded" style="height: 150px;width:200px;padding-left:0px"alt="Image" /></a>
+					</figure>
 					</div>
+					
 					<br />
 				<div align="center">
 				<button type="button" class="btn btn-primary btn"
@@ -190,6 +197,7 @@
 		</div>
 </div>
 			</c:forEach>
+			
 		</div>
 	</div>
 	</div>
@@ -209,9 +217,12 @@
 				type:"POST",
 				url:'/process-item1',
 				data:JSON.stringify({"userid":userId,"itemid":itemId,"selecteditem":selectedItem,"itemprice":itemPrice,"itemname":itemName}),
+				
 				contentType :'application/json',		
-			    success : function(data){
+			    
+				success : function(data){
 					$("#itemdata").empty();
+					
 					if(data!=null && data.length>0){
 						for(var i=0;i<data.length;i++){
 							var srno=i+1;
@@ -222,6 +233,7 @@
 							"<td>"+data[i].totalprice+"</td>"
 							trtable +="</tr>";
 							$("#itemdata").append(trtable);
+							//$("#itemdata").DataTable();
 						}
 						
 							var totalamount1=0;
@@ -239,10 +251,11 @@
 						//alert("No Data found");
 					}
 				},error :function(){
+					
 				}
 				
 			});
-						}
+		}
 		function addItem(userid,itemid,selecteditem,itemprice,itemname) {
 			var selectedItem=selecteditem;
 			var userId=userid;
@@ -266,7 +279,7 @@
 							"<td>"+data[i].totalprice+"</td>"
 							trtable +="</tr>";
 							$("#itemdata").append(trtable);
-							}
+						}
 						
 						var totalamount1=0;
 						for(var j=0;j<data.length;j++){
@@ -276,25 +289,22 @@
 						$("#itemdata").append("<tr>"+
 								"<td>Total Amount<td><td>"+ totalamount1+"</td>"+
 								"</tr>");
-											
-						
-					
 								
 					}
 					else{
 						alert("No Data found");
 					}
-				},error :function(){
-					
+				},error :function(msg){
+					alert("ERROR!!!!")
 				}
 				
 			});
-	
-		
-			
-
 		}
-		
+		 $(document).ready(function(){
+			 $("#div1").append('<button type="button" id="btn" class="btn btn-primary">Place Order</button>')
+			 $('#btn').disabled=true;	
+			 });
+		 
 </script>
 	<footer>
 		<div class="container">

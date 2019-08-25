@@ -57,6 +57,13 @@ public class RegisterDTO {
 		this.cpassword = cpassword;
 	}
 	private String cpassword;
+
+	@Override
+	public String toString() {
+		return "\n RegisterDTO [email=" + email + ", name=" + name + ", contact=" + contact + ", dob=" + dob
+				+ ", gender=" + gender + ", address=" + address + ", password=" + password + ", cpassword=" + cpassword
+				+ "]";
+	}
 	
 	
 

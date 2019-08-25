@@ -56,13 +56,12 @@ public class UserServiceImplementation implements IUserService {
 			if (user != null && user.getEmail() != null && user.getEmail().trim() != null) {
 
 				int emailcount = iUserRepository.validateRegister(user);
-				System.err.println("emailcount========" + emailcount);
+				System.err.println("emailcount checking========" + emailcount);
 				if (emailcount == 0) {
-
 					user.setStatus_id(1);
-					if (user.getRoll_id() == 0) {
+					// if (user.getRoll_id() == 0) {
 						user.setRoll_id(3);
-					}
+					// }
 					int register = iUserRepository.registerUser(user).intValue();
 					System.err.println("LAST ID===" + register);
 					user.setId(register);
@@ -90,8 +89,8 @@ public class UserServiceImplementation implements IUserService {
 			emailcount = iUserRepository.validateRegister(user);
 			System.err.println("====count========" + emailcount);
 
-			int register = iUserRepository.registerUser(user).intValue();
-			user.setId(register);
+			// int register = iUserRepository.registerUser(user).intValue();
+			// user.setId(register);
 			List<User> userList = iUserRepository.getAllEmployee(user);
 			System.err.println("After DB ISERT " + userList.isEmpty());
 			if (userList != null) {
@@ -108,18 +107,24 @@ public class UserServiceImplementation implements IUserService {
 
 	}
 
-//For change Status.
+//////////////------------For change Status.--------------/////
+
 	@Override
 	public List<User> updateemployeeStatus(User user) {
 
 		try {
+			
 			iUserRepository.updateemployeeStatus(user);
+			user=new User();
+			List<User> alluser = iUserRepository.getAllEmployee(user);
+			return alluser;
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
-		List<User> alluser = iUserRepository.getAllEmployee(user);
-		return alluser;
+		
+		
 	}
 
 	@Override
@@ -288,23 +293,26 @@ public class UserServiceImplementation implements IUserService {
 	public void sendEmail(User user) {
 		try {
 			if (user != null && user.getEmail() != null && user.getEmail().trim() != null) {
-				List<User> user1 = iUserRepository.sendEmail(user);
 
+				User user1 = iUserRepository.sendEmail(user);
 				MailSender mailSender = new MailSender();
 				MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 				try {
 					// Properties env = new Properties();
 					MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage,
 							MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
+					
+					System.err.println("from Properties file==="+env.getProperty("spring.mail.username"));
 					messageHelper.setFrom(env.getProperty("spring.mail.username"));
-					System.err.println("User email from database============>>>>>>>>>." + user1.get(0).getEmail());
-					messageHelper.setTo(user1.get(0).getEmail());
+					messageHelper.setTo(user1.getEmail());
 					messageHelper.setSubject("Hii This is Test Email");
 					messageHelper.setText(
-							"Hi, " + "<br><br>New customer " + user1.get(0).getPassword().trim()
-									+ " has been registered with us. " + "<br><br>Thanks & Regards<br>GST Solutions",
+							"Hi, " + "<br><br> " + user1.getName() + " Your Password is '"
+									+ user1.getPassword().trim() + "'  you can login now.  "
+									+ " <br><br>Thanks & Regards<br>RN",
 							true);
 					javaMailSender.send(mimeMessage);
+					System.err.println("Mail send Succussfully!!!!");
 //					mailSender.sendMail(javaMailSender, mimeMessage);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -317,4 +325,28 @@ public class UserServiceImplementation implements IUserService {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.boot.config.service.IUserService#validateEmployee(login.User)
+	 */
+	@Override
+	public int validateEmployee(User addemp) {
+		// TODO Auto-generated method stub
+		int count = 0;
+		if (addemp.getEmail() != null) {
+		try {
+				count = iUserRepository.validateEmployee(addemp);
+				// return count;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+
+	}
+		System.err.println("Count value in Service======>" + count);
+
+		return count;
+
+	}
 }
